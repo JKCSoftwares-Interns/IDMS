@@ -1,13 +1,24 @@
+import React from 'react';
+import Navbar from './Layouts/Navbar';
+import Homepage from './Pages/Homepage';
+import Inventory from './Pages/Inventory';
+import Report from './Pages/Report';
+import { BrowserRouter as Router, Route, Routes, NavLink } from 'react-router-dom';
 function App() {
   
   /* add layouts here */
 
 
   return (
+    
       <div className="min-h-screen grid place-items-center">
-        <h1 className="text-3xl text-emerald-500">Project running!</h1>
+        <Navbar />
+
+        
       </div>
   );
 }
 
 export default App
+
+
