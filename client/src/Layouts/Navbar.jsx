@@ -12,7 +12,7 @@ const Navbar = () => {
       <h3 className='p-2'>Support</h3>
       <button className='pl-6 text-left'><NavLink to="/Help">Help</NavLink></button>
       <button className='pl-6 text-left'><NavLink to="/Settings" >Settings</NavLink></button>
-      <button className='pl-6 text-left'><NavLink to="/ContactUs" >Contact us</NavLink></button>
+      <button className='pl-6 text-left'><NavLink to="/ContactUs" >Contact Us</NavLink></button>
     </div>
   );
 };

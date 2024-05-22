@@ -25,8 +25,9 @@ function App() {
           duration: 1,
           type: 'spring',
         }}
+        className="w-full"
         >
-        <div id='test'><Routing/>
+        <div id='test' className="w-full"><Routing/>
           </div>
       </motion.div>
           </div>
