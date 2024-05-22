@@ -1,21 +1,33 @@
-import React from 'react';
+import HeadBar from './Layouts/HeadBar';
 import Navbar from './Layouts/Navbar';
-import Homepage from './Pages/Homepage';
-import Inventory from './Pages/Inventory';
-import Report from './Pages/Report';
-import { BrowserRouter as Router, Route, Routes, NavLink } from 'react-router-dom';
+import Footer from './Layouts/Footer';
+import { motion } from 'framer-motion';
 function App() {
   
-  /* add layouts here */
-
-
   return (
-    
-      <div className="min-h-screen grid place-items-center">
+   
+    <div className='min-h-screen border flex flex-col relative'>
+        <HeadBar/>
+        <div id="MainView" className='flex flex-grow min-h-full border-2 border-rose-400'>
         <Navbar />
-
-        
-      </div>
+      <motion.div
+        initial={{
+          translateY: "-100px",
+        }}
+        animate={{
+          translateY: "0px",
+        }}
+        transition={{
+          duration: 1,
+          type: 'spring',
+        }}
+        >
+        <div>
+          </div>
+      </motion.div>
+          </div>
+        <Footer/>
+    </div>
   );
 }
 
