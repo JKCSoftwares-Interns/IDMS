@@ -1,6 +1,6 @@
 const HeadBar = () => {
   return (
-    <div className="flex py-2 px-8 justify-between">
+    <div className="flex flex-wrap py-2 px-8 justify-between">
 
       <div id="logo">
         <h1>IDMS</h1>
