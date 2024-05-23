@@ -1,7 +1,7 @@
 import React from 'react';
 import {  Route, Routes, NavLink } from 'react-router-dom';
 import Homepage from '../Pages/Homepage';
-import Inventory from '../Pages/inventory/addProducts';
+import Inventory from '../Pages/inventory/viewProducts';
 import Report from '../Pages/Report';
 import Help from '../Pages/Help';
 import Settings from '../Pages/Settings';
