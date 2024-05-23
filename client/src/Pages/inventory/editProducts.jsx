@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
+//code isnt working
 const EditProducts = () => {
     const [productId, setProductId] = useState('');
     const [productData, setProductData] = useState(null);
