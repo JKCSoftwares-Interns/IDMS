@@ -36,8 +36,10 @@ const Inventory = () => {
         <p className='text-2xl pt-5 pb-10 text-center'>To View the Product List just scroll down.</p>
         </div>
         <div>
-        <button className='pl-6 text-left'><NavLink to="/inventory/addProducts" >Add New Product</NavLink></button>
-        <button className='pl-6 text-left'><NavLink to="/inventory/editProducts" >Edit Product Details</NavLink></button>
+        <button className='pl-6 text-left'><NavLink to="/inventory/addProducts" >
+          <button className="bg-blue-500 text-white py-2 px-4 rounded">Add</button></NavLink></button>
+        <button className='pl-6 text-left'><NavLink to="/inventory/editProducts" >
+          <button className="bg-green-500 text-white py-2 px-4 rounded">Edit</button></NavLink></button>
         </div>
         
       </div>
