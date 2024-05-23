@@ -90,4 +90,3 @@ const editProducts = () => {
     );
 };
 
-export default editProducts;
