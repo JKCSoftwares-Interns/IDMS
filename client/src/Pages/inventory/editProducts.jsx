@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const EditProduct = () => {
+const editProducts = () => {
     const [formData, setFormData] = useState({
         productId: '',
         productName: '',
@@ -90,4 +90,4 @@ const EditProduct = () => {
     );
 };
 
-export default EditProduct;
+export default editProducts;
