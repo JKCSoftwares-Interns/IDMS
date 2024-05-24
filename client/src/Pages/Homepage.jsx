@@ -1,4 +1,5 @@
-  const Homepage = () => {
+
+const Homepage = () => {
   return (
 
       <div className="grid  place-items-center">
