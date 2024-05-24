@@ -24,7 +24,7 @@ const HeadBar = () => {
         fontSize: '20px' // Font size
       }}>
         <img 
-          src="/public/people.png" 
+          src="/people.png" 
           alt="Account Icon" 
           style={{ height: '35px', marginRight: '0.5rem' }} // Height 25px and margin between image and text
         />
