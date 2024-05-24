@@ -16,9 +16,10 @@ const EditProducts = () => {
             }
         };
 
-        fetchProductData();
-    }, []);
-
+  const handleSearchChange = (e) => {
+    setSearchId(e.target.value);
+  };
+      
     const handleChange = (e) => {
         setProductId(e.target.value);
     };
@@ -52,7 +53,11 @@ const EditProducts = () => {
             console.error('Error updating product data:', error);
         }
     };
-
+    setFormData(updatedFormData);
+    console.log("Form submitted:", updatedFormData);
+    // You can add your form submission logic here, such as sending data to a server.
+  };
+              
     return (
         <div className="w-full mx-auto p-4 border border-gray-300 rounded">
             <div className="flex flex-col items-center">
