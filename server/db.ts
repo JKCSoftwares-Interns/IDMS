@@ -49,6 +49,7 @@ async function createTables() {
   }
 }
 
+/* will be used in orm */
 interface Product {
   productId: string;
   productName: string;
