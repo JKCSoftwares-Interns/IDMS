@@ -46,7 +46,7 @@ const Inventory = () => {
           
           <td className="border px-4 py-2">
   <button>
-    <NavLink className='flex items-center gap-5 hover:bg-[#5e7bcc] p-2 hover:rounded-md' to='/inventory/editProducts'>
+    <NavLink className='flex items-center gap-5 hover:bg-[#5e7bcc] p-2 hover:rounded-md' to={`/inventory/editProducts/${product.productId}`}>
       <span className='text-white-700 text-[1.2rem]'>Edit</span>
     </NavLink>
   </button>

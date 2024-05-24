@@ -20,7 +20,7 @@ const Routing = () => {
             <Route path="/settings" element={<Settings />} />
             <Route path="/contact" element={<ContactUs />} />
             <Route path="/inventory/addproducts" element={<AddProducts />} />
-            <Route path="/inventory/editproducts" element={<EditProducts />} />
+            <Route path="/inventory/editproducts/:productId" element={<EditProducts />} />
         </Routes>
     
     );
