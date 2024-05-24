@@ -35,6 +35,8 @@ const addProducts = () => {
             ...formData,
             [name]: value,
         });
+
+        console.log('Form data:', formData);
     };
 
     const handleSubmit = (e) => {
@@ -51,7 +53,7 @@ const addProducts = () => {
                 <p className='text-2xl pt-5 pb-10'>To add a new Product fill the following details asked in the form and submit it.</p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
                 {[
                     { label: 'Product ID', name: 'productId', type: 'text' },
                     { label: 'Product Name', name: 'productName', type: 'text' },
