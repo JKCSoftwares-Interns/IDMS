@@ -12,7 +12,7 @@ function App() {
 
     <div className='min-h-screen border flex flex-col relative'>
         <HeadBar/>
-        <div id="MainView" className='flex flex-grow min-h-full border-2 border-rose-400'>
+        <div id="MainView" className='flex flex-grow min-h-full border-2'>
         <Navbar />
       <motion.div
         initial={{
