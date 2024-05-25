@@ -14,7 +14,7 @@ const Inventory = () => {
         />
         <button>
           <NavLink
-            className="flex items-center gap-5 bg-[#5e7bcc] hover:bg-green-700 p-2 rounded-md"
+            className="flex items-center text-slate-300 hover:text-slate-200 gap-5 bg-[#5e7bcc] hover:bg-green-700 p-2 rounded-md"
             to="/inventory/addProducts"
           >
             Add Products
@@ -49,7 +49,7 @@ const Inventory = () => {
                 <td className="border px-4 py-2">
                   <button>
                     <NavLink
-                      className="flex items-center gap-5 hover:bg-[#5e7bcc] p-2 hover:rounded-md"
+                      className="flex items-center gap-5 text-slate-300 hover:text-slate-200 hover:bg-amber-700 bg-[#5e7bcc] p-2 rounded-md"
                       to={`/inventory/editProducts/${product.productId}`}
                     >
                       <span className="text-white-700 text-[1.2rem]">Edit</span>
@@ -57,7 +57,7 @@ const Inventory = () => {
                   </button>
                 </td>
                 <td className="border px-4 py-2">
-                  <button>
+                  <button className="flex items-center gap-5 text-slate-300 hover:text-slate-200 hover:bg-red-700 bg-[#5e7bcc] p-2 rounded-md">
                     <span className="text-white-700 text-[1.2rem]">Delete</span>
                     {/* this will send a post request to the backend along with `productId`*/}
                   </button>
