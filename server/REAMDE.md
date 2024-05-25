@@ -6,7 +6,7 @@ We're running `mariadb`. You may either locally install it or use `docker` for t
 
 ### Docker way
 
-# Installing image
+#### Installing image
 
 ```
 docker pull mariadb
