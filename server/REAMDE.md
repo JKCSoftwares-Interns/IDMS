@@ -6,12 +6,13 @@ We're running `mariadb`. You may either locally install it or use `docker` for t
 
 ### Docker way
 
-installing image
+# Installing image
+
 ```
 docker pull mariadb
 ```
 
-#### Creating container
+#### Running the image
 
 ```
 docker run -p 3306:3306 -e MYSQL_ROOT_PASSWORD=test --name idms -d mariadb
@@ -28,6 +29,6 @@ docker exec -it idms mariadb -u root -ptest
 
 --- 
 
-### local instance of `MariaDB`
+### Local instance of `MariaDB`
 
-...
+(...)
