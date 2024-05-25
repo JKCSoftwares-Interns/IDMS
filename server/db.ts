@@ -2,8 +2,8 @@ import mariadb, { PoolConnection } from 'mariadb';
 
 const pool = mariadb.createPool({
      host: 'localhost', 
-     user:'mysql', 
-     password: 'root',
+     user:'root', 
+     password: 'test',
      port: 3306,
      connectionLimit: 5
 });

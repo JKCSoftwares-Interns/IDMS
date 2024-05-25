@@ -14,6 +14,14 @@ docker pull mariadb
 starting the database
 ```
 docker run --detach --name idms --env MARIADB_ROOT_PASSWORD=root mariadb:latest
+docker exec -it testidms mariadb -u root -p
+```
+
+OR
+
+```
+docker run -e MYSQL_ROOT_PASSWORD=test --name testidms -d mariadb
+docker exec -it testidms mariadb -u root -p
 ```
 
 > [!NOTE]
