@@ -1,8 +1,8 @@
-# Running Backend
+# Setup Backend
 
-## This is quick setup
+## DATABASE
 
-We're running `mariadb`. You may either locally install it or use `docker` for that.
+We're using `mariadb`. You may either locally install it or use `docker` for that.
 
 ### Docker way
 
