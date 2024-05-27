@@ -1,10 +1,26 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import data from "../../../data.json";
+import axios from "axios";
+// import data from "../../../data.json";
 
 const EditProducts = () => {
   const { productId } = useParams();
-  const productData = data.find((product) => product.productId === productId);
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("/products/show");
+        setData(response.data);
+      } catch (error) {
+        console.error("Failed to fetch products:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const productData = data.find((product) => product.productId == productId); //comparing numbers and string
 
   const [formData, setFormData] = useState({
     productId: "",
@@ -46,10 +62,22 @@ const EditProducts = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // Logic to update data here
     console.log("Form submitted:", formData);
+
+    try {
+      const response = await axios.post(
+        `/products/edit/${productId}`,
+        formData,
+      );
+      console.log("Response:", response.data);
+      window.location.href = '/products';
+    } catch (error) {
+      console.error("Failed to update product:", error);
+      window.location.href = '/products';
+    }
   };
 
   const readOnlyFields = [
