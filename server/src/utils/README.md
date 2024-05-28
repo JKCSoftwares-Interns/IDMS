@@ -1,0 +1,1 @@
+maybe will add `parseData` function here which parses json to provided type format

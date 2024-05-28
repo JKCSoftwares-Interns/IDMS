@@ -11,7 +11,7 @@ import {
   faAddressCard,
 } from "@fortawesome/free-solid-svg-icons";
 
-const Navbar = () => {
+const Sidebar = () => {
   return (
     <div className="bg-slate-200 w-[25rem] space-y-[0.5rem] text-white">
       <div className="upper p-[3rem] pb-0 space-y-1">
@@ -130,4 +130,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default Sidebar;

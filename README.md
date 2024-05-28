@@ -4,7 +4,7 @@
 
 \[needs updating]
 
-## Setup & Contribute
+## Setup, Run & Contribute
 
 - `master` branch is for pushing **release version**. This branch is considered stable.
 - `dev` branch is for pushing **new changes**. This branch is considered unstable.
@@ -53,15 +53,18 @@ Install the dependencies while in the `dev` branch.
 npm i
 ```
 
-#### Finished 🎉!
+### Running the project
 
-Now run the project:
+\[needs updating]
 
-```
-npm run dev
-```
+mention about:
+  - `.env` files (`.env.development.local` and others...)
+  - how to run server and client
+  - how to setup database
 
-### Contribute
+### Contribution
+
+\[explain about feature branches here]
 
 commit your changes as usual.
 ```

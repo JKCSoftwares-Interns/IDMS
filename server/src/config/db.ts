@@ -1,15 +1,15 @@
 import mariadb, { PoolConnection } from "mariadb";
 
-export const pool = mariadb.createPool({
-	host: "localhost",
-	user: "root",
-	password: "test",
-	port: 3306,
-	connectionLimit: 5,
-});
-
 export async function initializeDB() {
 	console.log("Initializing database...");
+
+	const pool = mariadb.createPool({
+		host: "localhost",
+		user: "root",
+		password: "test",
+		port: 3306,
+		connectionLimit: 5,
+	});
 
 	let conn: PoolConnection | null = null;
 	try {
@@ -50,3 +50,12 @@ export async function initializeDB() {
 		if (conn) conn.release();
 	}
 }
+
+export const pool = mariadb.createPool({
+  host: "localhost",
+  user: "root",
+  password: "test",
+  port: 3306,
+  database: "testidms",
+  connectionLimit: 5,
+});
