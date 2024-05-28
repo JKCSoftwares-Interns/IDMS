@@ -32,8 +32,8 @@ export const MuiTable = ({ tableData, tableFields }) => {
 				<TableHead>
 					<TableRow>
 						{tableFields.map((field) => (
-							<TableCell align="center" key={field}>
-								{field}
+							<TableCell align="center" key={field.key}>
+								{field.label}
 							</TableCell>
 						))}
 						<TableCell></TableCell>
@@ -50,8 +50,8 @@ export const MuiTable = ({ tableData, tableFields }) => {
 									sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
 								>
 									{tableFields.map((field) => (
-										<TableCell align="center" key={field}>
-											{row[field]}
+										<TableCell align="center" key={field.key}>
+											{row[field.key]}
 										</TableCell>
 									))}
 									<TableCell align="center">
@@ -68,7 +68,7 @@ export const MuiTable = ({ tableData, tableFields }) => {
 											<DeleteIcon />
 										</Button>
 									</TableCell>
-								</TableRow>
+								</TableRow>	
 							))}
 				</TableBody>
 			</Table>
