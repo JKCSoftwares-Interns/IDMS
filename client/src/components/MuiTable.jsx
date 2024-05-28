@@ -56,6 +56,7 @@ export const MuiTable = ({ tableData, tableFields }) => {
 									))}
 									<TableCell align="center">
 										<NavLink to={`/products/edit/${row.productId}`}>
+											{/* i want to ask here */}
 											<Button color="secondary">Edit</Button>
 										</NavLink>
 									</TableCell>
