@@ -1,5 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
+import { amber } from "@mui/material/colors";
+
 import {
 	Button,
 	TableContainer,
@@ -11,9 +13,10 @@ import {
 	TablePagination,
 	Paper,
 } from "@mui/material";
+import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-export const MuiTable = ({ tableData, tableFields }) => {
+export const MuiTable = ({ path, tableData, tableFields }) => {
 	const [page, setPage] = useState(0);
 	const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -27,7 +30,10 @@ export const MuiTable = ({ tableData, tableFields }) => {
 	};
 
 	return (
-		<TableContainer sx={{ maxHeight: "100%" }} component={Paper}>
+		<TableContainer
+			sx={{ maxHeight: "100%", borderRadius: 4 }}
+			component={Paper}
+		>
 			<Table stickyHeader aria-label="Product List">
 				<TableHead>
 					<TableRow>
@@ -36,7 +42,6 @@ export const MuiTable = ({ tableData, tableFields }) => {
 								{field.label}
 							</TableCell>
 						))}
-						<TableCell></TableCell>
 						<TableCell></TableCell>
 					</TableRow>
 				</TableHead>
@@ -55,11 +60,23 @@ export const MuiTable = ({ tableData, tableFields }) => {
 										</TableCell>
 									))}
 									<TableCell align="center">
-										<NavLink to={`/products/edit/${row.productId}`}>
-											<Button color="secondary">Edit</Button>
+										<NavLink to={`/${path}/edit/${row.productId}`}>
+											<Button
+												variant="outlined"
+												sx={{
+													mr: 2,
+													color: amber[700],
+													borderColor: amber[500],
+													"&:hover": {
+														backgroundColor: amber[100],
+														color: amber[900],
+														borderColor: amber[900],
+													},
+												}}
+											>
+												<EditRoundedIcon />
+											</Button>
 										</NavLink>
-									</TableCell>
-									<TableCell align="center">
 										<Button
 											onClick={() => deleteProduct(row)}
 											variant="outlined"
@@ -68,7 +85,7 @@ export const MuiTable = ({ tableData, tableFields }) => {
 											<DeleteIcon />
 										</Button>
 									</TableCell>
-								</TableRow>	
+								</TableRow>
 							))}
 				</TableBody>
 			</Table>

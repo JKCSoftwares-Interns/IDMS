@@ -13,7 +13,7 @@ const tableFields = [
   { key: "productName", label: "Product Name" },
   { key: "category", label: "Category" },
   { key: "measuringUnit", label: "Measuring Unit" },
-  { key: "packSize", label: "Pack Size" },
+  { key: "packSize", label  : "Pack Size" },
   { key: "noOfUnits", label: "Count" },
   { key: "unitMRP", label: "MRP" },
   { key: "manufacturer", label: "Manufacturer" },
@@ -57,7 +57,7 @@ const ProductList = () => {
 
   return (
     <Container sx={{ p: 2 }}>
-      <div className="flex p-8 justify-between items-center w-full border">
+      <div className="flex p-8 justify-between items-center w-full">
         <h1 className="text-4xl font-bold">Product List</h1>
         <input
           className="px-4 py-2 border max-w-max rounded-lg"
