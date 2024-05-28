@@ -14,7 +14,7 @@ import ContactUs from '../pages/support/ContactUs';
 import ProductList from '../pages/products/ViewProducts';
 import AddProducts from '../pages/products/AddProducts';
 import EditProducts from '../pages/products/UpdateProduct';
-
+import Offers from '../pages/schemeandoffer/addoffer';
 const Routing = () => {
     return (
         
@@ -31,7 +31,7 @@ const Routing = () => {
             <Route path="/products" element={<ProductList />} />
             <Route path="/products/add" element={<AddProducts />} />
             <Route path="/products/edit/:productId" element={<EditProducts />} />
-        
+            <Route path="/offers" element={<Offers />} />
         </Routes>
     
     );
