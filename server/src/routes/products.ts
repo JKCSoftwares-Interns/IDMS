@@ -1,27 +1,9 @@
+/* May not work right now */
+
 import express from "express";
-import { initializeDB } from "./db";
-import mariadb, { PoolConnection } from "mariadb";
-import cors from "cors";
-import path from "path";
-const PORT = 5173;
+import { PoolConnection } from "mariadb";
 
-const pool = mariadb.createPool({
-	host: "localhost",
-	user: "root",
-	password: "test",
-	port: 3306,
-	database: "testidms",
-	connectionLimit: 5,
-});
-
-const CLIENT_DIR = path.join(__dirname, "../client/dist");
-const ENTRY = path.join(CLIENT_DIR, "index.html");
-
-const app = express();
-
-app.use(cors());
-app.use(express.static(CLIENT_DIR));
-app.use(express.json());
+import { pool } from "../../config/db";
 
 interface Product {
 	productId: string;
@@ -49,13 +31,11 @@ interface Product {
 	lastEditedBy: string;
 }
 
-app.get("/test", (_, res) => {
-	console.log("/test is running");
-	res.send("hello world");
-});
+const router = express.Router();
 
-app.get("/products/show", async (_, res) => {
-	console.log("/products/show is running");
+router.get("/show", async (_, res) => {
+	greetStatus("show");
+
 	let conn: PoolConnection | null = null;
 	try {
 		conn = await pool.getConnection();
@@ -69,7 +49,7 @@ app.get("/products/show", async (_, res) => {
 	}
 });
 
-app.post("/products/add/it", async (req, res) => {
+router.post("/add", async (req, res) => {
 	console.log("/products/add is running");
 	let conn: PoolConnection | null = null;
 	try {
@@ -117,7 +97,7 @@ app.post("/products/add/it", async (req, res) => {
 	}
 });
 
-app.post("/products/edit/:id", async (req, res) => {
+router.post("/products/edit/:id", async (req, res) => {
 	console.log("/products/edit is running");
 	let conn: PoolConnection | null = null;
 	try {
@@ -185,7 +165,7 @@ app.post("/products/edit/:id", async (req, res) => {
 	}
 });
 
-app.delete("/products/delete/:id", async (req, res) => {
+router.delete("/products/delete/:id", async (req, res) => {
 	console.log("/products/delete is running");
 	let conn: PoolConnection | null = null;
 	try {
@@ -211,30 +191,14 @@ app.delete("/products/delete/:id", async (req, res) => {
 	}
 });
 
-/* ----------------------------------------- */
 
-app.get("*", (_, res) => {
-	console.log(`index is being served from ${ENTRY}`);
-	res.sendFile(ENTRY);
-});
-
-async function startServer() {
-	try {
-		await initializeDB();
-		app.listen(PORT, () => {
-			console.log(`Server is running on port ${PORT}`);
-		});
-	} catch (err) {
-		console.error(
-			"Failed to start server due to database initialization error:",
-			err
-		);
-	}
-}
-
-startServer();
+export default router;
 
 /* ---------------Helper Functions--------------- */
+
+function greetStatus(route: string) {
+	console.log(`/products/${route} is running`);
+}
 
 function parseData(product: any) {
 	if (!product || typeof product !== "object") {

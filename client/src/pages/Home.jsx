@@ -1,5 +1,4 @@
-
-const Homepage = () => {
+const Home = () => {
   return (
 
       <div className="grid  place-items-center">
@@ -8,4 +7,4 @@ const Homepage = () => {
   );
 }
 
-export default Homepage
+export default Home

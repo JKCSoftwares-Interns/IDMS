@@ -1,7 +1,9 @@
+import axios from "axios";
+
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
-// import data from "../../../data.json";
+
+import serverInstance from "../../services/serverInstance";
 
 const EditProducts = () => {
   const { productId } = useParams();
@@ -10,7 +12,7 @@ const EditProducts = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("/products/show");
+        const response = await serverInstance.get("/products");
         setData(response.data);
       } catch (error) {
         console.error("Failed to fetch products:", error);

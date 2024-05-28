@@ -1,4 +1,4 @@
-const HeadBar = () => {
+const Header = () => {
   return (
 
     <div
@@ -54,4 +54,4 @@ const HeadBar = () => {
   );
 };
 
-export default HeadBar;
+export default Header;

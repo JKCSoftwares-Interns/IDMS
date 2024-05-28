@@ -3,10 +3,21 @@
   "version": "1.0.0",
   "main": "server.ts",
   "scripts": {
-    "dev": "cd ../client && bun run build && cd ../server && bun server.ts",
+    "dev": "nodemon --exec 'bun src/server.ts'",
+    "fake": "nodemon --exec 'bun src/t_server.ts'",
+    "try": "tsc src/t_server.ts && nodemon src/t_server.js'",
+    "serve": "cd ../client && bun run build && cd ../server && bun server.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
+  "keywords": [
+    "Inventory",
+    "Distribution",
+    "Transportation",
+    "Products",
+    "Vendor",
+    "Management System",
+    "JKCSoftwares"
+  ],
   "author": "JKCSoftwares, LLP",
   "license": "ISC",
   "description": "Inventory and Distribution Management System | JKCSoftwares ",
@@ -19,6 +30,7 @@
   "devDependencies": {
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
-    "@types/node": "^20.12.12"
+    "@types/node": "^20.12.12",
+    "nodemon": "^3.1.1"
   }
 }
