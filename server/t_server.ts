@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 
-const data: Data = require("./test/fake_data/products_data.json");
+const data: Data = require("./src/test/fake_data/products_data.json");
 
 const PORT = 8000;
 

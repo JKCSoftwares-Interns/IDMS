@@ -1,24 +1,22 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import {
-	Button,
-} from "@mui/material";
-import AddCircleIcon from '@mui/icons-material/AddCircle';
+import { Button } from "@mui/material";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 
-import { Container } from '@mui/material';
+import { Container } from "@mui/material";
 
 import serverInstance from "../../services/serverInstance";
 import { MuiTable } from "../../components/MuiTable";
 
 const tableFields = [
-  { key: 'productId', label: 'Product ID'},
-  { key: 'productName', label: 'Product Name'},
-  { key: 'category', label: 'Category'},
-  { key: 'measuringUnit', label: 'Measuring Unit'},
-  { key: 'packSize', label: 'Pack Size'},
-  { key: 'noOfUnits', label: 'Count'},
-  { key: 'unitMRP', label: 'MRP'},
-  { key: 'manufacturer', label: 'Manufacturer'},
+  { key: "productId", label: "Product ID" },
+  { key: "productName", label: "Product Name" },
+  { key: "category", label: "Category" },
+  { key: "measuringUnit", label: "Measuring Unit" },
+  { key: "packSize", label: "Pack Size" },
+  { key: "noOfUnits", label: "Count" },
+  { key: "unitMRP", label: "MRP" },
+  { key: "manufacturer", label: "Manufacturer" },
   // { key: 'packMRP', label: 'Pack MRP'},
   // { key: 'marketer', label: 'Marketer'},
   // { key: 'supplier', label: 'Supplier'},
@@ -35,7 +33,6 @@ const tableFields = [
   // { key: 'lastEditedDate', label: 'Last Edited Date'},
   // { key: 'lastEditedBy', label: 'Last Edited By'}
 ];
-  
 
 const ProductList = () => {
   const [data, setData] = useState([]);
@@ -59,9 +56,7 @@ const ProductList = () => {
   );
 
   return (
-
     <Container sx={{ p: 2 }}>
-
       <div className="flex p-8 justify-between items-center w-full border">
         <h1 className="text-4xl font-bold">Product List</h1>
         <input
@@ -70,18 +65,23 @@ const ProductList = () => {
           value={searchTerm}
           onChange={(event) => setSearchTerm(event.target.value)}
         />
-          <NavLink
-            to="/products/add"
-          >
-        <Button size="large" variant="contained" color="success">
+        <NavLink to="/products/add">
+          <Button size="large" variant="contained" color="success">
             <AddCircleIcon />
-        </Button>
-          </NavLink>
+          </Button>
+        </NavLink>
       </div>
 
-      <MuiTable tableFields={tableFields} tableData={filteredData} />
+      {/*  
+        
+        REQUIREMENTS:-
+        
+          > Data fetch from server 
+          > Model your fields
       
+      */}
 
+      <MuiTable tableFields={tableFields} tableData={filteredData} />
     </Container>
   );
 };
