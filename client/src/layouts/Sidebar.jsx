@@ -65,14 +65,14 @@ const Sidebar = () => {
           </NavLink>
           <NavLink
             className="flex items-center gap-5 hover:bg-[#5e7bcc] p-2 hover:rounded-md"
-            to="/customers"
+            to="/offers"
           >
             <FontAwesomeIcon
               icon={faTruckField}
               style={{ color: "#2e1579" }}
               size="xl"
             />
-            <span className="text-gray-700 text-[1.2rem]">Distributions</span>
+            <span className="text-gray-700 text-[1.2rem]">Offer</span>
           </NavLink>
           <NavLink
             className="flex items-center gap-5 hover:bg-[#5e7bcc] p-2 hover:rounded-md"
