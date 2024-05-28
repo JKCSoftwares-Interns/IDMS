@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "nodemon --exec 'bun src/server.ts'",
     "fake": "nodemon --exec 'bun src/t_server.ts'",
+    "try": "tsc src/t_server.ts && nodemon src/t_server.js'",
     "serve": "cd ../client && bun run build && cd ../server && bun server.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

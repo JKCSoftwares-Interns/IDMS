@@ -10,6 +10,31 @@ import { Container } from '@mui/material';
 import serverInstance from "../../services/serverInstance";
 import { MuiTable } from "../../components/MuiTable";
 
+const tableFields = [
+  "productId",
+  "productName",
+  "category",
+  "measuringUnit",
+  "packSize",
+  "noOfUnits",
+  "unitMRP",
+  "packMRP",
+  "manufacturer",
+  "marketer",
+  "supplier",
+  "upc",
+  "hsn",
+  "cgst",
+  "sgst",
+  "igst",
+  "cess",
+  "loadPrice",
+  "unloadingPrice",
+  "dateAdded",
+  "addedBy",
+  "lastEditedDate",
+  "lastEditedBy"
+];
 
 const ProductList = () => {
   const [data, setData] = useState([]);
@@ -54,7 +79,7 @@ const ProductList = () => {
           </NavLink>
       </div>
 
-      <MuiTable tableData={filteredData} />
+      <MuiTable tableFields={tableFields} tableData={filteredData} />
       
 
     </Container>

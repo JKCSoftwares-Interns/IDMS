@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-export const MuiTable = ({ tableData }) => {
+export const MuiTable = ({ tableData, tableFields }) => {
 	const [page, setPage] = useState(0);
 	const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -31,12 +31,11 @@ export const MuiTable = ({ tableData }) => {
 			<Table stickyHeader aria-label="Product List">
 				<TableHead>
 					<TableRow>
-						<TableCell align="center">ID</TableCell>
-						<TableCell align="center">Name</TableCell>
-						<TableCell align="center">Category</TableCell>
-						<TableCell align="center">Pack Size</TableCell>
-						<TableCell align="center">Number of Units</TableCell>
-						<TableCell align="center">Unloading Price</TableCell>
+						{tableFields.map((field) => (
+							<TableCell align="center" key={field}>
+								{field}
+							</TableCell>
+						))}
 						<TableCell></TableCell>
 						<TableCell></TableCell>
 					</TableRow>
@@ -50,12 +49,11 @@ export const MuiTable = ({ tableData }) => {
 									key={row.productId}
 									sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
 								>
-									<TableCell align="center">{row.productId}</TableCell>
-									<TableCell align="center">{row.productName}</TableCell>
-									<TableCell align="center">{row.category}</TableCell>
-									<TableCell align="center">{row.packSize}</TableCell>
-									<TableCell align="center">{row.noOfUnits}</TableCell>
-									<TableCell align="center">{row.unloadingPrice}</TableCell>
+									{tableFields.map((field) => (
+										<TableCell align="center" key={field}>
+											{row[field]}
+										</TableCell>
+									))}
 									<TableCell align="center">
 										<NavLink to={`/products/edit/${row.productId}`}>
 											<Button color="secondary">Edit</Button>
