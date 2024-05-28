@@ -3,7 +3,7 @@
 import express from "express";
 import { PoolConnection } from "mariadb";
 
-import { pool } from "../../config/db";
+import { pool } from "../config/db";
 
 interface Product {
 	productId: string;
@@ -33,7 +33,7 @@ interface Product {
 
 const router = express.Router();
 
-router.get("/show", async (_, res) => {
+router.get("/", async (_, res) => {
 	greetStatus("show");
 
 	let conn: PoolConnection | null = null;
