@@ -1,8 +1,8 @@
 import express from "express";
 import cors from "cors";
 
-import { initializeDB } from "./config/db";
-import productsRoute from "./routes/products";
+import { initializeDB } from "./src/config/db";
+import productsRoute from "./src/routes/products";
 
 const PORT = 8000;
 
