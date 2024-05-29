@@ -1,7 +1,5 @@
 import Box from "@mui/material/Box";
 import Grid from '@mui/material/Grid';
-import Box from "@mui/material/Box";
-import Grid from '@mui/material/Grid';
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import { amber } from "@mui/material/colors";
@@ -134,4 +132,5 @@ async function deleteProduct(row) {
 		window.location.reload();
 	} catch (error) {
 		console.error("Failed to delete the row:", error);
-	}}
+	}
+}
