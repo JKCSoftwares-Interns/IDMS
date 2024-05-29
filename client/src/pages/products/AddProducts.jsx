@@ -43,7 +43,7 @@ const AddProducts = () => {
 		console.log("Form submitted:", finalData); //for debugging
 
 		serverInstance
-			.post("/products/add/it", finalData)
+			.post("/products/add", finalData)
 			.then((response) => {
 				console.log("Success:", response.data);
 				window.location.href = "/products";
