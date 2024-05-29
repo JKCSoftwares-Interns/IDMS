@@ -81,7 +81,7 @@ const ProductList = () => {
       
       */}
 
-      <MuiTable tableFields={tableFields} tableData={filteredData} />
+      <MuiTable title={"products"} tableFields={tableFields} tableData={filteredData} />
     </Container>
   );
 };

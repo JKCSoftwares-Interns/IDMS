@@ -36,7 +36,7 @@ const Header = () => {
 						type: "spring",
 					}}
 			id="container"
-			className="flex py-5 px-20 justify-between items-center"
+			className="flex py-5 px-20 justify-between items-center bg-slate-100"
 		>
 			<div id="logo">
 				<h1 className="text-3xl font-extrabold">

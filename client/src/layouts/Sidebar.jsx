@@ -6,6 +6,7 @@ import SpaceDashboardRoundedIcon from "@mui/icons-material/SpaceDashboardRounded
 import LocalShippingRoundedIcon from "@mui/icons-material/LocalShippingRounded";
 import LocalOfferRoundedIcon from "@mui/icons-material/LocalOfferRounded";
 import AssessmentRoundedIcon from "@mui/icons-material/AssessmentRounded";
+import StorefrontRoundedIcon from '@mui/icons-material/StorefrontRounded';
 
 const Sidebar = () => {
 	const BUTTON_COLOR = "primary";
@@ -22,7 +23,7 @@ const Sidebar = () => {
 				duration: 1,
 				type: "spring",
 			}}
-			className="flex flex-col border rounded-xl px-6 mb-5 py-4 gap-6"
+			className="flex flex-col border rounded-xl px-6 mb-5 py-4 gap-6 backdrop-filter backdrop-blur-lg bg-white bg-opacity-90"
 		>
 			<div className="flex flex-col gap-4 mt-3">
 				<NavButton
@@ -44,7 +45,13 @@ const Sidebar = () => {
 					color={BUTTON_COLOR}
 				/>
 				<NavButton
-					to="/suppliers"
+					to="/vendors"
+					icon={<StorefrontRoundedIcon />}
+					label="Vendors"
+					color={BUTTON_COLOR}
+				/>
+				<NavButton
+					to="/transport"
 					icon={<LocalShippingRoundedIcon />}
 					label="Transport"
 					color={BUTTON_COLOR}

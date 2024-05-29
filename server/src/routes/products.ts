@@ -50,7 +50,9 @@ router.get("/", async (_, res) => {
 });
 
 router.post("/add", async (req, res) => {
-	console.log("/products/add is running");
+	
+	greetStatus("add");
+
 	let conn: PoolConnection | null = null;
 	try {
 		conn = await pool.getConnection();
@@ -97,8 +99,10 @@ router.post("/add", async (req, res) => {
 	}
 });
 
-router.post("/products/edit/:id", async (req, res) => {
-	console.log("/products/edit is running");
+router.post("/edit/:id", async (req, res) => {
+
+	greetStatus("edit");
+
 	let conn: PoolConnection | null = null;
 	try {
 		conn = await pool.getConnection();
@@ -165,8 +169,10 @@ router.post("/products/edit/:id", async (req, res) => {
 	}
 });
 
-router.delete("/products/delete/:id", async (req, res) => {
-	console.log("/products/delete is running");
+router.delete("/delete/:id", async (req, res) => {
+
+	greetStatus("delete");
+
 	let conn: PoolConnection | null = null;
 	try {
 		conn = await pool.getConnection();

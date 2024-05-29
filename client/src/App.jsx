@@ -7,10 +7,10 @@ import Routing from "./routes/router";
 function App() {
 
 	return (
-		<div className="min-h-screen border flex flex-col relative">
+		<div className="min-h-screen flex flex-col relative bg-slate-100">
 			<Header />
 
-			<div id="MainView" className="flex flex-grow min-h-full">
+			<div id="MainView" className="flex flex-grow min-h-full bg-slate-100">
 				<Sidebar />
 
 				<AnimatePresence>
@@ -26,7 +26,7 @@ function App() {
 						duration: 1,
 						type: "spring",
 					}}
-					className="w-full"
+					className="w-full bg-slate-100"
 				>
 					<Routing />
 				</motion.div>
