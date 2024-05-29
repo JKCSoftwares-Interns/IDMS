@@ -76,12 +76,10 @@ const AddProducts = () => {
 			.then((response) => {
 				console.log("Success:", response.data);
 				setOpen(true);
-				// window.location.href = "/products";
 			})
 			.catch((error) => {
 				console.error("Error:", error);
 				setOpen(true);
-				// window.location.href = "/products";
 			});
 	};
 

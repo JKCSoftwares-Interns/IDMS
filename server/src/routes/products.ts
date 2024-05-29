@@ -50,7 +50,6 @@ router.get("/", async (_, res) => {
 });
 
 router.post("/add", async (req, res) => {
-	
 	greetStatus("add");
 
 	let conn: PoolConnection | null = null;
@@ -99,13 +98,21 @@ router.post("/add", async (req, res) => {
 	}
 });
 
+/*---------------EXP--------------------- */
+
+router.get("/edit/:id", async (req, res) => {
+	res.send(req.params.id)
+});
+
 router.post("/edit/:id", async (req, res) => {
+	console.log("ID ==>", req.params.id);
 
 	greetStatus("edit");
 
 	let conn: PoolConnection | null = null;
 	try {
 		conn = await pool.getConnection();
+		console.log("DATA RECEIVED:", req.body);
 		const product: Product = parseData(req.body);
 		if (!product) {
 			console.log("error 400");
@@ -170,7 +177,6 @@ router.post("/edit/:id", async (req, res) => {
 });
 
 router.delete("/delete/:id", async (req, res) => {
-
 	greetStatus("delete");
 
 	let conn: PoolConnection | null = null;
@@ -196,7 +202,6 @@ router.delete("/delete/:id", async (req, res) => {
 		if (conn) conn.release();
 	}
 });
-
 
 export default router;
 
