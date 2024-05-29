@@ -40,7 +40,7 @@ export const MuiTable = ({ title, tableData, tableFields }) => {
 			.delete(`/products/delete/${id}`, id)
 			.then((response) => {
 				console.log("Success:", response.data);
-				navigate("/products");g
+				navigate("/products");
 			})
 			.catch((error) => {
 				console.error("Error:", error);
@@ -139,5 +139,3 @@ export const MuiTable = ({ title, tableData, tableFields }) => {
 		</Box>
 	);
 };
-
-/*--------------Helper Function--------------- */
