@@ -2,10 +2,13 @@ import axios from "axios";
 
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import serverInstance from "../../services/serverInstance";
 
 const EditProducts = () => {
+  const navigate = useNavigate();
+
   const { productId } = useParams();
   const [data, setData] = useState([]);
 
@@ -66,19 +69,15 @@ const EditProducts = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Logic to update data here
-    console.log("Form submitted:", formData);
+
+    console.log("updated form sending:", formData);
 
     try {
-      const response = await axios.post(
-        `/products/edit/${productId}`,
-        formData,
-      );
+      const response = await serverInstance.post(`/products/edit/${productId}`, formData);
       console.log("Response:", response.data);
-      window.location.href = '/products';
+      navigate("/products");
     } catch (error) {
       console.error("Failed to update product:", error);
-      window.location.href = '/products';
     }
   };
 
