@@ -2,6 +2,8 @@ import express from "express";
 import cors from "cors";
 
 const data: Data = require("./src/test/fake_data/products_data.json");
+const transport_data: Data = require("./src/test/fake_data/transport_data.json");
+const vendors_data: Data = require("./src/test/fake_data/vendors_data.json");
 
 const PORT = 8000;
 
@@ -40,6 +42,18 @@ app.delete("/products/delete/:id", async (req, res) => {
 			console.log("BACKEND_MODE false");
 			console.log(`Server is running at http://localhost:${PORT}`);
 		});
+
+/* ---------------TRANSPORT--------------- */
+
+app.get("/transport", async (_, res) => {
+	res.json(transport_data);
+});
+
+/* ---------------VENDORS--------------- */
+
+app.get("/vendors", async (_, res) => {
+	res.json(vendors_data);
+});
 
 /* ---------------Helper Functions--------------- */
 

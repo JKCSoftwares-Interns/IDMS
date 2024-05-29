@@ -15,8 +15,14 @@ import ProductList from "../pages/products/ViewProducts";
 import AddProducts from "../pages/products/AddProducts";
 import EditProducts from "../pages/products/UpdateProduct";
 
+// TRANSPORT
+import TransportList from "../pages/transport/ViewTransport";
+
+// VENDORS
+import VendorList from "../pages/vendors/ViewVendor";
+
 // SCHEMES
-import Offers from "../pages/schemeandoffer/addoffer";
+import Offers from "../pages/offers/addoffer";  
 
 const Routing = () => {
   return (
@@ -32,9 +38,20 @@ const Routing = () => {
       <Route path="/products" element={<ProductList />} />
       <Route path="/products/add" element={<AddProducts />} />
       <Route path="/products/edit/:productId" element={<EditProducts />} />
+      
+      {/* VENDORS */}
+      <Route path="/vendors" element={<VendorList />} />
+      {/* <Route path="/transport/add" element={<AddProducts />} /> */}
+      {/* <Route path="/transport/edit/:productId" element={<EditProducts />} /> */}
+      
+      {/* TRANSPORT */}
+      <Route path="/transport" element={<TransportList />} />
+      {/* <Route path="/transport/add" element={<AddProducts />} /> */}
+      {/* <Route path="/transport/edit/:productId" element={<EditProducts />} /> */}
 
       {/* OFFERS */}
       <Route path="/offers" element={<Offers />} />
+    
     </Routes>
   );
 };
