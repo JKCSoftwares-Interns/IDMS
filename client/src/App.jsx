@@ -3,6 +3,7 @@ import Header from "./layouts/Header";
 import Footer from "./layouts/Footer";
 import Sidebar from "./layouts/Sidebar";
 import Routing from "./routes/router";
+import './App.css';
 
 function App() {
 

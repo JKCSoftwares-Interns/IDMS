@@ -84,7 +84,7 @@ const AddProducts = () => {
 	};
 
 	return (
-		<Container component="main" maxWidth="md">
+		<Container component="main" maxWidth="full">
 			<Snackbar
 				open={open}
 				autoHideDuration={6000}
@@ -114,9 +114,12 @@ const AddProducts = () => {
 				className="p-6 mb-5 border rounded-2xl backdrop-filter backdrop-blur-lg bg-white bg-opacity-90"
 				onSubmit={handleSubmit}
 			>
-				<Grid container spacing={3}>
+
+					{/* group all related fields then think of a grid system */}
+
+				<div className="border-4 border-l-indigo-900 grid grid-rows-2 md:grid-cols-3">
 					{fields.map((field) => (
-						<Grid item xs={field.xs} key={field.name}>
+						<div className="p-3" key={field.name}>
 							<Box padding={1}>
 								<TextField
 									id={field.name}
@@ -130,9 +133,9 @@ const AddProducts = () => {
 									style={{ width: "100%" }}
 								/>
 							</Box>
-						</Grid>
+						</div>
 					))}
-				</Grid>
+				</div>
 				<Box display="flex" justifyContent="center" alignItems="center" mt={2}>
 					<Button
 						type="submit"

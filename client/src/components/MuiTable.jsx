@@ -20,7 +20,7 @@ import {
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-export const MuiTable = ({ title, tableData, tableFields }) => {
+export const MuiTable = ({ title, tableData, setTableData, tableFields }) => {
 
 	const navigate = useNavigate();
 
@@ -40,7 +40,7 @@ export const MuiTable = ({ title, tableData, tableFields }) => {
 			.delete(`/products/delete/${id}`, id)
 			.then((response) => {
 				console.log("Success:", response.data);
-				navigate("/products");g
+				setTableData(tableData.filter(product => product[keyid] !== id));
 			})
 			.catch((error) => {
 				console.error("Error:", error);
@@ -139,5 +139,3 @@ export const MuiTable = ({ title, tableData, tableFields }) => {
 		</Box>
 	);
 };
-
-/*--------------Helper Function--------------- */
