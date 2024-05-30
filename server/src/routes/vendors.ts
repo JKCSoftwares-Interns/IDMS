@@ -50,7 +50,7 @@ router.get("/", async (_, res) => {
     }
 });
 
-router.post("/add", async (req, res) => {
+router.post("/addVendors", async (req, res) => {
     console.log("/vendors/add is running");
     let conn: PoolConnection | null = null;
     try {
