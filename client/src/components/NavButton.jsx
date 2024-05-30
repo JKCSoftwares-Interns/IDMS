@@ -3,11 +3,19 @@ import { Button } from "@mui/material";
 
 const NavButton = ({ to, icon, label, color }) => {
 	return (
-		<NavLink className="mx-6" to={to}>
+		<NavLink
+			className={({ isActive, isPending }) => {
+				return isActive
+					? "active mx-6 transition ease-out translate-y-1 scale-110 duration-300 "
+					: isPending
+					? "mx-6 pending transition ease-in-out hover:-translate-y-1 hover:scale-110 duration-300 "
+					: "mx-6 transition ease-in-out hover:-translate-y-1 hover:scale-105 duration-300 ";
+			}}
+			to={to}
+		>
 			<Button
 				startIcon={icon}
 				variant="text"
-        activeClassName="active-link"
 				color={color}
 				sx={{ textTransform: "none", fontSize: 16 }}
 			>

@@ -7,6 +7,7 @@ import { Container } from "@mui/material";
 
 import serverInstance from "../../services/serverInstance";
 import { MuiTable } from "../../components/MuiTable";
+import PageAnimate from "../../components/PageAnimate";
 
 const tableFields = [
 	{ key: "vendorId", label: "Vendor ID" },
@@ -57,6 +58,7 @@ const VendorList = () => {
 	);
 
 	return (
+		<PageAnimate className={"w-full"}>
 		<Container sx={{ p: 2 }}>
 			<div className="flex p-8 justify-between items-center w-full">
 				<h1 className="text-4xl font-bold">Vendors</h1>
@@ -79,6 +81,7 @@ const VendorList = () => {
 				tableData={filteredData}
 			/>
 		</Container>
+		</PageAnimate>
 	);
 };
 

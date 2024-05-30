@@ -22,6 +22,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 
 export const MuiTable = ({ title, tableData, setTableData, tableFields }) => {
 
+	
+
 	const navigate = useNavigate();
 
 	let keyid = title;

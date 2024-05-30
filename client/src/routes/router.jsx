@@ -1,6 +1,7 @@
 /* This file needs to be divided */
 
-import { Route, Routes } from "react-router-dom";
+import { useLocation, Route, Routes } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
 
 // HOMR
 import Home from "../pages/Home";
@@ -22,38 +23,48 @@ import TransportList from "../pages/transport/ViewTransport";
 import VendorList from "../pages/vendors/ViewVendor";
 
 // SCHEMES
-import ViewOffer from "../pages/offers/viewOffer";  
+import Offers from "../pages/offers/addoffer";
+
+// INVENTORY
+import Inventory from "../pages/inventory/ViewInventory";
 
 const Routing = () => {
-  return (
-    <Routes>
-      <Route path="/" element={<Home />} />
+	const location = useLocation();
 
-      {/* SUPPORT */}
-      <Route path="/help" element={<Help />} />
-      <Route path="/settings" element={<Settings />} />
-      <Route path="/contact" element={<ContactUs />} />
+	return (
+		<AnimatePresence mode="wait">
+				<Routes location={location} key={location.pathname}>
+					<Route path="/" element={<Home />} />
 
-      {/* PRODUCTS */}
-      <Route path="/products" element={<ProductList />} />
-      <Route path="/products/add" element={<AddProducts />} />
-      <Route path="/products/edit/:productId" element={<EditProducts />} />
-      
-      {/* VENDORS */}
-      <Route path="/vendors" element={<VendorList />} />
-      {/* <Route path="/transport/add" element={<AddProducts />} /> */}
-      {/* <Route path="/transport/edit/:productId" element={<EditProducts />} /> */}
-      
-      {/* TRANSPORT */}
-      <Route path="/transports" element={<TransportList />} />
-      {/* <Route path="/transport/add" element={<AddProducts />} /> */}
-      {/* <Route path="/transport/edit/:productId" element={<EditProducts />} /> */}
+					{/* SUPPORT */}
+					<Route path="/help" element={<Help />} />
+					<Route path="/settings" element={<Settings />} />
+					<Route path="/contact" element={<ContactUs />} />
 
-      {/* OFFERS */}
-      <Route path="/offers" element={<ViewOffer />} />
-    
-    </Routes>
-  );
+					{/* PRODUCTS */}
+					<Route path="/products" element={<ProductList />} />
+					<Route path="/products/add" element={<AddProducts />} />
+					<Route path="/products/edit/:productId" element={<EditProducts />} />
+
+					{/* VENDORS */}
+					<Route path="/vendors" element={<VendorList />} />
+					{/* <Route path="/transport/add" element={<AddProducts />} /> */}
+					{/* <Route path="/transport/edit/:productId" element={<EditProducts />} /> */}
+
+					{/* TRANSPORT */}
+					<Route path="/transport" element={<TransportList />} />
+					{/* <Route path="/transport/add" element={<AddProducts />} /> */}
+					{/* <Route path="/transport/edit/:productId" element={<EditProducts />} /> */}
+
+					{/* OFFERS */}
+					<Route path="/offers" element={<Offers />} />
+				
+					{/* OFFERS */}
+					<Route path="/inventory" element={<Inventory />} />
+				
+				</Routes>
+		</AnimatePresence>
+	);
 };
 
 export default Routing;

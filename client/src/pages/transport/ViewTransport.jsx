@@ -6,6 +6,9 @@ import { Container } from "@mui/material";
 import serverInstance from "../../services/serverInstance";
 import { MuiTable } from "../../components/MuiTable";
 
+import { motion } from "framer-motion";
+import PageAnimate from "../../components/PageAnimate";
+
 const tableFields = [
 	{ key: "transportId", label: "Transport ID" },
 	{ key: "transportName", label: "Transport Name" },
@@ -32,53 +35,55 @@ const tableFields = [
 	// { key: "addedBy", label: "Added By" },
 	// { key: "lasteditedDate", label: "Last Edited Date" },
 	// { key: "lasteditedBy", label: "Last Edited By" },
-  ];
+];
 
 const TransportList = () => {
-  const [data, setData] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
+	const [data, setData] = useState([]);
+	const [searchTerm, setSearchTerm] = useState("");
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await serverInstance.get("/transports");
-        setData(response.data);
-      } catch (error) {
-        console.error("Failed to fetch transports:", error);
-      }
-    };
+	useEffect(() => {
+		const fetchData = async () => {
+			try {
+				const response = await serverInstance.get("/transport");
+				setData(response.data);
+			} catch (error) {
+				console.error("Failed to fetch transport:", error);
+			}
+		};
 
-    fetchData();
-  }, []);
+		fetchData();
+	}, []);
 
-  const filteredData = data.filter((transport) =>
-    transport.transportName.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+	const filteredData = data.filter((transport) =>
+		transport.transportName.toLowerCase().includes(searchTerm.toLowerCase())
+	);
 
-  return (
-    <Container sx={{ p: 2 }}>
-      <div className="flex p-8 justify-between items-center w-full">
-        <h1 className="text-4xl font-bold">Transport List</h1>
-        <input
-          className="px-4 py-2 border max-w-max rounded-lg"
-          placeholder="Search Transports..."
-          value={searchTerm}
-          onChange={(event) => setSearchTerm(event.target.value)}
-        />
-        <NavLink to="/transports/add">
-          <Button size="large" variant="contained" color="success">
-            <AddCircleIcon />
-          </Button>
-        </NavLink>
-      </div>
+	return (
+		<PageAnimate className={"w-full"}>
+			<Container sx={{ p: 2 }}>
+				<div className="flex p-8 justify-between items-center w-full">
+					<h1 className="text-4xl font-bold">Transport List</h1>
+					<input
+						className="px-4 py-2 border max-w-max rounded-lg"
+						placeholder="Search Transport..."
+						value={searchTerm}
+						onChange={(event) => setSearchTerm(event.target.value)}
+					/>
+					<NavLink to="/transport/add">
+						<Button size="large" variant="contained" color="success">
+							<AddCircleIcon />
+						</Button>
+					</NavLink>
+				</div>
 
-      <MuiTable
-         title={"transports"} 
-         tableFields={tableFields} 
-         tableData={filteredData} 
-      />
-    </Container>
-  );
+				<MuiTable
+					title={"transport"}
+					tableFields={tableFields}
+					tableData={filteredData}
+				/>
+			</Container>
+		</PageAnimate>
+	);
 };
 
 export default TransportList;
