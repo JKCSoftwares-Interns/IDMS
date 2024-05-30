@@ -1,22 +1,22 @@
 import mariadb, { PoolConnection } from "mariadb";
 
 export async function initializeDB() {
-	console.log("Initializing database...");
+  console.log("Initializing database...");
 
-	const pool = mariadb.createPool({
-		host: "localhost",
-		user: "root",
-		password: "test",
-		port: 3306,
-		connectionLimit: 5,
-	});
+  const pool = mariadb.createPool({
+    host: "localhost",
+    user: "root",
+    password: "test",
+    port: 3306,
+    connectionLimit: 5,
+  });
 
-	let conn: PoolConnection | null = null;
-	try {
-		conn = await pool.getConnection();
-		await conn.query(`CREATE DATABASE IF NOT EXISTS testidms;`);
-		await conn.query(`USE testidms;`);
-		await conn.query(`
+  let conn: PoolConnection | null = null;
+  try {
+    conn = await pool.getConnection();
+    await conn.query(`CREATE DATABASE IF NOT EXISTS testidms;`);
+    await conn.query(`USE testidms;`);
+    await conn.query(`
     CREATE TABLE IF NOT EXISTS products (
       productId INT AUTO_INCREMENT PRIMARY KEY,
       productName VARCHAR(255),
@@ -43,12 +43,41 @@ export async function initializeDB() {
       lastEditedBy VARCHAR(255)
     );
 `);
-		console.log("Database initialized successfully.");
-	} catch (err) {
-		console.error("Error initializing database: ", err);
-	} finally {
-		if (conn) conn.release();
-	}
+
+  await conn.query(`
+  CREATE TABLE IF NOT EXISTS vendors (
+    vendorId INT AUTO_INCREMENT PRIMARY KEY,
+    vendorName VARCHAR(255),
+    businessName VARCHAR(255),
+    email VARCHAR(255),
+    mobileNumber VARCHAR(255),
+    alternateMobileNumber VARCHAR(255),
+    addressLine1 VARCHAR(255),
+    addressLine2 VARCHAR(255),
+    landmark VARCHAR(255),
+    city VARCHAR(255),
+    district VARCHAR(255),
+    state VARCHAR(255),
+    pinCode VARCHAR(255),
+    gstin VARCHAR(255),
+    fssai VARCHAR(255),
+    registrationNumber VARCHAR(255),
+    aadharNumber VARCHAR(255),
+    panNumber VARCHAR(255),
+    otherDocuments VARCHAR(255),
+    status VARCHAR(255),
+    dateAdded TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    addedBy VARCHAR(255),
+    lastEditedDate TIMESTAMP,
+    lastEditedBy VARCHAR(255)
+  );
+`);
+    console.log("Database initialized successfully.");
+  } catch (err) {
+    console.error("Error initializing database: ", err);
+  } finally {
+    if (conn) conn.release();
+  }
 }
 
 export const pool = mariadb.createPool({

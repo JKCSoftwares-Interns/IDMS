@@ -22,7 +22,7 @@ import TransportList from "../pages/transport/ViewTransport";
 import VendorList from "../pages/vendors/ViewVendor";
 
 // SCHEMES
-import Offers from "../pages/offers/addoffer";  
+import ViewOffer from "../pages/offers/viewOffer";  
 
 const Routing = () => {
   return (
@@ -45,12 +45,12 @@ const Routing = () => {
       {/* <Route path="/transport/edit/:productId" element={<EditProducts />} /> */}
       
       {/* TRANSPORT */}
-      <Route path="/transport" element={<TransportList />} />
+      <Route path="/transports" element={<TransportList />} />
       {/* <Route path="/transport/add" element={<AddProducts />} /> */}
       {/* <Route path="/transport/edit/:productId" element={<EditProducts />} /> */}
 
       {/* OFFERS */}
-      <Route path="/offers" element={<Offers />} />
+      <Route path="/offers" element={<ViewOffer />} />
     
     </Routes>
   );

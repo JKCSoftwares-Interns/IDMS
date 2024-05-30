@@ -11,24 +11,23 @@ import serverInstance from "../../services/serverInstance";
 import { MuiTable } from "../../components/MuiTable";
 
 const tableFields = [
-  "offerId",
-  "offerName",
-  "offerType",
-  "startDate",
-  "endDate",
-  "products",
-  "discountValue",
-  "discountPercentage",
-  "maximumDiscountValue",
-  "minimumPurchase",
-  "offerApplicabilityFrequency",
-  "applicableTo",
-  "status",
-  "dateAdded",
-  "addedBy",
-  "lastEditedDate",
-  "lastEditedBy",
-
+  { key: "offerId", label: "Offer ID" },
+  { key: "offerName", label: "Offer Name" },
+  { key: "offerType", label: "Offer Type" },
+  { key: "startDate", label: "Start Date" },
+  { key: "endDate", label: "End Date" },
+  { key: "products", label: "Products" },
+  { key: "discountValue", label: "Discount Value" },
+  { key: "discountPercentage", label: "Discount Percentage" },
+  { key: "maximumDiscountValue", label: "Maximum Discount Value" },
+  { key: "minimumPurchase", label: "Minimum Purchase" },
+  { key: "offerApplicabilityFrequency", label: "Offer Applicability Frequency" },
+  { key: "applicableTo", label: "Applicable To" },
+  { key: "status", label: "Status" },
+  { key: "dateAdded", label: "Date Added" },
+  { key: "addedBy", label: "Added By" },
+  { key: "lastEditedDate", label: "Last Edited Date" },
+  { key: "lastEditedBy", label: "Last Edited By" }
 ];
 
 const ViewOffer = () => {
@@ -57,10 +56,10 @@ const ViewOffer = () => {
     <Container sx={{ p: 2 }}>
 
       <div className="flex p-4 justify-evenly items-center w-full border">
-        <h1 className="text-4xl font-bold mb-4 text-center">View Offer</h1>
+        <h1 className="text-4xl font-bold mb-4 text-center">View Offer List</h1>
         <input
           className="px-4 py-2 border max-w-max rounded-lg"
-          placeholder="Search Offer..."
+          placeholder="Search Schemes/Offers..."
           type="text"
           value={searchTerm}
           onChange={(event) => setSearchTerm(event.target.value)}
@@ -74,7 +73,11 @@ const ViewOffer = () => {
           </NavLink>
       </div>
 
-      <MuiTable tableFields={tableFields} tableData={filteredData} />
+      <MuiTable 
+        title={"offers"}
+        tableFields={tableFields} 
+        tableData={filteredData} 
+      />
       
 
     </Container>

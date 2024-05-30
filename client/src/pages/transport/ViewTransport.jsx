@@ -41,10 +41,10 @@ const TransportList = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await serverInstance.get("/transport");
+        const response = await serverInstance.get("/transports");
         setData(response.data);
       } catch (error) {
-        console.error("Failed to fetch transport:", error);
+        console.error("Failed to fetch transports:", error);
       }
     };
 
@@ -61,18 +61,22 @@ const TransportList = () => {
         <h1 className="text-4xl font-bold">Transport List</h1>
         <input
           className="px-4 py-2 border max-w-max rounded-lg"
-          placeholder="Search Transport..."
+          placeholder="Search Transports..."
           value={searchTerm}
           onChange={(event) => setSearchTerm(event.target.value)}
         />
-        <NavLink to="/transport/add">
+        <NavLink to="/transports/add">
           <Button size="large" variant="contained" color="success">
             <AddCircleIcon />
           </Button>
         </NavLink>
       </div>
 
-      <MuiTable title={"transport"} tableFields={tableFields} tableData={filteredData} />
+      <MuiTable
+         title={"transports"} 
+         tableFields={tableFields} 
+         tableData={filteredData} 
+      />
     </Container>
   );
 };

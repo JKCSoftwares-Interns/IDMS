@@ -37,9 +37,10 @@ export const MuiTable = ({ title, tableData, setTableData, tableFields }) => {
 		console.log("deleteProduct", id)
 
 		serverInstance
-			.delete(`/products/delete/${id}`, id)
+			.delete(`/${title}/delete/${id}`, id)
 			.then((response) => {
 				console.log("Success:", response.data);
+				navigate(`/${title}`, { replace: true });
 				setTableData(tableData.filter(product => product[keyid] !== id));
 			})
 			.catch((error) => {
