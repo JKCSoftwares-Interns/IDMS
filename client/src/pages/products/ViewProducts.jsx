@@ -9,25 +9,33 @@ import serverInstance from "../../services/serverInstance";
 import { MuiTable } from "../../components/MuiTable";
 
 const tableFields = [
+	
+	
 	{ key: "productId", label: "Product ID" },
 	{ key: "productName", label: "Product Name" },
 	{ key: "category", label: "Category" },
 	{ key: "measuringUnit", label: "Measuring Unit" },
+	{ key: 'supplier', label: 'Supplier'},
+	
 	{ key: "packSize", label: "Pack Size" },
 	{ key: "noOfUnits", label: "Count" },
 	{ key: "unitMRP", label: "MRP" },
-	{ key: "manufacturer", label: "Manufacturer" },
-	// { key: 'packMRP', label: 'Pack MRP'},
+	{ key: 'packMRP', label: 'Pack MRP'},
+	{ key: 'loadPrice', label: 'Load Price'},
+	{ key: 'unloadingPrice', label: 'Unloading Price'},
+	
 	// { key: 'marketer', label: 'Marketer'},
-	// { key: 'supplier', label: 'Supplier'},
+	// { key: "manufacturer", label: "Manufacturer" },
+
 	// { key: 'upc', label: 'UPC'},
 	// { key: 'hsn', label: 'HSN'},
+	
 	// { key: 'cgst', label: 'CGST'},
 	// { key: 'sgst', label: 'SGST'},
 	// { key: 'igst', label: 'IGST'},
 	// { key: 'cess', label: 'CESS'},
-	// { key: 'loadPrice', label: 'Load Price'},
-	// { key: 'unloadingPrice', label: 'Unloading Price'},
+	
+	
 	// { key: 'dateAdded', label: 'Date Added'},
 	// { key: 'addedBy', label: 'Added By'},
 	// { key: 'lastEditedDate', label: 'Last Edited Date'},
@@ -85,6 +93,7 @@ const ProductList = () => {
 				title={"products"}
 				tableFields={tableFields}
 				tableData={filteredData}
+				setTableData={setData}
 			/>
 		</Container>
 	);
