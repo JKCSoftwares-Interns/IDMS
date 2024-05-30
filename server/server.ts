@@ -3,6 +3,7 @@ import cors from "cors";
 
 import { initializeDB } from "./src/config/db";
 import productsRoute from "./src/routes/products";
+import vendorsRoute from "./src/routes/vendors";
 
 const PORT = 8000;
 
@@ -13,7 +14,12 @@ app.use(cors({
 }));
 app.use(express.json());
 
+// For Products
 app.use('/products', productsRoute);
+
+//For Vendors
+app.use('/vendors', vendorsRoute);
+
 
 app.get("/", (_, res) => {
 	res.send("IDMS | JKCSoftware LLP running 🚀");

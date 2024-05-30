@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { Button } from "@mui/material";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-
 import { Container } from "@mui/material";
 
 import serverInstance from "../../services/serverInstance";
@@ -60,8 +59,7 @@ const ProductList = () => {
 	}, []);
 
 	const filteredData = data.filter((product) =>
-		product.productName.toLowerCase().includes(searchTerm.toLowerCase())
-	);
+		product.productName.toLowerCase().includes(searchTerm.toLowerCase()));
 
 	return (
 		<Container sx={{ p: 2 }}>
@@ -69,7 +67,7 @@ const ProductList = () => {
 				<h1 className="text-4xl font-bold">Product List</h1>
 				<input
 					className="px-4 py-2 border max-w-max rounded-lg"
-					placeholder="Search Product..."
+					placeholder="Search Products..."
 					value={searchTerm}
 					onChange={(event) => setSearchTerm(event.target.value)}
 				/>
