@@ -101,7 +101,12 @@ router.post("/add", async (req, res) => {
     }
 });
 
-router.post("/vendors/edit/:id", async (req, res) => {
+/*---------------EXP--------------------- */
+router.get("/edit/:id", async (req, res) => {
+	res.send(req.params.id)
+});
+
+router.post("/edit/:id", async (req, res) => {
     console.log("/vendors/edit is running");
     let conn: PoolConnection | null = null;
     try {
