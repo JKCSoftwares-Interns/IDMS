@@ -1,21 +1,45 @@
 /* This file needs to be divided */
 
+<<<<<<< HEAD
 import { Route, Routes } from 'react-router-dom';
+=======
+import { useLocation, Route, Routes } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
+>>>>>>> 7d24c7931d1598d1d84fbfbbe4764fd9867d9fa1
 
 // HOMR
-import Home from '../pages/Home';
+import Home from "../pages/Home";
 
 // SUPPORT
-import Help from '../pages/support/Help';
-import Settings from '../pages/support/Settings';
-import ContactUs from '../pages/support/ContactUs';
+import Help from "../pages/support/Help";
+import Settings from "../pages/support/Settings";
+import ContactUs from "../pages/support/ContactUs";
 
 // PRODUCTS
-import ProductList from '../pages/products/ViewProducts';
-import AddProducts from '../pages/products/AddProducts';
-import EditProducts from '../pages/products/UpdateProduct';
+import ProductList from "../pages/products/ViewProducts";
+import AddProducts from "../pages/products/AddProducts";
+import EditProducts from "../pages/products/UpdateProduct";
+
+// TRANSPORT
+import TransportList from "../pages/transport/ViewTransport";
+import AddTransport from "../pages/transport/AddTransport";
+import UpdateTransport from "../pages/transport/UpdateTransport";
+
+// VENDORS
+import VendorList from "../pages/vendors/ViewVendors";
+import AddVendors from "../pages/vendors/AddVendors";
+import UpdateVendor from "../pages/vendors/UpdateVendor";
+
+// SCHEMES
+import Offers from "../pages/offers/ViewOffer";
+import AddOffer from "../pages/offers/AddOffer";
+import UpdateOffer from "../pages/offers/UpdateOffer";
+
+// INVENTORY
+import Inventory from "../pages/inventory/InventoryList";
 
 const Routing = () => {
+<<<<<<< HEAD
     return (
         
             <Routes>
@@ -39,3 +63,46 @@ const Routing = () => {
 };
 
 export default Routing;
+=======
+	const location = useLocation();
+
+	return (
+		<AnimatePresence mode="wait">
+				<Routes location={location} key={location.pathname}>
+					<Route path="/" element={<Home />} />
+
+					{/* SUPPORT */}
+					<Route path="/help" element={<Help />} />
+					<Route path="/settings" element={<Settings />} />
+					<Route path="/contact" element={<ContactUs />} />
+
+					{/* PRODUCTS */}
+					<Route path="/products" element={<ProductList />} />
+					<Route path="/products/add" element={<AddProducts />} />
+					<Route path="/products/edit/:productId" element={<EditProducts />} />
+
+					{/* VENDORS */}
+					<Route path="/vendors" element={<VendorList />} />
+					<Route path="/vendors/add" element={<AddVendors />} />
+					<Route path="/vendors/edit/:vendorId" element={<UpdateVendor />} />
+
+					{/* TRANSPORT */}
+					<Route path="/transport" element={<TransportList />} />
+					<Route path="/transport/add" element={<AddTransport />} />
+					<Route path="/transport/edit/:transportId" element={<UpdateTransport />} />
+
+					{/* OFFERS */}
+					<Route path="/offers" element={<Offers />} />
+					<Route path="/offers/add" element={<AddOffer />} />
+					<Route path="/offers/edit/:offerId" element={<UpdateOffer />} />
+				
+					{/* INVENTORY */}
+					<Route path="/inventory" element={<Inventory />} />
+				
+				</Routes>
+		</AnimatePresence>
+	);
+};
+
+export default Routing;
+>>>>>>> 7d24c7931d1598d1d84fbfbbe4764fd9867d9fa1
