@@ -38,12 +38,6 @@ const categories = [
 const fields = [
     /* Basic Info */
     {
-        label: "Vendor ID",
-        name: "vendorId",
-        type: "text",
-        category: "Basic Info",
-    },
-    {
         label: "Vendor Name",
         name: "vendorName",
         type: "text",
