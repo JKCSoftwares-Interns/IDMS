@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import PageAnimate from "../../components/PageAnimate";
 import MuiFormUpdate from "../../components/MuiFormUpdate";
 
-const EditProducts = () => {
+const UpdateProduct = () => {
 	
   /* Fields are defined below */
 
@@ -21,7 +21,7 @@ const EditProducts = () => {
 	);
 };
 
-export default EditProducts;
+export default UpdateProduct;
 
 /*---------Fields-----------------*/
 

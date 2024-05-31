@@ -30,7 +30,7 @@ import AddOffer from "../pages/offers/AddOffer";
 import UpdateOffer from "../pages/offers/UpdateOffer";
 
 // INVENTORY
-import Inventory from "../pages/inventory/ViewInventory";
+import Inventory from "../pages/inventory/InventoryList";
 
 const Routing = () => {
 	const location = useLocation();
