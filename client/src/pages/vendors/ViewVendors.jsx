@@ -9,6 +9,7 @@ import { Container } from '@mui/material';
 
 import serverInstance from "../../services/serverInstance";
 import { MuiTable } from "../../components/MuiTable";
+import PageAnimate from "../../components/PageAnimate";
 
 const tableFields = [
   { key: "vendorId", label: "Vendor ID" },
@@ -16,25 +17,25 @@ const tableFields = [
   { key: "businessName", label: "Business Name" },
   { key: "email", label: "Email" },
   { key: "mobileNumber", label: "Mobile Number" },
-  { key: "alternateMobileNumber", label: "Alternate Mobile Number" },
-  { key: "addressLine1", label: "Address Line 1" },
-  { key: "addressLine2", label: "Address Line 2" },
-  { key: "landmark", label: "Landmark" },
-  { key: "city", label: "City" },
-  { key: "district", label: "District" },
+  // { key: "alternateMobileNumber", label: "Alternate Mobile Number" },
+  // { key: "addressLine1", label: "Address Line 1" },
+  // { key: "addressLine2", label: "Address Line 2" },
+  // { key: "landmark", label: "Landmark" },
+  // { key: "city", label: "City" },
+  // { key: "district", label: "District" },
   { key: "state", label: "State" },
   { key: "pinCode", label: "Pin Code" },
   { key: "gstin", label: "GSTIN" },
   { key: "fssai", label: "FSSAI" },
-  { key: "registrationNumber", label: "Registration Number" },
-  { key: "aadharNumber", label: "Aadhar Number" },
-  { key: "panNumber", label: "PAN Number" },
+  // { key: "registrationNumber", label: "Registration Number" },
+  // { key: "aadharNumber", label: "Aadhar Number" },
+  // { key: "panNumber", label: "PAN Number" },
   { key: "otherDocuments", label: "Other Documents" },
   { key: "status", label: "Status" },
-  { key: "dateAdded", label: "Date Added" },
-  { key: "addedBy", label: "Added By" },
-  { key: "lastEditedDate", label: "Last Edited Date" },
-  { key: "lastEditedBy", label: "Last Edited By" }
+  // { key: "dateAdded", label: "Date Added" },
+  // { key: "addedBy", label: "Added By" },
+  // { key: "lastEditedDate", label: "Last Edited Date" },
+  // { key: "lastEditedBy", label: "Last Edited By" }
 
 ];
 
@@ -61,6 +62,7 @@ const VendorList = () => {
 
   return (
 
+    <PageAnimate className={"w-full"}>
     <Container sx={{ p: 2 }}>
 
       <div className="flex p-8 justify-between items-center w-full">
@@ -98,6 +100,7 @@ const VendorList = () => {
 
 
     </Container>
+    </PageAnimate>
   );
 };
 

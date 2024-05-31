@@ -7,30 +7,30 @@ import { pool } from "../config/db";
 
 interface Transport {
 	tranportId: string;
-    transportName: string;
-    businessName: string;
-    vehicleName: string;
-    email: string;
-    mobileNumber: number;
-    alternateMobileNumber: number;
-    addressLine1: string;
-    addressLine2: string;
-    landmark: string;
-    city: string;
-    district: string;
-    state: string;
-    pinCode: number;
-    branchOffice: string;
-    aadharNumber: number;
-    panNumber: number;
-    driverName: string;
-    driverMobileNumber: number;
-    driverAlternateNumber: number;
-    status: string;
-    dateAdded: string;
-    addedBy: string;
-    lastEditedDate: string;
-    lastEditedBy: string;
+	transportName: string;
+	businessName: string;
+	vehicleName: string;
+	email: string;
+	mobileNumber: number;
+	alternateMobileNumber: number;
+	addressLine1: string;
+	addressLine2: string;
+	landmark: string;
+	city: string;
+	district: string;
+	state: string;
+	pinCode: number;
+	branchOffice: string;
+	aadharNumber: number;
+	panNumber: number;
+	driverName: string;
+	driverMobileNumber: number;
+	driverAlternateNumber: number;
+	status: string;
+	dateAdded: string;
+	addedBy: string;
+	lastEditedDate: string;
+	lastEditedBy: string;
 }
 
 const router = express.Router();
@@ -68,26 +68,26 @@ router.post("/add", async (req, res) => {
     `,
 			[
 				transports.transportName,
-                transports.businessName,
-                transports.vehicleName,
-                transports.email,
-                transports.mobileNumber,
-                transports.alternateMobileNumber,
-                transports.addressLine1,
-                transports.addressLine2,
-                transports.landmark,
-                transports.city,
-                transports.district,
-                transports.state,
-                transports.pinCode,
-                transports.branchOffice,
-                transports.aadharNumber,
-                transports.panNumber,
-                transports.driverName,
-                transports.driverMobileNumber,
-                transports.driverAlternateNumber,
-                transports.status,
-                transports.addedBy,
+				transports.businessName,
+				transports.vehicleName,
+				transports.email,
+				transports.mobileNumber,
+				transports.alternateMobileNumber,
+				transports.addressLine1,
+				transports.addressLine2,
+				transports.landmark,
+				transports.city,
+				transports.district,
+				transports.state,
+				transports.pinCode,
+				transports.branchOffice,
+				transports.aadharNumber,
+				transports.panNumber,
+				transports.driverName,
+				transports.driverMobileNumber,
+				transports.driverAlternateNumber,
+				transports.status,
+				transports.addedBy,
 			]
 		);
 		res.status(200).send("Transport added successfully");
@@ -102,7 +102,7 @@ router.post("/add", async (req, res) => {
 /*---------------EXP--------------------- */
 
 router.get("/edit/:id", async (req, res) => {
-	res.send(req.params.id)
+	res.send(req.params.id);
 });
 
 router.post("/edit/:id", async (req, res) => {
@@ -149,27 +149,27 @@ router.post("/edit/:id", async (req, res) => {
 		`,
 			[
 				transports.transportName,
-                transports.businessName,
-                transports.vehicleName,
-                transports.email,
-                transports.mobileNumber,
-                transports.alternateMobileNumber,
-                transports.addressLine1,
-                transports.addressLine2,
-                transports.landmark,
-                transports.city,
-                transports.district,
-                transports.state,
-                transports.pinCode,
-                transports.branchOffice,
-                transports.aadharNumber,
-                transports.panNumber,
-                transports.driverName,
-                transports.driverMobileNumber,
-                transports.driverAlternateNumber,
-                transports.status,
-                transports.lastEditedBy,
-                req.params.id,
+				transports.businessName,
+				transports.vehicleName,
+				transports.email,
+				transports.mobileNumber,
+				transports.alternateMobileNumber,
+				transports.addressLine1,
+				transports.addressLine2,
+				transports.landmark,
+				transports.city,
+				transports.district,
+				transports.state,
+				transports.pinCode,
+				transports.branchOffice,
+				transports.aadharNumber,
+				transports.panNumber,
+				transports.driverName,
+				transports.driverMobileNumber,
+				transports.driverAlternateNumber,
+				transports.status,
+				transports.lastEditedBy,
+				req.params.id,
 			]
 		);
 		res.status(200).send("Transport updated successfully");
@@ -213,7 +213,7 @@ export default router;
 /* ---------------Helper Functions--------------- */
 
 function greetStatus(route: string) {
-	console.log(`/transports/${route} is running`);
+	console.log(`/transport/${route} is running`);
 }
 
 function parseData(transport: any) {
@@ -226,16 +226,19 @@ function parseData(transport: any) {
 	/* have to reparse the json the fit the database schema; 
   will think of another way of doing this later... */
 	const intfields = [
-        "mobileNumber",
-        "alternateMobileNumber",
-        "pinCode",
-        "aadharNumber",
-        "panNumber",
-        "driverMobileNumber",
-        "driverAlternateNumber",
+		"mobileNumber",
+		"alternateMobileNumber",
+		"pinCode",
+		"aadharNumber",
+		"panNumber",
+		"driverMobileNumber",
+		"driverAlternateNumber",
 	];
 	for (const field of intfields) {
-		if (typeof transport[field] !== "string" || isNaN(Number(transport[field]))) {
+		if (
+			typeof transport[field] !== "string" ||
+			isNaN(Number(transport[field]))
+		) {
 			console.log(typeof transport[field]);
 			console.log(transport[field]);
 			console.log("setting default value for", field);

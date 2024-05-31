@@ -68,7 +68,7 @@ export const MuiTable = ({ title, tableData, setTableData, tableFields }) => {
 				sx={{ maxHeight: "100%", borderRadius: 4 }}
 				component={Paper}
 			>
-				<Table stickyHeader aria-label="Product List">
+				<Table stickyHeader aria-label="Table List">
 					<TableHead>
 						<TableRow>
 							{tableFields.map((field) => (

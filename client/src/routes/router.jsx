@@ -18,12 +18,16 @@ import EditProducts from "../pages/products/UpdateProduct";
 
 // TRANSPORT
 import TransportList from "../pages/transport/ViewTransport";
+import AddTransport from "../pages/transport/AddTransport";
 
 // VENDORS
-import VendorList from "../pages/vendors/ViewVendor";
+import VendorList from "../pages/vendors/ViewVendors";
+import AddVendors from "../pages/vendors/AddVendors";
 
 // SCHEMES
-import Offers from "../pages/offers/addoffer";
+import Offers from "../pages/offers/ViewOffer";
+import AddOffer from "../pages/offers/AddOffer";
+import UpdateOffer from "../pages/offers/UpdateOffer";
 
 // INVENTORY
 import Inventory from "../pages/inventory/ViewInventory";
@@ -48,18 +52,20 @@ const Routing = () => {
 
 					{/* VENDORS */}
 					<Route path="/vendors" element={<VendorList />} />
-					{/* <Route path="/transport/add" element={<AddProducts />} /> */}
+					<Route path="/vendors/add" element={<AddVendors />} />
 					{/* <Route path="/transport/edit/:productId" element={<EditProducts />} /> */}
 
 					{/* TRANSPORT */}
 					<Route path="/transport" element={<TransportList />} />
-					{/* <Route path="/transport/add" element={<AddProducts />} /> */}
+					<Route path="/transport/add" element={<AddTransport />} />
 					{/* <Route path="/transport/edit/:productId" element={<EditProducts />} /> */}
 
 					{/* OFFERS */}
 					<Route path="/offers" element={<Offers />} />
+					<Route path="/offers/add" element={<AddOffer />} />
+					<Route path="/offers/edit" element={<UpdateOffer />} />
 				
-					{/* OFFERS */}
+					{/* INVENTORY */}
 					<Route path="/inventory" element={<Inventory />} />
 				
 				</Routes>

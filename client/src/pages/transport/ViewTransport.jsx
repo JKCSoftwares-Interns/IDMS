@@ -6,7 +6,6 @@ import { Container } from "@mui/material";
 import serverInstance from "../../services/serverInstance";
 import { MuiTable } from "../../components/MuiTable";
 
-import { motion } from "framer-motion";
 import PageAnimate from "../../components/PageAnimate";
 
 const tableFields = [

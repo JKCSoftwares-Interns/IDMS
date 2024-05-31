@@ -23,6 +23,8 @@ const EditProducts = () => {
 
 export default EditProducts;
 
+/*---------Fields-----------------*/
+
 const categories = [
 		"Basic Info",
 		"UPC & HSN",

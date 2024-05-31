@@ -16,10 +16,8 @@ app.use(express.json());
 
 // For Products
 app.use('/products', productsRoute);
-
-//For Vendors
 app.use('/vendors', vendorsRoute);
-
+app.use('/transport', vendorsRoute);
 
 app.get("/", (_, res) => {
 	res.send("IDMS | JKCSoftware LLP running 🚀");
