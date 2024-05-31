@@ -48,7 +48,17 @@ const ProductList = () => {
 		const fetchData = async () => {
 			try {
 				const response = await serverInstance.get("/products");
-				setData(response.data);
+				const processedData = response.data.map(item => {
+					const newItem = { ...item };
+					tableFields.forEach(field => {
+						if (!newItem[field.key]) {
+							newItem[field.key] = 'N/A' || 0;
+						}
+					});
+					return newItem;
+				});
+
+				setData(processedData);
 			} catch (error) {
 				console.error("Failed to fetch products:", error);
 			}

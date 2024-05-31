@@ -39,25 +39,25 @@ const fields = [
     /* Basic Info */
     {
         label: "Offer Type",
-        name: "offertype",
+        name: "offerType",
         type: "text",
         category: "Basic Info",
     },
     {
         label: "Offer Name",
-        name: "offername",
+        name: "offerName",
         type: "text",
         category: "Basic Info",
     },
     {
         label: "Start Date",
-        name: "startdate",
+        name: "startDate",
         type: "number",
         category: "Basic Info",
     },
     {
         label: "End Date",
-        name: "enddate",
+        name: "endDate",
         type: "number",
         category: "Basic Info",
     },
@@ -71,13 +71,13 @@ const fields = [
     },
     {
         label: "Offer Applicability Frequency",
-        name: "offerapplicabilityfrequency",
+        name: "offerApplicabilityFrequency",
         type: "number",
         category: "Offer Details",
     },
     {
         label: "Applicable To",
-        name: "applicableto",
+        name: "applicableTo",
         type: "number",
         category: "Offer Details",
     },
@@ -91,25 +91,25 @@ const fields = [
     /* Discount Details */
     {
         label: "Discount Value",
-        name: "discountvalue",
+        name: "discountValue",
         type: "number",
         category: "Discount Details",
     },
     {
         label: "Discount Percentage",
-        name: "discountpercentage",
+        name: "discountPercentage",
         type: "text",
         category: "Discount Details",
     },
     {
         label: "Maximum Discount Value",
-        name: "maximumdiscountvalue",
+        name: "maximumDiscountValue",
         type: "text",
         category: "Discount Details",
     },
     {
         label: "Minimum Purchase",
-        name: "minimumpurchase",
+        name: "minimumPurchase",
         type: "text",
         category: "Discount Details",
     }

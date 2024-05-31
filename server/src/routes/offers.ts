@@ -44,14 +44,16 @@ router.get("/", async (_, res) => {
 });
 
 router.post("/add", async (req, res) => {
-	greetStatus("add");
+    greetStatus("add");
 
-	let conn: PoolConnection | null = null;
-	try {
-		conn = await pool.getConnection();
-		const offers: Offer = parseData(req.body);
-		await conn.query(
-			`
+    let conn: PoolConnection | null = null;
+    try {
+        conn = await pool.getConnection();
+        const offers: Offer = parseData(req.body);
+        console.log("DATA PARSED:", offers);
+        console.log("Concerned fields:", offers.offerType, offers.offerName)
+        await conn.query(
+            `
     INSERT INTO offers (
         offerType, offerName, startDate, endDate, offers, discountValue,
         discountPercentage, maximumDiscountValue, minimumPurchase,
@@ -61,8 +63,8 @@ router.post("/add", async (req, res) => {
         ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), ?, NULL, NULL
     );
     `,
-			[
-				offers.offerType,
+            [
+                offers.offerType,
                 offers.offerName,
                 offers.startDate,
                 offers.endDate,
@@ -75,21 +77,36 @@ router.post("/add", async (req, res) => {
                 offers.applicableTo,
                 offers.status,
                 offers.addedBy,
-			]
-		);
-		res.status(200).send("Offer added successfully");
-	} catch (err) {
-		console.log("couldn't add: ", err);
-		res.status(500).send("Error adding Offer");
-	} finally {
-		if (conn) conn.release();
-	}
+            ]
+        );
+        res.status(200).send("Offer added successfully");
+    } catch (err) {
+        console.log("couldn't add: ", err);
+        res.status(500).send("Error adding Offer");
+    } finally {
+        if (conn) conn.release();
+    }
 });
 
 /*---------------EXP--------------------- */
 
 router.get("/edit/:id", async (req, res) => {
-	res.send(req.params.id)
+	let conn: PoolConnection | null = null;
+	try {
+	  conn = await pool.getConnection();
+	  const { id } = req.params;
+	  const rows = await conn.query("SELECT * FROM offers WHERE offerID = ?", [id]);
+	  if (rows.length === 0) {
+		res.status(404).send("Product not found");
+	  } else {
+		res.json(rows[0]);
+	  }
+	} catch (err) {
+	  console.log(err);
+	  res.status(500).send(err);
+	} finally {
+	  if (conn) conn.release();
+	}
 });
 
 router.post("/edit/:id", async (req, res) => {
@@ -202,6 +219,15 @@ function parseData(offer: any) {
         "maximumDiscountValue",
         "minimumPurchase",
 	];
+
+    const dateFields = ['startDate', 'endDate'];
+    for (const field of dateFields) {
+        if (!Date.parse(offer[field])) {
+            console.log(`Invalid date value for ${field}`);
+            offer[field] = null;
+        }
+    }
+
 	for (const field of intfields) {
 		if (typeof offer[field] !== "string" || isNaN(Number(offer[field]))) {
 			console.log(typeof offer[field]);

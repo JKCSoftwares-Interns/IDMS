@@ -11,7 +11,7 @@ const UpdateTransport = () => {
 	return (
 		<PageAnimate className={"w-full"}>
 			<MuiFormUpdate
-        title={"transports"}
+        title={"transport"}
         id={transportId}
 				readonly={readOnlyFields}
 				fields={fields}

@@ -7,7 +7,6 @@ import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import PageAnimate from "./PageAnimate";
 
-
 const MuiFormUpdate = ({ title, id, categories, fields, readonly }) => {
 	const [data, setData] = useState([]);
 
@@ -17,7 +16,7 @@ const MuiFormUpdate = ({ title, id, categories, fields, readonly }) => {
 				const response = await serverInstance.get(`/${title}/edit/${id}`);
 				setData(response.data);
 			} catch (error) {
-				console.error("Failed to fetch products:", error);
+				console.error(`Failed to fetch ${title}:`, error);
 			}
 		};
 
@@ -34,12 +33,12 @@ const MuiFormUpdate = ({ title, id, categories, fields, readonly }) => {
 			{}
 		)
 	);
-    
-    useEffect(() => {
-        if (data) {
-          setFormData(prevFormData => ({ ...prevFormData, ...data }));
-        }
-      }, [data]);
+
+	useEffect(() => {
+		if (data) {
+			setFormData((prevFormData) => ({ ...prevFormData, ...data }));
+		}
+	}, [data]);
 
 	const handleChange = (e) => {
 		const { id, value } = e.target;
@@ -72,7 +71,7 @@ const MuiFormUpdate = ({ title, id, categories, fields, readonly }) => {
 	};
 
 	return (
-		<PageAnimate className={"w-full grid place-items-center gap-6"} >
+		<PageAnimate className={"w-full grid place-items-center gap-6"}>
 			<Snackbar
 				open={open}
 				autoHideDuration={6000}
@@ -97,14 +96,17 @@ const MuiFormUpdate = ({ title, id, categories, fields, readonly }) => {
 			<form className="flex gap-4">
 				{readonly &&
 					readonly.map((field) => (
-                        <div className="border rounded-xl p-2 backdrop-filter backdrop-blur-lg bg-white bg-opacity-90">
-							<Box padding={1} key={field.name}>
-                            <p className="text-slate-500 mb-3 text-xs">{field.label}</p>
+						<div
+							className="border rounded-xl p-2 backdrop-filter backdrop-blur-lg bg-white bg-opacity-90"
+							key={field.name}
+						>
+							<Box padding={1}>
+								<p className="text-slate-500 mb-3 text-xs">{field.label}</p>
 								<TextField
-                                    name={field.name}
+									name={field.name}
 									label=""
 									type={field.type}
-									value={formData[field.name]}
+									value={formData[field.name] || ""}
 									variant="standard"
 									inputProps={{ min: 0 }}
 									disabled
@@ -131,7 +133,7 @@ const MuiFormUpdate = ({ title, id, categories, fields, readonly }) => {
 											name={field.name}
 											label={field.label}
 											type={field.type}
-											value={formData[field.name]}
+											value={formData[field.name] || ""}
 											onChange={handleChange}
 											variant="outlined"
 											fullWidth
@@ -148,11 +150,11 @@ const MuiFormUpdate = ({ title, id, categories, fields, readonly }) => {
 				variant="contained"
 				sx={{
 					mb: 5,
-                    fontWeight: "bold",
-                    fontSize: "1rem",
+					fontWeight: "bold",
+					fontSize: "1rem",
 					backgroundColor: "skyblue",
-                    p: 2,
-                    width: "60%",
+					p: 2,
+					width: "60%",
 					"&:hover": {
 						backgroundColor: "goldenrod",
 					},
@@ -161,7 +163,7 @@ const MuiFormUpdate = ({ title, id, categories, fields, readonly }) => {
 			>
 				Update
 			</Button>
-            </PageAnimate>
+		</PageAnimate>
 	);
 };
 

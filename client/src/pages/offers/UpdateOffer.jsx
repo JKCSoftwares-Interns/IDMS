@@ -5,13 +5,13 @@ import MuiFormUpdate from "../../components/MuiFormUpdate";
 const EditOffer = () => {
 	/* Fields are defined below */
 
-	const { productId } = useParams();
+	const { offerId } = useParams();
 
 	return (
 		<PageAnimate className={"w-full"}>
 			<MuiFormUpdate
 				title={"offers"}
-				id={productId}
+				id={offerId}
 				readonly={readOnlyFields}
 				fields={fields}
 				categories={categories}
@@ -32,30 +32,89 @@ const readOnlyFields = [
 	"lastEditedBy",
 ];
 
+const categories = [
+    "Basic Info",
+    "Offer Details",
+    "Discount Details",
+];
+
+
 const fields = [
-	{ label: "Offer ID", name: "offerid", type: "text" },
-	{ label: "Offer Type", name: "offertype", type: "text" },
-	{ label: "Offer Name", name: "offername", type: "text" },
-	{ label: " Start Date", name: "startdate", type: "number" },
-	{ label: "End Date", name: "enddate", type: "number" },
-	{ label: "Products", name: "products", type: "number" },
-	{ label: " Discount Value", name: "discountvalue", type: "number" },
-	{ label: "Discount Percentage", name: "discountpercentage", type: "text" },
-	{
-		label: " Maximum Discount Value",
-		name: "maximumdiscountvalue",
-		type: "text",
-	},
-	{ label: "Minimum Purchase", name: "minimumpurchase", type: "text" },
-	{
-		label: "Offer Applicability Frequency",
-		name: "offerapplicabilityfrequency",
-		type: "number",
-	},
-	{ label: "Applicable To", name: "applicableto", type: "number" },
-	{ label: " Status", name: "status", type: "number" },
-	{ label: "Date Added", name: "dateadded", type: "number" },
-	{ label: "Added By", name: "igst", type: "addedby" },
-	{ label: "Last Edited Date", name: "lastediteddate", type: "number" },
-	{ label: "Last Edited By", name: "lasteditedby", type: "number" },
+    /* Basic Info */
+    {
+        label: "Offer Type",
+        name: "offerType",
+        type: "text",
+        category: "Basic Info",
+    },
+    {
+        label: "Offer Name",
+        name: "offerName",
+        type: "text",
+        category: "Basic Info",
+    },
+    {
+        label: "Start Date",
+        name: "startDate",
+        type: "number",
+        category: "Basic Info",
+    },
+    {
+        label: "End Date",
+        name: "endDate",
+        type: "number",
+        category: "Basic Info",
+    },
+
+    /* Offer Details */
+    {
+        label: "Products",
+        name: "products",
+        type: "number",
+        category: "Offer Details",
+    },
+    {
+        label: "Offer Applicability Frequency",
+        name: "offerApplicabilityFrequency",
+        type: "number",
+        category: "Offer Details",
+    },
+    {
+        label: "Applicable To",
+        name: "applicableTo",
+        type: "number",
+        category: "Offer Details",
+    },
+    {
+        label: "Status",
+        name: "status",
+        type: "number",
+        category: "Offer Details",
+    },
+
+    /* Discount Details */
+    {
+        label: "Discount Value",
+        name: "discountValue",
+        type: "number",
+        category: "Discount Details",
+    },
+    {
+        label: "Discount Percentage",
+        name: "discountPercentage",
+        type: "text",
+        category: "Discount Details",
+    },
+    {
+        label: "Maximum Discount Value",
+        name: "maximumDiscountValue",
+        type: "text",
+        category: "Discount Details",
+    },
+    {
+        label: "Minimum Purchase",
+        name: "minimumPurchase",
+        type: "text",
+        category: "Discount Details",
+    }
 ];

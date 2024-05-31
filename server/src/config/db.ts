@@ -1,24 +1,24 @@
 import mariadb, { PoolConnection } from "mariadb";
 
 export async function initializeDB() {
-  console.log("Initializing database...");
+	console.log("Initializing database...");
 
-  const pool = mariadb.createPool({
-    host: "localhost",
-    user: "root",
-    password: "test",
-    port: 3306,
-    connectionLimit: 5,
-  });
+	const pool = mariadb.createPool({
+		host: "localhost",
+		user: "root",
+		password: "test",
+		port: 3306,
+		connectionLimit: 5,
+	});
 
-  let conn: PoolConnection | null = null;
-  try {
-    conn = await pool.getConnection();
-    await conn.query(`CREATE DATABASE IF NOT EXISTS testidms;`);
-    await conn.query(`USE testidms;`);
+	let conn: PoolConnection | null = null;
+	try {
+		conn = await pool.getConnection();
+		await conn.query(`CREATE DATABASE IF NOT EXISTS testidms;`);
+		await conn.query(`USE testidms;`);
 
-    // Creating `products` Table inside Database
-    await conn.query(`
+		// Creating `products` Table inside Database
+		await conn.query(`
     CREATE TABLE IF NOT EXISTS products (
       productId INT AUTO_INCREMENT PRIMARY KEY,
       productName VARCHAR(255),
@@ -46,9 +46,8 @@ export async function initializeDB() {
     );
 `);
 
-
-    // Creating `vendors` Table inside Database
-    await conn.query(`
+		// Creating `vendors` Table inside Database
+		await conn.query(`
   CREATE TABLE IF NOT EXISTS vendors (
     vendorId INT AUTO_INCREMENT PRIMARY KEY,
     vendorName VARCHAR(255),
@@ -77,15 +76,15 @@ export async function initializeDB() {
   );
 `);
 
-  
-    // Creating `offers` Table inside Database
-    await conn.query(`
+		// Creating `offers` Table inside Database
+		await conn.query(`
   CREATE TABLE IF NOT EXISTS offers (
     offerId INT AUTO_INCREMENT PRIMARY KEY,
     offerType VARCHAR(255),
     offerName VARCHAR(255),
     startDate DATE,
     endDate DATE,
+    products VARCHAR(255),
     offers VARCHAR(255),
     discountValue DECIMAL(10,2),
     discountPercentage DECIMAL(10,2),
@@ -101,9 +100,8 @@ export async function initializeDB() {
   );
 `);
 
-  
-    // Creating `transports` Table inside Database
-    await conn.query(`
+		// Creating `transports` Table inside Database
+		await conn.query(`
     CREATE TABLE IF NOT EXISTS transports (
       transportId INT AUTO_INCREMENT PRIMARY KEY,
       transportName VARCHAR(255),
@@ -132,19 +130,19 @@ export async function initializeDB() {
       lastEditedBy VARCHAR(255)
     );
 `);
-    console.log("Database initialized successfully.");
-  } catch (err) {
-    console.error("Error initializing database: ", err);
-  } finally {
-    if (conn) conn.release();
-  }
+		console.log("Database initialized successfully.");
+	} catch (err) {
+		console.error("Error initializing database: ", err);
+	} finally {
+		if (conn) conn.release();
+	}
 }
 
 export const pool = mariadb.createPool({
-  host: "localhost",
-  user: "root",
-  password: "test",
-  port: 3306,
-  database: "testidms",
-  connectionLimit: 5,
+	host: "localhost",
+	user: "root",
+	password: "test",
+	port: 3306,
+	database: "testidms",
+	connectionLimit: 5,
 });

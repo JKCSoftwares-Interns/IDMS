@@ -40,7 +40,18 @@ const ViewOffer = () => {
 		const fetchData = async () => {
 			try {
 				const response = await serverInstance.get("/offers");
-				setData(response.data);
+				
+				const processedData = response.data.map(item => {
+					const newItem = { ...item };
+					tableFields.forEach(field => {
+						if (!newItem[field.key]) {
+							newItem[field.key] = 'N/A' || 0;
+						}
+					});
+					return newItem;
+				});
+
+				setData(processedData);
 			} catch (error) {
 				console.error("Failed to fetch offers:", error);
 			}
@@ -50,7 +61,7 @@ const ViewOffer = () => {
 	}, []);
 
 	const filteredData = data.filter((offer) =>
-		offer.offerName.toLowerCase().includes(searchTerm.toLowerCase())
+		offer.offerName && offer.offerName.toLowerCase().includes(searchTerm.toLowerCase())
 	);
 
 	return (
@@ -58,7 +69,7 @@ const ViewOffer = () => {
 			<Container sx={{ p: 2 }}>
 				<div className="flex p-4 justify-evenly items-center w-full">
 					<h1 className="text-4xl font-bold mb-4 text-center">
-						View Offer List
+						View Offers
 					</h1>
 					<input
 						className="px-4 py-2 border max-w-max rounded-lg"
@@ -78,6 +89,7 @@ const ViewOffer = () => {
 					title={"offers"}
 					tableFields={tableFields}
 					tableData={filteredData}
+					setTableData={setData}
 				/>
 			</Container>
 		</PageAnimate>

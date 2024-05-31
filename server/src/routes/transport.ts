@@ -102,7 +102,23 @@ router.post("/add", async (req, res) => {
 /*---------------EXP--------------------- */
 
 router.get("/edit/:id", async (req, res) => {
-	res.send(req.params.id);
+
+	let conn: PoolConnection | null = null;
+	try {
+	  conn = await pool.getConnection();
+	  const { id } = req.params;
+	  const rows = await conn.query("SELECT * FROM transports WHERE transportId = ?", [id]); //change the tablename to transport or transportation
+	  if (rows.length === 0) {
+		res.status(404).send("Product not found");
+	  } else {
+		res.json(rows[0]);
+	  }
+	} catch (err) {
+	  console.log(err);
+	  res.status(500).send(err);
+	} finally {
+	  if (conn) conn.release();
+	}
 });
 
 router.post("/edit/:id", async (req, res) => {
@@ -145,7 +161,7 @@ router.post("/edit/:id", async (req, res) => {
             status = ?,
             lastEditedDate = NOW(),
             lastEditedBy = ?
-            WHERE transportId =
+            WHERE transportId = ?
 		`,
 			[
 				transports.transportName,
