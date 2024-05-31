@@ -122,4 +122,3 @@ function parseData(product: any) {
 	console.log("CHECKING:", product);
 	return product;
 }
-

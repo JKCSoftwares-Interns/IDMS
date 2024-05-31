@@ -1,133 +1,81 @@
-import { NavLink } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faTableColumns,
-  faCube,
-  faCartShopping,
-  faTruckField,
-  faChartBar,
-  faCircleInfo,
-  faGear,
-  faAddressCard,
-} from "@fortawesome/free-solid-svg-icons";
+import { motion } from "framer-motion";
+import NavButton from "../components/NavButton";
+import Inventory2RoundedIcon from "@mui/icons-material/Inventory2Rounded";
+import CategoryRoundedIcon from "@mui/icons-material/CategoryRounded";
+import SpaceDashboardRoundedIcon from "@mui/icons-material/SpaceDashboardRounded";
+import LocalShippingRoundedIcon from "@mui/icons-material/LocalShippingRounded";
+import LocalOfferRoundedIcon from "@mui/icons-material/LocalOfferRounded";
+import AssessmentRoundedIcon from "@mui/icons-material/AssessmentRounded";
+import StorefrontRoundedIcon from '@mui/icons-material/StorefrontRounded';
 
 const Sidebar = () => {
-  return (
-    <div className="bg-slate-200 w-[25rem] space-y-[0.5rem] text-white">
-      <div className="upper p-[3rem] pb-0 space-y-1">
-        <p className="text-gray-700 font-semibold">GENERAL</p>
-        <div className="General space-y-[0.5rem] mx-5">
-          <NavLink
-            className="flex items-center gap-5 hover:bg-[#5e7bcc] p-2 hover:rounded-md"
-            to="/"
-          >
-            <FontAwesomeIcon
-              icon={faTableColumns}
-              style={{ color: "#2e1579" }}
-              size="xl"
-            />
-            <span className="text-gray-700 text-[1.2rem] hover:text-slate-100">
-              Dashboard
-            </span>
-          </NavLink>
-          <NavLink
-            className="flex items-center gap-5 hover:bg-[#5e7bcc] p-2 hover:rounded-md"
-            to="/inventory"
-          >
-            <FontAwesomeIcon
-              icon={faCube}
-              style={{ color: "#2e1579" }}
-              size="xl"
-            />
-            <span className="text-gray-700 text-[1.2rem]">Inventory</span>
-          </NavLink>
-          <NavLink
-            className="flex items-center gap-5 hover:bg-[#5e7bcc] p-2 hover:rounded-md"
-            to="/products"
-          >
-            <FontAwesomeIcon
-              icon={faCartShopping}
-              style={{ color: "#2e1579" }}
-              size="xl"
-            />
-            <span className="text-gray-700 text-[1.2rem]">Products</span>
-          </NavLink>
-          <NavLink
-            className="flex items-center gap-5 hover:bg-[#5e7bcc] p-2 hover:rounded-md"
-            to="/suppliers"
-          >
-            <FontAwesomeIcon
-              icon={faTruckField}
-              style={{ color: "#2e1579" }}
-              size="xl"
-            />
-            <span className="text-gray-700 text-[1.2rem]">Suppliers</span>
-          </NavLink>
-          <NavLink
-            className="flex items-center gap-5 hover:bg-[#5e7bcc] p-2 hover:rounded-md"
-            to="/offers"
-          >
-            <FontAwesomeIcon
-              icon={faTruckField}
-              style={{ color: "#2e1579" }}
-              size="xl"
-            />
-            <span className="text-gray-700 text-[1.2rem]">Offer</span>
-          </NavLink>
-          <NavLink
-            className="flex items-center gap-5 hover:bg-[#5e7bcc] p-2 hover:rounded-md"
-            to="/reports"
-          >
-            <FontAwesomeIcon
-              icon={faChartBar}
-              style={{ color: "#2e1579" }}
-              size="xl"
-            />
-            <span className="text-gray-700 text-[1.2rem]">Reports</span>
-          </NavLink>
-        </div>
-      </div>
+    const BUTTON_COLOR = "primary";
 
-      <div className="lower p-[3rem] pt-5 pb-0 space-y-1">
-        <p className="text-gray-700 font-semibold">SUPPORT</p>
-        <div className="Support space-y-[0.5rem] mx-5">
-          <NavLink
-            className="flex items-center gap-5 hover:bg-[#5e7bcc] p-2 hover:rounded-md"
-            to="/help"
-          >
-            <FontAwesomeIcon
-              icon={faCircleInfo}
-              style={{ color: "#2e1579" }}
-              size="xl"
-            />
-            <span className="text-gray-700 text-[1.2rem]">Help</span>
-          </NavLink>
-          <NavLink
-            className="flex items-center gap-5 hover:bg-[#5e7bcc] p-2 hover:rounded-md"
-            to="/settings"
-          >
-            <FontAwesomeIcon
-              icon={faGear}
-              style={{ color: "#2e1579" }}
-              size="xl"
-            />
-            <span className="text-gray-700 text-[1.2rem]">Settings</span>
-          </NavLink>
-          <NavLink
-            className="flex items-center gap-5 hover:bg-[#5e7bcc] p-2 hover:rounded-md"
-            to="/contact"
-          >
-            <FontAwesomeIcon
-              icon={faAddressCard}
-              style={{ color: "#2e1579" }}
-              size="xl"
-            />
-            <span className="text-gray-700 text-[1.2rem]">Contact Us</span>
-          </NavLink>
-        </div>
-      </div>
-    </div>
-  );
+    const navButtons = [
+        {
+            to: "/",
+            icon: <SpaceDashboardRoundedIcon />,
+            label: "Dashboard",
+        },
+        {
+            to: "/inventory",
+            icon: <Inventory2RoundedIcon />,
+            label: "Inventory",
+        },
+        {
+            to: "/products",
+            icon: <CategoryRoundedIcon />,
+            label: "Products",
+        },
+        {
+            to: "/vendors",
+            icon: <StorefrontRoundedIcon />,
+            label: "Vendors",
+        },
+        {
+            to: "/transport",
+            icon: <LocalShippingRoundedIcon />,
+            label: "Transport",
+        },
+        {
+            to: "/offers",
+            icon: <LocalOfferRoundedIcon />,
+            label: "Offers",
+        },
+        {
+            to: "/reports",
+            icon: <AssessmentRoundedIcon />,
+            label: "Reports",
+        },
+    ];
+
+    return (
+        <motion.div
+            initial={{
+                translateX: "100px",
+            }}
+            animate={{
+                translateX: "0px",
+            }}
+            transition={{
+                duration: 1,
+                type: "spring",
+            }}
+            className="flex flex-col border rounded-xl px-6 mb-5 py-4 gap-6 backdrop-filter backdrop-blur-lg bg-white bg-opacity-90"
+        >
+            <div className="flex flex-col gap-4 mt-3">
+                {navButtons.map((button, index) => (
+                    <NavButton
+                        key={index}
+                        to={button.to}
+                        icon={button.icon}
+                        label={button.label}
+                        color={BUTTON_COLOR}
+                    />
+                ))}
+            </div>
+        </motion.div>
+    );
 };
 
 export default Sidebar;
