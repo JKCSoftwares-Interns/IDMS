@@ -1,11 +1,7 @@
 /* This file needs to be divided */
 
-<<<<<<< HEAD
-import { Route, Routes } from 'react-router-dom';
-=======
 import { useLocation, Route, Routes } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
->>>>>>> 7d24c7931d1598d1d84fbfbbe4764fd9867d9fa1
 
 // HOMR
 import Home from "../pages/Home";
@@ -37,33 +33,9 @@ import UpdateOffer from "../pages/offers/UpdateOffer";
 
 // INVENTORY
 import Inventory from "../pages/inventory/InventoryList";
+import GoodsEntry from "../pages/inventory/GoodsEntry";
 
 const Routing = () => {
-<<<<<<< HEAD
-    return (
-        
-            <Routes>
-
-                <Route path="/" element={<Home />} />
-
-                {/* SUPPORT */}
-                <Route path="/help" element={<Help />} />
-                <Route path="/settings" element={<Settings />} />
-                <Route path="/contact" element={<ContactUs />} />
-
-                {/* PRODUCTS */}
-                <Route path="/products" element={<ProductList />} />
-                <Route path="/products/add" element={<AddProducts />} />
-                <Route path="/products/edit/:productId" element={<EditProducts />} />
-
-            </Routes>
-        
-
-    );
-};
-
-export default Routing;
-=======
 	const location = useLocation();
 
 	return (
@@ -98,6 +70,8 @@ export default Routing;
 				
 					{/* INVENTORY */}
 					<Route path="/inventory" element={<Inventory />} />
+					<Route path="/inventory/add" element={<GoodsEntry />} />
+
 				
 				</Routes>
 		</AnimatePresence>
@@ -105,4 +79,3 @@ export default Routing;
 };
 
 export default Routing;
->>>>>>> 7d24c7931d1598d1d84fbfbbe4764fd9867d9fa1
