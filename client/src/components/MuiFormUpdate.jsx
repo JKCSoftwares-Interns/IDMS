@@ -74,7 +74,7 @@ const MuiFormUpdate = ({ title, id, categories, fields, readonly }) => {
 		<PageAnimate className={"w-full grid place-items-center gap-6"}>
 			<Snackbar
 				open={open}
-				autoHideDuration={6000}
+				autoHideDuration={1000}
 				onClose={() => {
 					setOpen(false);
 					navigate(`/${title}`);
