@@ -507,8 +507,23 @@ import { useNavigate } from "react-router-dom";
 const MuiFormAdd = ({ title, categories, fields, goodsCategories = [] }) => {
     const [open, setOpen] = useState(false);
     const [formData, setFormData] = useState(fields.reduce((obj, item) => ({ ...obj, [item.name]: "" }), {}));
-    const [goodsSections, setGoodsSections] = useState([]);
+    const [goodsSections, setGoodsSections] = useState([]);	
     const navigate = useNavigate();
+	
+	// **************************
+	const check = title;
+	let alertPrompt = "";
+	if(check === "transport"){
+		alertPrompt = "Transport added successfully!";
+	}
+	else{
+		alertPrompt = title.slice(0,1).toUpperCase() + title.slice(1, title.length-1) +  " added successfully!";
+	}
+// **************************
+
+
+
+
 
     const handleChange = (e, sectionId = 0) => {
         const { name, value } = e.target;
@@ -590,7 +605,7 @@ const MuiFormAdd = ({ title, categories, fields, goodsCategories = [] }) => {
                     severity="success"
                     sx={{ width: "100%" }}
                 >
-                    Product added successfully!
+                    {alertPrompt}
                 </Alert>
             </Snackbar>
 
