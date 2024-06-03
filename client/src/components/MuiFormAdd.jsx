@@ -7,7 +7,16 @@ import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 
 const MuiFormAdd = ({ title, categories, fields }) => {
-
+	// const upperCaseStr = str.toUpperCase();
+	//we have to change the routes also if we want to display the alert Properly.
+	const check = title;
+	let alertPrompt = "";
+	if(check === "transport"){
+		alertPrompt = "Transport added successfully!";
+	}
+	else{
+		alertPrompt = title.slice(0,1).toUpperCase() + title.slice(1, title.length-1) +  " added successfully!";
+	}
 	const [open, setOpen] = useState(false);
 
 	const navigate = useNavigate();
@@ -54,22 +63,24 @@ const MuiFormAdd = ({ title, categories, fields }) => {
 		<>
 			<Snackbar
 				open={open}
-				autoHideDuration={6000}
+				autoHideDuration={1000}
+				
 				onClose={() => {
 					setOpen(false);
 					navigate(`/${title}`);
 				}}
 				anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
 			>
-				<Alert
+				<Alert 
 					onClose={() => {
 						setOpen(false);
 						navigate(`/${title}`);
 					}}
 					severity="success"
-					sx={{ width: "100%" }}
+					sx={{ width: "100%"}}
 				>
-					Product added successfully!
+					{/* {title} added successfully! */}
+					{alertPrompt}
 				</Alert>
 			</Snackbar>
 
