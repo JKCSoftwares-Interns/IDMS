@@ -516,6 +516,9 @@ const MuiFormAdd = ({ title, categories, fields, goodsCategories = [] }) => {
 	if(check === "transport"){
 		alertPrompt = "Transport added successfully!";
 	}
+    else if(check === "inventory"){
+        alertPrompt = "Goods Entry done successfully!";
+    }
 	else{
 		alertPrompt = title.slice(0,1).toUpperCase() + title.slice(1, title.length-1) +  " added successfully!";
 	}
@@ -633,7 +636,8 @@ const MuiFormAdd = ({ title, categories, fields, goodsCategories = [] }) => {
                 ))}
 
                 {/* Button to Add More Goods Sections */}
-                {title === "Goods Entry" && (
+                {/* {title === "Goods Entry" && ( */}
+                {title === "inventory" && (
                     <Box display="flex" justifyContent="center" mt={2}>
                         <Button
                             onClick={addAnotherGoodsSection}
@@ -646,9 +650,10 @@ const MuiFormAdd = ({ title, categories, fields, goodsCategories = [] }) => {
                     </Box>
                 )}
 
-                {title !== "Goods Entry" ? (
+                {/* {title !== "Goods Entry" ? ( */}
                 <Box className="flex justify-center mt-5">
                     <Button
+                        className='flex justify-center mt-5'
                         type="submit"
                         variant="contained"
                         sx={{
@@ -664,16 +669,18 @@ const MuiFormAdd = ({ title, categories, fields, goodsCategories = [] }) => {
                         Add to stock
                     </Button>
                 </Box>
-                ) : (
-                    <div className="flex justify-center mt-5 ">
-                    <Button
-                        variant="contained"
-                        className="bg-green-600 p-2 font-bold hover:bg-green-800 w-[60%]"
-                    >
-                        submit
-                    </Button>
-                </div>
-                )}
+                {/* // ) 
+                // : (
+                //     <div className="flex justify-center mt-5 ">
+                //     <Button */}
+                {/* //         variant="contained"
+                //         className="bg-green-600 p-2 font-bold hover:bg-green-800 w-[60%]"
+                //     >
+                //         submit
+                //     </Button>
+                // </div> */}
+                {/* // )
+                // } */}
 
             </form>
         </>

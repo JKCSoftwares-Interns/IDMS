@@ -10,6 +10,7 @@ import { MuiTable } from "../../components/MuiTable";
 import PageAnimate from "../../components/PageAnimate";
 
 const tableFields = [
+  { key: "inventoryId", label: "Inventory ID" },
   { key: "productName", label: "Product Name" },
   { key: "category", label: "Category" },
   { key: "quantity", label: "Quantity" },
@@ -36,8 +37,8 @@ const InventoryList = () => {
     fetchData();
   }, []);
 
-  const filteredData = data.filter((item) =>
-    item.productName.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredData = data.filter((inventory) =>
+    inventory.productName && inventory.productName.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (

@@ -6,6 +6,7 @@ import productsRoute from "./src/routes/products";
 import vendorsRoute from "./src/routes/vendors";
 import transportRoute from "./src/routes/transport";
 import offersRoute from "./src/routes/offers";
+import inventoryRoute from "./src/routes/inventory";
 
 const PORT = 8000;
 
@@ -21,6 +22,8 @@ app.use('/products', productsRoute);
 app.use('/vendors', vendorsRoute);
 app.use('/transport', transportRoute);
 app.use('/offers', offersRoute);
+app.use('/inventory', inventoryRoute);
+
 
 app.get("/", (_, res) => {
 	res.send("IDMS | JKCSoftware LLP running 🚀");

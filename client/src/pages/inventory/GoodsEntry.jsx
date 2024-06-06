@@ -185,7 +185,7 @@ const GoodsEntry = () => {
         <PageAnimate className="w-full flex flex-col items-center justify-center">
             <div className="w-full flex flex-col items-center justify-center">
                 <MuiFormAdd
-                    title={"Goods Entry"}
+                    title={"inventory"}//title={"Goods Entry"}
                     categories={GoodsCategories}
                     fields={GoodsFields}
                     addGoodsCount={addGoodsCount}
