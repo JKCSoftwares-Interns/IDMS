@@ -7,13 +7,24 @@ import { pool } from "../config/db";
 
 interface Inventory {
     inventoryId: string;
-    productName: string;
-    category: string;
+	orderedDate: string;
+	dateOfEntry: string;
+	referenceNumber: string;
+    supplier: string;
+	reason: string;
+	productId: string;
+	dateOfManufacture: string;
+	dateOfExpiry: string;
     quantity: number;
-    supplierName: string;
-    purchaseDate: string;
-    expiryDate: string;
-    status: string;
+	purchasePrice: number;
+	sellingPrice: number;
+	batchNumber: string;
+	storageLocation: string;
+	additionalNote: string;
+	dateAdded: string;
+	addedBy: string;
+	lastEditedDate: string;
+	lastEditedBy: string;
 }
 
 const router = express.Router();
@@ -25,6 +36,7 @@ router.get("/", async (_, res) => {
 	try {
 		conn = await pool.getConnection();
 		const data = await conn.query("SELECT * FROM inventory");
+		// console.log(await conn.query("DESCRIBE inventory"));
 		res.json(data);
 	} catch (err) {
 		console.log(err);
@@ -43,19 +55,31 @@ router.post("/add", async (req, res) => {
 		const inventory: Inventory = parseData(req.body);
 		await conn.query(`
     INSERT INTO inventory (
-        productName, category, quantity, supplierName, purchaseDate, expiryDate, status
+        inventoryId,orderedDate,dateOfEntry,referenceNumber,supplier,reason,productId,dateOfManufacture,dateOfExpiry,quantity,purchasePrice,sellingPrice,batchNumber,storageLocation,additionalNote,dateAdded,addedBy,lastEditedDate,lastEditedBy
         ) VALUES (
-        ?, ?, ?, ?, ?, ?, ?
+			?,?,?,?,?,?,?,?,?,?,?,?,?,?,?, NOW(),?,NULL,NULL
         );
         `,
 			[
-				inventory.productName,
-                inventory.category,
-                inventory.quantity,
-                inventory.supplierName,
-                inventory.purchaseDate,
-                inventory.expiryDate,
-                inventory.status,
+				inventory.inventoryId,
+				inventory.orderedDate,
+				inventory.dateOfEntry,
+				inventory.referenceNumber,
+				inventory.supplier,
+				inventory.reason,
+				inventory.productId,
+				inventory.dateOfManufacture,
+				inventory.dateOfExpiry,
+				inventory.quantity,
+				inventory.purchasePrice,
+				inventory.sellingPrice,
+				inventory.batchNumber,
+				inventory.storageLocation,
+				inventory.additionalNote,
+				inventory.dateAdded,
+				inventory.addedBy,
+				inventory.lastEditedDate,
+				inventory.lastEditedBy,
 			]
 		);
 		res.status(200).send("Inventory added successfully");
@@ -103,28 +127,28 @@ router.post("/add", async (req, res) => {
 // 		}
 // 		await conn.query(
 // 			`
-// 		UPDATE products SET
-// 		  productName = ?, 
-// 		  category = ?, 
-// 		  measuringUnit = ?, 
-// 		  packSize = ?, 
-// 		  noOfUnits = ?, 
-// 		  unitMRP = ?, 
-// 		  packMRP = ?, 
-// 		  manufacturer = ?, 
-// 		  marketer = ?, 
-// 		  supplier = ?, 
-// 		  upc = ?, 
-// 		  hsn = ?, 
-// 		  cgst = ?, 
-// 		  sgst = ?, 
-// 		  igst = ?, 
-// 		  cess = ?, 
-// 		  loadPrice = ?, 
-// 		  unloadingPrice = ?, 
-// 		  lastEditedDate = NOW(), 
-// 		  lastEditedBy = ?
-// 		WHERE productId = ?
+		// UPDATE products SET
+		//   productName = ?, 
+		//   category = ?, 
+		//   measuringUnit = ?, 
+		//   packSize = ?, 
+		//   noOfUnits = ?, 
+		//   unitMRP = ?, 
+		//   packMRP = ?, 
+		//   manufacturer = ?, 
+		//   marketer = ?, 
+		//   supplier = ?, 
+		//   upc = ?, 
+		//   hsn = ?, 
+		//   cgst = ?, 
+		//   sgst = ?, 
+		//   igst = ?, 
+		//   cess = ?, 
+		//   loadPrice = ?, 
+		//   unloadingPrice = ?, 
+		//   lastEditedDate = NOW(), 
+		//   lastEditedBy = ?
+		// WHERE productId = ?
 // 		`,
 // 			[
 // 				product.productName,
@@ -204,6 +228,8 @@ function parseData(inventory: any) {
   will think of another way of doing this later... */
 	const intfields = [
 		"quantity",
+		"purchasePrice",
+		"sellingPrice",
 	];
 	for (const field of intfields) {
 		if (typeof inventory[field] !== "string" || isNaN(Number(inventory[field]))) {
