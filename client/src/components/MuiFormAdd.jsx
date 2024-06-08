@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { useState } from "react";
 import serverInstance from "../services/serverInstance";
 import { useNavigate } from "react-router-dom";
 
@@ -47,18 +48,10 @@ const MuiFormAdd = ({ title, categories, fields, goodsCategories = [] }) => {
     const finalData = { ...formData, addedBy: "admin" };
     const url = `/${title}/add`;
 
-        try {
-            console.log(finalData);
-            await serverInstance.post(url, finalData);
-            await serverInstance.post(`/user`, true);
-            setOpen(true);
-        } catch (error) {
-            console.error("Error:", error);
-            setOpen(true);
-        }
-    };
     try {
+      console.log(finalData);
       await serverInstance.post(url, finalData);
+      await serverInstance.post(`/user`, true);
       setOpen(true);
     } catch (error) {
       console.error("Error:", error);
