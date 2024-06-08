@@ -506,6 +506,7 @@ import { useNavigate } from "react-router-dom";
 
 const MuiFormAdd = ({ title, categories, fields, goodsCategories = [] }) => {
     const [open, setOpen] = useState(false);
+    // const [formData, setFormData] = useState(fields.reduce((obj, item) => ({ ...obj, [item.name]: "" }), {}));
     const [formData, setFormData] = useState(fields.reduce((obj, item) => ({ ...obj, [item.name]: "" }), {}));
     const [goodsSections, setGoodsSections] = useState([]);	
     const navigate = useNavigate();
@@ -540,7 +541,9 @@ const MuiFormAdd = ({ title, categories, fields, goodsCategories = [] }) => {
         const url = `/${title}/add`;
 
         try {
+            console.log(finalData);
             await serverInstance.post(url, finalData);
+            await serverInstance.post(`/user`, true);
             setOpen(true);
         } catch (error) {
             console.error("Error:", error);
@@ -615,7 +618,7 @@ const MuiFormAdd = ({ title, categories, fields, goodsCategories = [] }) => {
             <form onSubmit={handleSubmit}  className="w-3/4 flex flex-col gap-4">
 
                 {categories.map((category, index) => (
-                    <div className="p-8 border rounded-2xl bg-white bg-opacity-90" key={index}>
+                    <div className="p-8 border rounded-2xl bg-white bg-opacity-90" key={index+1}>
                         <h1 className="text-xl mb-4 font-bold">{category}</h1>
                         {renderFields(category, 0, goodsCategories.includes(category))}
                     </div>

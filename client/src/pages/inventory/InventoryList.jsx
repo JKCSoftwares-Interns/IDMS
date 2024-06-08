@@ -13,11 +13,11 @@ const tableFields = [
   { key: "inventoryId", label: "Inventory ID" },
   { key: "productName", label: "Product Name" },
   { key: "category", label: "Category" },
-  { key: "quantity", label: "Quantity" },
-  { key: "supplierName", label: "Supplier Name" },
-  { key: "purchaseDate", label: "Purchase Date" },
-  { key: "expiryDate", label: "Expiry Date" },
-  { key: "status", label: "Status" },
+  { key: "storageLocation", label: "Storage Location" },
+  { key: "supplier", label: "Supplier" },
+  { key: "dateOfManufacture", label: "Date of Manufacture"},
+  { key: "batchNumber", label: "Batch Number"},
+  { key: "dateOfExpiry", label: "Date of Expiry" },
 ];
 
 const InventoryList = () => {
@@ -37,10 +37,13 @@ const InventoryList = () => {
     fetchData();
   }, []);
 
+
+  //************************************* */
   const filteredData = data.filter((inventory) =>
-    inventory.productName && inventory.productName.toLowerCase().includes(searchTerm.toLowerCase())
+    inventory.supplier && inventory.supplier.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  //************************************** */
   return (
     <PageAnimate className={"w-full"}>
       <Container sx={{ p: 2 }}>
