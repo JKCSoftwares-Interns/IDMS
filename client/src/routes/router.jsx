@@ -34,6 +34,7 @@ import UpdateOffer from "../pages/offers/UpdateOffer";
 // INVENTORY
 import Inventory from "../pages/inventory/InventoryList";
 import GoodsEntry from "../pages/inventory/GoodsEntry";
+import GoodsRemoval from "../pages/inventory/GoodsRemoval";
 
 const Routing = () => {
 	const location = useLocation();
@@ -71,6 +72,7 @@ const Routing = () => {
 					{/* INVENTORY */}
 					<Route path="/inventory" element={<Inventory />} />
 					<Route path="/inventory/add" element={<GoodsEntry />} />
+					<Route path="/inventory/remove" element={<GoodsRemoval />} />
 
 				
 				</Routes>
