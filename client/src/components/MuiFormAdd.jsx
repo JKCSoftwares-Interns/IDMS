@@ -11,13 +11,18 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { useState } from "react";
 import serverInstance from "../services/serverInstance";
 import { useNavigate } from "react-router-dom";
+import Autocomplete from "@mui/material/Autocomplete";
 
-const MuiFormAdd = ({ title, categories, fields, goodsCategories = [] }) => {
+const MuiFormAdd = ({ title, products = [], categories, fields, goodsCategories = [] }) => {
+  
+  // console.log("products: ", products);
+
   const [open, setOpen] = useState(false);
   const [formData, setFormData] = useState(
     fields.reduce((obj, item) => ({ ...obj, [item.name]: "" }), {}),
   );
   const [goodsSections, setGoodsSections] = useState([]);
+  const [selectedProduct, setSelectedProduct] = useState(null);
   const navigate = useNavigate();
 
   // **************************
@@ -51,7 +56,6 @@ const MuiFormAdd = ({ title, categories, fields, goodsCategories = [] }) => {
     try {
       console.log(finalData);
       await serverInstance.post(url, finalData);
-      await serverInstance.post(`/user`, true);
       setOpen(true);
     } catch (error) {
       console.error("Error:", error);
@@ -77,6 +81,7 @@ const MuiFormAdd = ({ title, categories, fields, goodsCategories = [] }) => {
   };
 
   const renderFields = (category, sectionId = 0, useGridLayout = false) => (
+
     <Box
       sx={{
         display: "grid",
@@ -92,11 +97,6 @@ const MuiFormAdd = ({ title, categories, fields, goodsCategories = [] }) => {
           const id =
             sectionId === 0 ? field.name : `${field.name}_${sectionId}`;
           let value = formData[id];
-
-          // If the sectionId is 1 (i.e., "Add Goods 1" section), set the value to something different
-          if (sectionId === 1) {
-            value = "asd";
-          }
 
           return (
             <TextField
@@ -139,6 +139,28 @@ const MuiFormAdd = ({ title, categories, fields, goodsCategories = [] }) => {
           {alertPrompt}
         </Alert>
       </Snackbar>
+            
+      {products && products.map((product) => (
+      <div className="w-72 mb-5" key={product.id}>
+        <Autocomplete
+          key={`${product.id}`}
+          options={products}
+          getOptionLabel={(option) => option.productName}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label="Product Name"
+              variant="outlined"
+              fullWidth
+            />
+          )}
+          value={selectedProduct}
+          onChange={(_, newValue) => {
+            setSelectedProduct(newValue);
+          }}
+        />
+      </div>
+))}
 
       <form onSubmit={handleSubmit} className="w-3/4 flex flex-col gap-4">
         {categories.map((category, index) => (

@@ -173,9 +173,17 @@ await conn.query(`
 
   await conn.query(`
     CREATE TABLE IF NOT EXISTS user_activity (
-      productsAdded BOOLEAN
+      productsAdded BOOLEAN NOT NULL DEFAULT false
     );
     `);
+
+  await conn.query(`
+      INSERT INTO user_activity (
+        productsAdded
+      ) VALUES (
+        false
+      )
+    `)
 
     console.log("Database initialized successfully.");
   } catch (err) {

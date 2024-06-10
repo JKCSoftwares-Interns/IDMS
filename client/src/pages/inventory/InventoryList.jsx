@@ -15,14 +15,15 @@ const tableFields = [
   { key: "category", label: "Category" },
   { key: "storageLocation", label: "Storage Location" },
   { key: "supplier", label: "Supplier" },
-  { key: "dateOfManufacture", label: "Date of Manufacture"},
-  { key: "batchNumber", label: "Batch Number"},
+  { key: "dateOfManufacture", label: "Date of Manufacture" },
+  { key: "batchNumber", label: "Batch Number" },
   { key: "dateOfExpiry", label: "Date of Expiry" },
 ];
 
 const InventoryList = () => {
   const [data, setData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [key, setKey] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -37,14 +38,28 @@ const InventoryList = () => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    const fetchProductCount = async () => {
+      try {
+        const response = await serverInstance.get("/products/count");
+        setKey(response.data > 0);
+      } catch (error) {
+        console.error("Failed to fetch product count:", error);
+      }
+    };
+  
+    fetchProductCount();
+  }, []);
 
   //************************************* */
-  const filteredData = data.filter((inventory) =>
-    inventory.supplier && inventory.supplier.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredData = data.filter(
+    (inventory) =>
+      inventory.supplier &&
+      inventory.supplier.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   //************************************** */
-  return (
+  return key ? (
     <PageAnimate className={"w-full"}>
       <Container sx={{ p: 2 }}>
         <div className="flex p-8 justify-between items-center w-full">
@@ -70,6 +85,12 @@ const InventoryList = () => {
         />
       </Container>
     </PageAnimate>
+  ) : (
+    <>
+      <div className="min-h-screen w-full grid place-items-center">
+        <h1 className="text-3xl font-bold"> please add products first! </h1>
+      </div>
+    </>
   );
 };
 
