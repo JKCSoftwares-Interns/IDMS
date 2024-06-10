@@ -37,7 +37,7 @@ const GoodsEntry = () => {
         // { label: "Last Edited Date", name: "lastEditedDate", type: "date", category: "Goods Entry" },
 
         /* Add Goods */
-        // { label: "Product ID", name: "productId", type: "number", category: "Add Goods" },
+        { label: "Product Name", name: "productName", type: "number", category: "Add Goods" },
         { label: "Date of Manufacturing", name: "dateOfManufacture", type: "date", category: "Add Goods" },
         { label: "Date of Expiry", name: "dateOfExpiry", type: "date", category: "Add Goods" },
         { label: "Quantity", name: "quantity", type: "number", category: "Add Goods" },
