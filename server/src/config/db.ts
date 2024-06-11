@@ -1,24 +1,24 @@
 import mariadb, { PoolConnection } from "mariadb";
 
 export async function initializeDB() {
-	console.log("Initializing database...");
+  console.log("Initializing database...");
 
-	const pool = mariadb.createPool({
-		host: "localhost",
-		user: "root",
-		password: "test",
-		port: 3306,
-		connectionLimit: 5,
-	});
+  const pool = mariadb.createPool({
+    host: "localhost",
+    user: "root",
+    password: "test",
+    port: 3306,
+    connectionLimit: 5,
+  });
 
-	let conn: PoolConnection | null = null;
-	try {
-		conn = await pool.getConnection();
-		await conn.query(`CREATE DATABASE IF NOT EXISTS testidms;`);
-		await conn.query(`USE testidms;`);
+  let conn: PoolConnection | null = null;
+  try {
+    conn = await pool.getConnection();
+    await conn.query(`CREATE DATABASE IF NOT EXISTS testidms;`);
+    await conn.query(`USE testidms;`);
 
-		// Creating `products` Table inside Database
-		await conn.query(`
+    // Creating `products` Table inside Database
+    await conn.query(`
     CREATE TABLE IF NOT EXISTS products (
       productId INT AUTO_INCREMENT PRIMARY KEY,
       productName VARCHAR(255),
@@ -46,8 +46,8 @@ export async function initializeDB() {
     );
 `);
 
-		// Creating `vendors` Table inside Database
-		await conn.query(`
+    // Creating `vendors` Table inside Database
+    await conn.query(`
   CREATE TABLE IF NOT EXISTS vendors (
     vendorId INT AUTO_INCREMENT PRIMARY KEY,
     vendorName VARCHAR(255),
@@ -76,8 +76,8 @@ export async function initializeDB() {
   );
 `);
 
-		// Creating `offers` Table inside Database
-		await conn.query(`
+    // Creating `offers` Table inside Database
+    await conn.query(`
   CREATE TABLE IF NOT EXISTS offers (
     offerId INT AUTO_INCREMENT PRIMARY KEY,
     offerType VARCHAR(255),
@@ -100,8 +100,8 @@ export async function initializeDB() {
   );
 `);
 
-		// Creating `transports` Table inside Database
-		await conn.query(`
+    // Creating `transports` Table inside Database
+    await conn.query(`
     CREATE TABLE IF NOT EXISTS transports (
       transportId INT AUTO_INCREMENT PRIMARY KEY,
       transportName VARCHAR(255),
@@ -130,19 +130,74 @@ export async function initializeDB() {
       lastEditedBy VARCHAR(255)
     );
 `);
-		console.log("Database initialized successfully.");
-	} catch (err) {
-		console.error("Error initializing database: ", err);
-	} finally {
-		if (conn) conn.release();
-	}
+
+    // Creating `inventory` Table inside Database
+//     await conn.query(`
+//     CREATE TABLE IF NOT EXISTS inventory (
+//       inventoryId INT AUTO_INCREMENT PRIMARY KEY,
+//       productName VARCHAR(255),
+//       category VARCHAR(255),
+//       quantity INT,
+//       supplierName VARCHAR(255),
+//       purchaseDate date,
+//       expiryDate date,
+//       status VARCHAR(255)
+//     );
+// `);
+
+await conn.query(` 
+  CREATE TABLE IF NOT EXISTS inventory(
+    inventoryId INT AUTO_INCREMENT PRIMARY KEY,
+    orderedDate VARCHAR(10),
+    dateOfEntry VARCHAR(10),
+    referenceNumber VARCHAR(255),
+    supplier VARCHAR(255),
+    reason VARCHAR(255),
+    productId INT,
+    dateOfManufacture VARCHAR(10),
+    dateOfExpiry VARCHAR(10),
+    quantity INT,
+    purchasePrice DECIMAL(10, 2),
+    sellingPrice DECIMAL(10, 2),
+    batchNumber VARCHAR(255),
+    storageLocation VARCHAR(255),
+    additionalNote VARCHAR(255),
+    dateAdded TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    addedBy VARCHAR(255),
+    lastEditedDate TIMESTAMP,
+    lastEditedBy VARCHAR(255),
+    FOREIGN KEY (productId) REFERENCES products(productId)
+  );
+  `);
+
+
+  await conn.query(`
+    CREATE TABLE IF NOT EXISTS user_activity (
+      productsAdded BOOLEAN NOT NULL DEFAULT false
+    );
+    `);
+
+  await conn.query(`
+      INSERT INTO user_activity (
+        productsAdded
+      ) VALUES (
+        false
+      )
+    `)
+
+    console.log("Database initialized successfully.");
+  } catch (err) {
+    console.error("Error initializing database: ", err);
+  } finally {
+    if (conn) conn.release();
+  }
 }
 
 export const pool = mariadb.createPool({
-	host: "localhost",
-	user: "root",
-	password: "test",
-	port: 3306,
-	database: "testidms",
-	connectionLimit: 5,
+  host: "localhost",
+  user: "root",
+  password: "test",
+  port: 3306,
+  database: "testidms",
+  connectionLimit: 5,
 });

@@ -10,18 +10,20 @@ import { MuiTable } from "../../components/MuiTable";
 import PageAnimate from "../../components/PageAnimate";
 
 const tableFields = [
+  { key: "inventoryId", label: "Inventory ID" },
   { key: "productName", label: "Product Name" },
   { key: "category", label: "Category" },
-  { key: "quantity", label: "Quantity" },
-  { key: "supplierName", label: "Supplier Name" },
-  { key: "purchaseDate", label: "Purchase Date" },
-  { key: "expiryDate", label: "Expiry Date" },
-  { key: "status", label: "Status" },
+  { key: "storageLocation", label: "Storage Location" },
+  { key: "supplier", label: "Supplier" },
+  { key: "dateOfManufacture", label: "Date of Manufacture" },
+  { key: "batchNumber", label: "Batch Number" },
+  { key: "dateOfExpiry", label: "Date of Expiry" },
 ];
 
 const InventoryList = () => {
   const [data, setData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [key, setKey] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -36,11 +38,28 @@ const InventoryList = () => {
     fetchData();
   }, []);
 
-  const filteredData = data.filter((item) =>
-    item.productName.toLowerCase().includes(searchTerm.toLowerCase())
+  useEffect(() => {
+    const fetchProductCount = async () => {
+      try {
+        const response = await serverInstance.get("/products/count");
+        setKey(response.data > 0);
+      } catch (error) {
+        console.error("Failed to fetch product count:", error);
+      }
+    };
+  
+    fetchProductCount();
+  }, []);
+
+  //************************************* */
+  const filteredData = data.filter(
+    (inventory) =>
+      inventory.supplier &&
+      inventory.supplier.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
-  return (
+  //************************************** */
+  return key ? (
     <PageAnimate className={"w-full"}>
       <Container sx={{ p: 2 }}>
         <div className="flex p-8 justify-between items-center w-full">
@@ -66,6 +85,12 @@ const InventoryList = () => {
         />
       </Container>
     </PageAnimate>
+  ) : (
+    <>
+      <div className="min-h-screen w-full grid place-items-center">
+        <h1 className="text-3xl font-bold"> please add products first! </h1>
+      </div>
+    </>
   );
 };
 
