@@ -1,4 +1,4 @@
-import serverInstance from "../services/serverInstance";
+import {serverInstance} from "../services/backendUtils";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";

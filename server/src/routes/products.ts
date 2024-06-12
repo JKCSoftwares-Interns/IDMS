@@ -49,22 +49,6 @@ router.get("/", async (_, res) => {
 	}
 });
 
-router.get("/count", async (_, res) => {
-	greetStatus("count");
-  
-	let conn: PoolConnection | null = null;
-	try {
-	  conn = await pool.getConnection();
-	  const data = await conn.query("SELECT COUNT(*) FROM products");
-	  res.json(Number(data[0]['COUNT(*)']));
-	} catch (err) {
-	  console.log(err);
-	  res.sendStatus(500);
-	} finally {
-	  if (conn) conn.release();
-	}
-  });
-
 router.post("/add", async (req, res) => {
 	greetStatus("add");
 

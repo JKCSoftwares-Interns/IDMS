@@ -4,51 +4,48 @@ import { Button } from "@mui/material";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { Container } from "@mui/material";
 
-import serverInstance from "../../services/serverInstance";
+import {serverInstance} from "../../services/backendUtils";
 import { MuiTable } from "../../components/MuiTable";
 
 import PageAnimate from "../../components/PageAnimate";
 
-const tableFields = [
-	{ key: "productId", label: "Product ID" },
-	{ key: "productName", label: "Product Name" },
-	{ key: "category", label: "Category" },
-	{ key: "measuringUnit", label: "Measuring Unit" },
-	{ key: "supplier", label: "Supplier" },
-
-	{ key: "packSize", label: "Pack Size" },
-	{ key: "noOfUnits", label: "Count" },
-	{ key: "unitMRP", label: "MRP" },
-	{ key: "packMRP", label: "Pack MRP" },
-	{ key: "loadPrice", label: "Load Price" },
-	{ key: "unloadingPrice", label: "Unloading Price" },
-
-	// { key: 'marketer', label: 'Marketer'},
-	// { key: "manufacturer", label: "Manufacturer" },
-
-	// { key: 'upc', label: 'UPC'},
-	// { key: 'hsn', label: 'HSN'},
-
-	// { key: 'cgst', label: 'CGST'},
-	// { key: 'sgst', label: 'SGST'},
-	// { key: 'igst', label: 'IGST'},
-	// { key: 'cess', label: 'CESS'},
-
-	// { key: 'dateAdded', label: 'Date Added'},
-	// { key: 'addedBy', label: 'Added By'},
-	// { key: 'lastEditedDate', label: 'Last Edited Date'},
-	// { key: 'lastEditedBy', label: 'Last Edited By'}
-];
+interface Product {
+	productId: string;
+	productName: string;
+	category: string;
+	measuringUnit: string;
+	packSize: number;
+	noOfUnits: number;
+	unitMRP: number;
+	packMRP: number;
+	manufacturer: string;
+	marketer: string;
+	supplier: string;
+	upc: string;		
+	hsn: string;
+	cgst: number;
+	sgst: number;
+	igst: number;
+	cess: number;
+	loadPrice: number;
+	unloadingPrice: number;
+	dateAdded: string;
+	addedBy: string;
+	lastEditedDate: string;
+	lastEditedBy: string;
+	[key: string]: string | number;
+}
 
 const ProductList = () => {
-	const [data, setData] = useState([]);
+	const [data, setData] = useState<Product[]>([]);
 	const [searchTerm, setSearchTerm] = useState("");
 
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
 				const response = await serverInstance.get("/products");
-				const processedData = response.data.map(item => {
+				const rawData: Product[] = response.data;
+				const productData = rawData.map(item => {
 					const newItem = { ...item };
 					tableFields.forEach(field => {
 						if (!newItem[field.key]) {
@@ -58,7 +55,7 @@ const ProductList = () => {
 					return newItem;
 				});
 
-				setData(processedData);
+				setData(productData);
 			} catch (error) {
 				console.error("Failed to fetch products:", error);
 			}
@@ -109,3 +106,36 @@ const ProductList = () => {
 };
 
 export default ProductList;
+
+/*----------------Fields to Showcase-----------------*/
+
+const tableFields = [
+	{ key: "productId", label: "Product ID" },
+	{ key: "productName", label: "Product Name" },
+	{ key: "category", label: "Category" },
+	{ key: "measuringUnit", label: "Measuring Unit" },
+	{ key: "supplier", label: "Supplier" },
+
+	{ key: "packSize", label: "Pack Size" },
+	{ key: "noOfUnits", label: "Count" },
+	{ key: "unitMRP", label: "MRP" },
+	{ key: "packMRP", label: "Pack MRP" },
+	{ key: "loadPrice", label: "Load Price" },
+	{ key: "unloadingPrice", label: "Unloading Price" },
+
+	// { key: 'marketer', label: 'Marketer'},
+	// { key: "manufacturer", label: "Manufacturer" },
+
+	// { key: 'upc', label: 'UPC'},
+	// { key: 'hsn', label: 'HSN'},
+
+	// { key: 'cgst', label: 'CGST'},
+	// { key: 'sgst', label: 'SGST'},
+	// { key: 'igst', label: 'IGST'},
+	// { key: 'cess', label: 'CESS'},
+
+	// { key: 'dateAdded', label: 'Date Added'},
+	// { key: 'addedBy', label: 'Added By'},
+	// { key: 'lastEditedDate', label: 'Last Edited Date'},
+	// { key: 'lastEditedBy', label: 'Last Edited By'}
+];

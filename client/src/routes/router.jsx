@@ -32,8 +32,8 @@ import AddOffer from "../pages/offers/AddOffer";
 import UpdateOffer from "../pages/offers/UpdateOffer";
 
 // INVENTORY
-import Inventory from "../pages/inventory/InventoryList";
-import GoodsEntry from "../pages/inventory/GoodsEntry";
+import InventoryList from "../pages/inventory/ViewInventory";
+import AddInventory from "../pages/inventory/AddInventory";
 
 const Routing = () => {
 	const location = useLocation();
@@ -69,8 +69,8 @@ const Routing = () => {
 					<Route path="/offers/edit/:offerId" element={<UpdateOffer />} />
 				
 					{/* INVENTORY */}
-					<Route path="/inventory" element={<Inventory />} />
-					<Route path="/inventory/add" element={<GoodsEntry />} />
+					<Route path="/inventory" element={<InventoryList />} />
+					<Route path="/inventory/add" element={<AddInventory />} />
 
 				
 				</Routes>

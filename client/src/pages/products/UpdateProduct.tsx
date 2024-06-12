@@ -1,6 +1,6 @@
-import { useParams } from "react-router-dom";
 import PageAnimate from "../../components/PageAnimate";
 import MuiFormUpdate from "../../components/MuiFormUpdate";
+import { useParams } from "react-router-dom";
 
 const UpdateProduct = () => {
 	

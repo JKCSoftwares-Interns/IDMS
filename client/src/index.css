@@ -37,3 +37,8 @@
 html {
   background-color: #f1f5f9;
 }
+
+*, *::before, *::after{
+  box-sizing: border-box;
+  user-select: none;
+}

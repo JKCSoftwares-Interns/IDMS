@@ -4,18 +4,19 @@ import express from "express";
 import { PoolConnection } from "mariadb";
 
 import { pool } from "../config/db";
+import { cp } from "fs";
 
 interface Inventory {
-    inventoryId: string;
+	inventoryId: string;
 	orderedDate: string;
 	dateOfEntry: string;
 	referenceNumber: string;
-    supplier: string;
+	supplier: string;
 	reason: string;
 	productId: string;
 	dateOfManufacture: string;
 	dateOfExpiry: string;
-    quantity: number;
+	quantity: number;
 	purchasePrice: number;
 	sellingPrice: number;
 	batchNumber: string;
@@ -53,7 +54,8 @@ router.post("/add", async (req, res) => {
 	try {
 		conn = await pool.getConnection();
 		const inventory: Inventory = parseData(req.body);
-		await conn.query(`
+		await conn.query(
+			`
     INSERT INTO inventory (
         inventoryId,orderedDate,dateOfEntry,referenceNumber,supplier,reason,productId,dateOfManufacture,dateOfExpiry,quantity,purchasePrice,sellingPrice,batchNumber,storageLocation,additionalNote,dateAdded,addedBy,lastEditedDate,lastEditedBy
         ) VALUES (
@@ -91,123 +93,60 @@ router.post("/add", async (req, res) => {
 	}
 });
 
-// router.get("/edit/:id", async (req, res) => {
-// 	let conn: PoolConnection | null = null;
-// 	try {
-// 	  conn = await pool.getConnection();
-// 	  const { id } = req.params;
-// 	  const rows = await conn.query("SELECT * FROM products WHERE productId = ?", [id]);
-// 	  if (rows.length === 0) {
-// 		res.status(404).send("Product not found");
-// 	  } else {
-// 		res.json(rows[0]);
-// 	  }
-// 	} catch (err) {
-// 	  console.log(err);
-// 	  res.status(500).send(err);
-// 	} finally {
-// 	  if (conn) conn.release();
-// 	}
-//   });
+router.get("/count", async (_, res) => {
+	//counts product
+	greetStatus("count");
 
-// router.post("/edit/:id", async (req, res) => {
-// 	console.log("ID ==>", req.params.id);
+	let conn: PoolConnection | null = null;
+	try {
+		conn = await pool.getConnection();
+		const [row]: [{ count: number }] = await conn.query("SELECT COUNT(*) AS count FROM products");
+		const result: string = row.count.toString(); //cannot send as number; automatically converts to `number` at frontend.
+		console.log("Sending `product` count:", result, typeof result);
+		res.send(result);
+	} catch (err) {
+		console.log(err);
+		res.sendStatus(500);
+	} finally {
+		if (conn) conn.release();
+	}
+});
 
-// 	greetStatus("edit");
+router.post("/names", async (req, res) => {
+	const { name } = req.body;
+	greetStatus("count");
 
-// 	let conn: PoolConnection | null = null;
-// 	try {
-// 		conn = await pool.getConnection();
-// 		console.log("DATA RECEIVED:", req.body);
-// 		const product: Inventory = parseData(req.body);
-// 		if (!product) {
-// 			console.log("error 400");
-// 			res.status(400).send("Invalid product data");
-// 			return;
-// 		}
-// 		await conn.query(
-// 			`
-		// UPDATE products SET
-		//   productName = ?, 
-		//   category = ?, 
-		//   measuringUnit = ?, 
-		//   packSize = ?, 
-		//   noOfUnits = ?, 
-		//   unitMRP = ?, 
-		//   packMRP = ?, 
-		//   manufacturer = ?, 
-		//   marketer = ?, 
-		//   supplier = ?, 
-		//   upc = ?, 
-		//   hsn = ?, 
-		//   cgst = ?, 
-		//   sgst = ?, 
-		//   igst = ?, 
-		//   cess = ?, 
-		//   loadPrice = ?, 
-		//   unloadingPrice = ?, 
-		//   lastEditedDate = NOW(), 
-		//   lastEditedBy = ?
-		// WHERE productId = ?
-// 		`,
-// 			[
-// 				product.productName,
-// 				product.category,
-// 				product.measuringUnit,
-// 				product.packSize,
-// 				product.noOfUnits,
-// 				product.unitMRP,
-// 				product.packMRP,
-// 				product.manufacturer,
-// 				product.marketer,
-// 				product.supplier,
-// 				product.upc,
-// 				product.hsn,
-// 				product.cgst,
-// 				product.sgst,
-// 				product.igst,
-// 				product.cess,
-// 				product.loadPrice,
-// 				product.unloadingPrice,
-// 				product.lastEditedBy,
-// 				req.params.id,
-// 			]
-// 		);
-// 		res.status(200).send("Product updated successfully");
-// 	} catch (err) {
-// 		console.log("couldn't update: ", err);
-// 		res.status(500).send("Error updating product");
-// 	} finally {
-// 		if (conn) conn.release();
-// 	}
-// });
+	let conn: PoolConnection | null = null;
+	try {
+		conn = await pool.getConnection();
+		const data = await conn.query(
+			"SELECT productName FROM products WHERE supplier IS ?",
+			[name]
+		);
+		res.send(data); //still sends in json
+	} catch (err) {
+		console.log(err);
+		res.sendStatus(500);
+	} finally {
+		if (conn) conn.release();
+	}
+});
 
-// router.delete("/delete/:id", async (req, res) => {
-// 	greetStatus("delete");
+router.get("/supp", async (_, res) => {
+	greetStatus("count");
 
-// 	let conn: PoolConnection | null = null;
-// 	try {
-// 		conn = await pool.getConnection();
-// 		const id = req.params.id;
-// 		if (!id) {
-// 			res.status(400).send("No id provided");
-// 			return;
-// 		}
-// 		await conn.query(
-// 			`
-// 		DELETE FROM products
-// 		WHERE productId = ?
-// 		`,
-// 			[id]
-// 		);
-// 		res.status(200).send("Product deleted successfully");
-// 	} catch (err) {
-// 		console.log("couldn't delete: ", err);
-// 		res.status(500).send("Error deleting product");
-// 	} finally {
-// 		if (conn) conn.release();
-// 	}
-// });
+	let conn: PoolConnection | null = null;
+	try {
+		conn = await pool.getConnection();
+		const data = await conn.query("SELECT supplier FROM products");
+		res.send(data); //still sends in json
+	} catch (err) {
+		console.log(err);
+		res.sendStatus(500);
+	} finally {
+		if (conn) conn.release();
+	}
+});
 
 export default router;
 
@@ -226,13 +165,12 @@ function parseData(inventory: any) {
 
 	/* have to reparse the json the fit the database schema; 
   will think of another way of doing this later... */
-	const intfields = [
-		"quantity",
-		"purchasePrice",
-		"sellingPrice",
-	];
+	const intfields = ["quantity", "purchasePrice", "sellingPrice"];
 	for (const field of intfields) {
-		if (typeof inventory[field] !== "string" || isNaN(Number(inventory[field]))) {
+		if (
+			typeof inventory[field] !== "string" ||
+			isNaN(Number(inventory[field]))
+		) {
 			console.log(typeof inventory[field]);
 			console.log(inventory[field]);
 			console.log("setting default value for", field);

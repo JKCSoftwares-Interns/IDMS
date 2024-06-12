@@ -70,7 +70,7 @@ const Header = () => {
 						}}
 						sx={{ ".MuiPaper-root": { borderRadius: 2 } }}
 					>
-						<div className="flex flex-col bg-slate-100 gap-2 py-2">
+						<div className="flex flex-col bg-slate-100 gap-2 py-4">
 							<NavButton
 								to="/settings"
 								icon={<TuneRoundedIcon />}
