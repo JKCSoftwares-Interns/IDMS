@@ -107,6 +107,7 @@ const MuiFormAdd = ({ title, products = [], categories, fields, goodsCategories 
                                         label="Product Name"
                                         variant="outlined"
                                         fullWidth
+                                        required
                                     />
                                 )}
                                 value={selectedProduct[sectionId]}
@@ -130,6 +131,7 @@ const MuiFormAdd = ({ title, products = [], categories, fields, goodsCategories 
                                         label="Supplier"
                                         variant="outlined"
                                         fullWidth
+                                        required
                                     />
                                 )}
                                 value={selectedSupplier[sectionId]}
@@ -152,6 +154,7 @@ const MuiFormAdd = ({ title, products = [], categories, fields, goodsCategories 
                                         label="Reason/Purpose"
                                         variant="outlined"
                                         fullWidth
+                                        required
                                     />
                                 )}
                                 value={selectedReason[sectionId]}
@@ -177,6 +180,7 @@ const MuiFormAdd = ({ title, products = [], categories, fields, goodsCategories 
                                 fullWidth
                                 InputLabelProps={field.type === "date" ? { shrink: true } : {}}
                                 inputProps={field.type === "number" ? { min: 0 } : {}}
+                                required
                             />
                         );
                     }
