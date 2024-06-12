@@ -35,7 +35,11 @@ import UpdateOffer from "../pages/offers/UpdateOffer";
 import Inventory from "../pages/inventory/InventoryList";
 import GoodsEntry from "../pages/inventory/GoodsEntry";
 import GoodsRemoval from "../pages/inventory/GoodsRemoval";
+
+
+//USER
 import AddUser from "../pages/user/add";
+import UpdateUser from "../Pages/user/update";
 const Routing = () => {
 	const location = useLocation();
 
@@ -77,7 +81,9 @@ const Routing = () => {
 					{/* USER */}
 					<Route path="/user" element={<AddUser />} />
 					<Route path="/user/add" element={<AddUser />} />
-                    <Route path="/user/edit/:userId" element={<AddUser/>} />
+                    <Route path="/user/edit/:userId" element={<UpdateUser/>} />
+
+					
 				
 				</Routes>
 		</AnimatePresence>
