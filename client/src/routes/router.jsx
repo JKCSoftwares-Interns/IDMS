@@ -36,48 +36,51 @@ import Inventory from "../pages/inventory/InventoryList";
 import GoodsEntry from "../pages/inventory/GoodsEntry";
 import GoodsRemoval from "../pages/inventory/GoodsRemoval";
 
-const Routing = () => {
+
+
+function Routing() {
 	const location = useLocation();
 
 	return (
 		<AnimatePresence mode="wait">
-				<Routes location={location} key={location.pathname}>
-					<Route path="/" element={<Home />} />
+			<Routes location={location} key={location.pathname}>
+				<Route path="/" element={<Home />} />
 
-					{/* SUPPORT */}
-					<Route path="/help" element={<Help />} />
-					<Route path="/settings" element={<Settings />} />
-					<Route path="/contact" element={<ContactUs />} />
+				{/* SUPPORT */}
+				<Route path="/help" element={<Help />} />
+				<Route path="/settings" element={<Settings />} />
+				<Route path="/contact" element={<ContactUs />} />
 
-					{/* PRODUCTS */}
-					<Route path="/products" element={<ProductList />} />
-					<Route path="/products/add" element={<AddProducts />} />
-					<Route path="/products/edit/:productId" element={<EditProducts />} />
+				{/* PRODUCTS */}
+				<Route path="/products" element={<ProductList />} />
+				<Route path="/products/add" element={<AddProducts />} />
+				<Route path="/products/edit/:productId" element={<EditProducts />} />
 
-					{/* VENDORS */}
-					<Route path="/vendors" element={<VendorList />} />
-					<Route path="/vendors/add" element={<AddVendors />} />
-					<Route path="/vendors/edit/:vendorId" element={<UpdateVendor />} />
+				{/* VENDORS */}
+				<Route path="/vendors" element={<VendorList />} />
+				<Route path="/vendors/add" element={<AddVendors />} />
+				<Route path="/vendors/edit/:vendorId" element={<UpdateVendor />} />
 
-					{/* TRANSPORT */}
-					<Route path="/transport" element={<TransportList />} />
-					<Route path="/transport/add" element={<AddTransport />} />
-					<Route path="/transport/edit/:transportId" element={<UpdateTransport />} />
+				{/* TRANSPORT */}
+				<Route path="/transport" element={<TransportList />} />
+				<Route path="/transport/add" element={<AddTransport />} />
+				<Route path="/transport/edit/:transportId" element={<UpdateTransport />} />
 
-					{/* OFFERS */}
-					<Route path="/offers" element={<Offers />} />
-					<Route path="/offers/add" element={<AddOffer />} />
-					<Route path="/offers/edit/:offerId" element={<UpdateOffer />} />
+				{/* OFFERS */}
+				<Route path="/offers" element={<Offers />} />
+				<Route path="/offers/add" element={<AddOffer />} />
+				<Route path="/offers/edit/:offerId" element={<UpdateOffer />} />
+
+				{/* INVENTORY */}
+				<Route path="/inventory" element={<Inventory />} />
+				<Route path="/inventory/add" element={<GoodsEntry />} />
+				<Route path="/inventory/remove" element={<GoodsRemoval />} />
+
 				
-					{/* INVENTORY */}
-					<Route path="/inventory" element={<Inventory />} />
-					<Route path="/inventory/add" element={<GoodsEntry />} />
-					<Route path="/inventory/remove" element={<GoodsRemoval />} />
 
-				
-				</Routes>
+			</Routes>
 		</AnimatePresence>
 	);
-};
+}
 
 export default Routing;
