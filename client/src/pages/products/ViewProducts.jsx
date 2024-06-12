@@ -8,7 +8,6 @@ import serverInstance from "../../services/serverInstance";
 import { MuiTable } from "../../components/MuiTable";
 
 import PageAnimate from "../../components/PageAnimate";
-
 const tableFields = [
 	{ key: "productId", label: "Product ID" },
 	{ key: "productName", label: "Product Name" },

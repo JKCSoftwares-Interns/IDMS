@@ -39,6 +39,7 @@ import GoodsRemoval from "../pages/inventory/GoodsRemoval";
 //USER
 import AddUser from "../pages/user/add";
 import UpdateUser from "../pages/user/update";
+import UserList from "../pages/user/view";
 
 const Routing = () => {
   const location = useLocation();
@@ -82,7 +83,7 @@ const Routing = () => {
         <Route path="/inventory/remove" element={<GoodsRemoval />} />
 
         {/* USER */}
-        <Route path="/user" element={<AddUser />} />
+        <Route path="/user" element={<UserList />} />
         <Route path="/user/add" element={<AddUser />} />
         <Route path="/user/edit/:userId" element={<UpdateUser />} />
       </Routes>
