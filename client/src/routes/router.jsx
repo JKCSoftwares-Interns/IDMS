@@ -1,4 +1,4 @@
-/* This file needs to be divided */
+5/* This file needs to be divided */
 
 import { useLocation, Route, Routes } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
@@ -35,6 +35,8 @@ import UpdateOffer from "../pages/offers/UpdateOffer";
 import Inventory from "../pages/inventory/InventoryList";
 import GoodsEntry from "../pages/inventory/GoodsEntry";
 import GoodsRemoval from "../pages/inventory/GoodsRemoval";
+import LocationShifting from "../pages/inventory/LocationShifting";
+
 
 
 
@@ -75,6 +77,8 @@ function Routing() {
 				<Route path="/inventory" element={<Inventory />} />
 				<Route path="/inventory/add" element={<GoodsEntry />} />
 				<Route path="/inventory/remove" element={<GoodsRemoval />} />
+				<Route path="/inventory/shift" element={<LocationShifting />} />
+
 
 				
 
