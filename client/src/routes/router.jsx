@@ -34,7 +34,8 @@ import UpdateOffer from "../pages/offers/UpdateOffer";
 // INVENTORY
 import Inventory from "../pages/inventory/InventoryList";
 import GoodsEntry from "../pages/inventory/GoodsEntry";
-
+import GoodsRemoval from "../pages/inventory/GoodsRemoval";
+import AddUser from "../pages/user/add";
 const Routing = () => {
 	const location = useLocation();
 
@@ -71,7 +72,12 @@ const Routing = () => {
 					{/* INVENTORY */}
 					<Route path="/inventory" element={<Inventory />} />
 					<Route path="/inventory/add" element={<GoodsEntry />} />
+                    <Route path="/inventory/remove" element={<GoodsRemoval/>} />
 
+					{/* USER */}
+					<Route path="/user" element={<AddUser />} />
+					<Route path="/user/add" element={<AddUser />} />
+                    <Route path="/user/edit/:userId" element={<AddUser/>} />
 				
 				</Routes>
 		</AnimatePresence>
