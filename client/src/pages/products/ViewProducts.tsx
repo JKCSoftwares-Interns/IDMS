@@ -1,13 +1,11 @@
-import { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { FC, useEffect, useState } from "react";
+import { getAllData } from "../../../management";
+import TableGenerator from "../../components/TableGeneration";
+import { AddCircleRounded, SearchOff } from "@mui/icons-material";
 import { Button } from "@mui/material";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
-import { Container } from "@mui/material";
+import { NavLink } from "react-router-dom";
 
-import {serverInstance} from "../../services/backendUtils";
-import { MuiTable } from "../../components/MuiTable";
-
-import PageAnimate from "../../components/PageAnimate";
+/* Order to `labels` and `interface` should match. */
 
 interface Product {
 	productId: string;
@@ -21,7 +19,7 @@ interface Product {
 	manufacturer: string;
 	marketer: string;
 	supplier: string;
-	upc: string;		
+	upc: string;
 	hsn: string;
 	cgst: number;
 	sgst: number;
@@ -29,113 +27,73 @@ interface Product {
 	cess: number;
 	loadPrice: number;
 	unloadingPrice: number;
-	dateAdded: string;
+	dateAdded: Date;
 	addedBy: string;
-	lastEditedDate: string;
+	lastEditedDate: Date;
 	lastEditedBy: string;
-	[key: string]: string | number;
 }
 
-const ProductList = () => {
-	const [data, setData] = useState<Product[]>([]);
-	const [searchTerm, setSearchTerm] = useState("");
+const labels = [
+	"Product ID",
+	"Product Name",
+	"Category",
+	"Measuring Unit",
+	"Pack Size",
+	"No. of Units",
+	"Unit MRP",
+	"Pack MRP",
+	"Manufacturer",
+	"Marketer",
+	"Supplier",
+	"UPC",
+	"HSN",
+	"CGST",
+	"SGST",
+	"IGST",
+	"CESS",
+	"Load Price",
+	"Unloading Price",
+	"Date Added",
+	"Added By",
+	"Last Edited Date",
+	"Last Edited By",
+];
+
+const ViewProducts: FC = () => {
+	const [products, setProduct] = useState<Product[]>([]);
 
 	useEffect(() => {
 		const fetchData = async () => {
-			try {
-				const response = await serverInstance.get("/products");
-				const rawData: Product[] = response.data;
-				const productData = rawData.map(item => {
-					const newItem = { ...item };
-					tableFields.forEach(field => {
-						if (!newItem[field.key]) {
-							newItem[field.key] = 'N/A' || 0;
-						}
-					});
-					return newItem;
-				});
-
-				setData(productData);
-			} catch (error) {
-				console.error("Failed to fetch products:", error);
-			}
+			const response: Product[] = await getAllData("/products");
+			setProduct(response);
+			return response;
 		};
 
 		fetchData();
 	}, []);
 
-	const filteredData = data.filter((product) =>
-		product.productName.toLowerCase().includes(searchTerm.toLowerCase()));
-
 	return (
-		<PageAnimate className={"w-full"}>
-			<Container sx={{ p: 2 }}>
-				<div className="flex p-8 justify-between items-center w-full">
-					<h1 className="text-4xl font-bold">Product List</h1>
-					<input
-						className="px-4 py-2 border max-w-max rounded-lg"
-						placeholder="Search Product..."
-						value={searchTerm}
-						onChange={(event) => setSearchTerm(event.target.value)}
-					/>
-					<NavLink to="/products/add">
+		<>
+			{products.length > 0 ? (
+				<TableGenerator title="products" label={labels} data={products} />
+			) : (
+				<div className="w-full grid place-items-center">
+					<div className="flex flex-col justify-center items-center gap-10">
+						<SearchOff sx={{ fontSize: 150 }} />
+						<h1 className="text-2xl">No products found</h1>
+						<NavLink to={`/products/add`}>
+						<div className="flex flex-col justify-center gap-3">
 						<Button size="large" variant="contained" color="success">
-							<AddCircleIcon />
+							<AddCircleRounded />
 						</Button>
+						<p>Click to add product</p>
+						</div>
 					</NavLink>
+					</div>
 				</div>
-
-				{/*  
-        
-        REQUIREMENTS:-
-        
-          > Data fetch from server 
-          > Model your fields
-      
-      */}
-
-				<MuiTable
-					title={"products"}
-					tableFields={tableFields}
-					tableData={filteredData}
-					setTableData={setData}
-				/>
-			</Container>
-		</PageAnimate>
+			)}
+		</>
 	);
 };
 
-export default ProductList;
-
-/*----------------Fields to Showcase-----------------*/
-
-const tableFields = [
-	{ key: "productId", label: "Product ID" },
-	{ key: "productName", label: "Product Name" },
-	{ key: "category", label: "Category" },
-	{ key: "measuringUnit", label: "Measuring Unit" },
-	{ key: "supplier", label: "Supplier" },
-
-	{ key: "packSize", label: "Pack Size" },
-	{ key: "noOfUnits", label: "Count" },
-	{ key: "unitMRP", label: "MRP" },
-	{ key: "packMRP", label: "Pack MRP" },
-	{ key: "loadPrice", label: "Load Price" },
-	{ key: "unloadingPrice", label: "Unloading Price" },
-
-	// { key: 'marketer', label: 'Marketer'},
-	// { key: "manufacturer", label: "Manufacturer" },
-
-	// { key: 'upc', label: 'UPC'},
-	// { key: 'hsn', label: 'HSN'},
-
-	// { key: 'cgst', label: 'CGST'},
-	// { key: 'sgst', label: 'SGST'},
-	// { key: 'igst', label: 'IGST'},
-	// { key: 'cess', label: 'CESS'},
-
-	// { key: 'dateAdded', label: 'Date Added'},
-	// { key: 'addedBy', label: 'Added By'},
-	// { key: 'lastEditedDate', label: 'Last Edited Date'},
-	// { key: 'lastEditedBy', label: 'Last Edited By'}
-];
+export default ViewProducts;

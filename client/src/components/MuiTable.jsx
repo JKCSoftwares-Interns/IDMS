@@ -1,6 +1,6 @@
 import Box from "@mui/material/Box";
 import Grid from '@mui/material/Grid';
-import { serverInstance } from "../services/backendUtils";
+import {serverInstance} from "../services/backendUtils";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import { amber } from "@mui/material/colors";
@@ -32,7 +32,7 @@ export const MuiTable = ({ title, tableData, setTableData, tableFields }) => {
     }
     keyid += 'Id';
 	
-	// console.log("keyId", keyid);
+	console.log("keyId", keyid);
 
 	async function deleteProduct(id) {
 
@@ -141,5 +141,3 @@ export const MuiTable = ({ title, tableData, setTableData, tableFields }) => {
 		</Box>
 	);
 };
-
-export default MuiTable;

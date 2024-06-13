@@ -8,7 +8,7 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { Container } from '@mui/material';
 
 import {serverInstance} from "../../services/backendUtils";
-import { MuiTable } from "../../components/MuiTable";
+import { MuiTable   } from "../../components/MuiTable";
 import PageAnimate from "../../components/PageAnimate";
 
 const tableFields = [

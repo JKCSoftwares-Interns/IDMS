@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 
 import { initializeDB } from "./src/config/db";
+
 import productsRoute from "./src/routes/products";
 import vendorsRoute from "./src/routes/vendors";
 import transportRoute from "./src/routes/transport";

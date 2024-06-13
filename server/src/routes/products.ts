@@ -1,9 +1,11 @@
-/* May not work right now */
+/*------IMPORT----------*/
 
 import express from "express";
 import { PoolConnection } from "mariadb";
 
 import { pool } from "../config/db";
+
+/*------INTERFACE-------*/
 
 interface Product {
 	productId: string;
@@ -25,13 +27,21 @@ interface Product {
 	cess: number;
 	loadPrice: number;
 	unloadingPrice: number;
-	dateAdded: string;
+	dateAdded: Date;
 	addedBy: string;
-	lastEditedDate: string;
+	lastEditedDate: Date;
 	lastEditedBy: string;
 }
 
 const router = express.Router();
+
+/*----------LOGGING FUNCTION------------*/
+
+function greetStatus(route: string) {
+	console.log(`/products/${route} is running`);
+}
+
+/*----------PATH FUNCTIONS------------*/
 
 router.get("/", async (_, res) => {
 	greetStatus("show");
@@ -40,6 +50,7 @@ router.get("/", async (_, res) => {
 	try {
 		conn = await pool.getConnection();
 		const data = await conn.query("SELECT * FROM products");
+		// console.log(typeof data);
 		res.json(data);
 	} catch (err) {
 		console.log(err);
@@ -55,7 +66,8 @@ router.post("/add", async (req, res) => {
 	let conn: PoolConnection | null = null;
 	try {
 		conn = await pool.getConnection();
-		const product: Product = parseData(req.body);
+		const product: Partial<Product> = req.body;
+		console.log("product be like:", product);
 		await conn.query(
 			`
     INSERT INTO products (
@@ -86,7 +98,7 @@ router.post("/add", async (req, res) => {
 				product.cess,
 				product.loadPrice,
 				product.unloadingPrice,
-				product.addedBy,
+				"admin", //must be changed to include user from session data
 			]
 		);
 		res.status(200).send("Product added successfully");
@@ -126,7 +138,7 @@ router.post("/edit/:id", async (req, res) => {
 	try {
 		conn = await pool.getConnection();
 		console.log("DATA RECEIVED:", req.body);
-		const product: Product = parseData(req.body);
+		const product: Product = req.body;
 		if (!product) {
 			console.log("error 400");
 			res.status(400).send("Invalid product data");
@@ -217,45 +229,3 @@ router.delete("/delete/:id", async (req, res) => {
 });
 
 export default router;
-
-/* ---------------Helper Functions--------------- */
-
-function greetStatus(route: string) {
-	console.log(`/products/${route} is running`);
-}
-
-function parseData(product: any) {
-	if (!product || typeof product !== "object") {
-		console.log(typeof product);
-		console.log(product);
-		return null;
-	}
-
-	/* have to reparse the json the fit the database schema; 
-  will think of another way of doing this later... */
-	const intfields = [
-		"packSize",
-		"noOfUnits",
-		"unitMRP",
-		"packMRP",
-		"cgst",
-		"sgst",
-		"igst",
-		"cess",
-		"loadPrice",
-		"unloadingPrice",
-	];
-	for (const field of intfields) {
-		if (typeof product[field] !== "string" || isNaN(Number(product[field]))) {
-			console.log(typeof product[field]);
-			console.log(product[field]);
-			console.log("setting default value for", field);
-			product[field] = 0;
-		} else {
-			product[field] = Number(product[field]);
-		}
-	}
-
-	console.log("CHECKING:", product);
-	return product;
-}
