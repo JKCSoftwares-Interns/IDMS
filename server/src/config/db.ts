@@ -53,15 +53,15 @@ export async function initializeDB() {
     vendorName VARCHAR(255),
     businessName VARCHAR(255),
     email VARCHAR(255),
-    mobileNumber VARCHAR(255),
-    alternateMobileNumber VARCHAR(255),
+    mobileNumber VARCHAR(10),
+    alternateMobileNumber VARCHAR(10),
     addressLine1 VARCHAR(255),
     addressLine2 VARCHAR(255),
     landmark VARCHAR(255),
     city VARCHAR(255),
     district VARCHAR(255),
     state VARCHAR(255),
-    pinCode VARCHAR(255),
+    pinCode VARCHAR(6),
     gstin VARCHAR(255),
     fssai VARCHAR(255),
     registrationNumber VARCHAR(255),
@@ -132,19 +132,6 @@ export async function initializeDB() {
 `);
 
     // Creating `inventory` Table inside Database
-//     await conn.query(`
-//     CREATE TABLE IF NOT EXISTS inventory (
-//       inventoryId INT AUTO_INCREMENT PRIMARY KEY,
-//       productName VARCHAR(255),
-//       category VARCHAR(255),
-//       quantity INT,
-//       supplierName VARCHAR(255),
-//       purchaseDate date,
-//       expiryDate date,
-//       status VARCHAR(255)
-//     );
-// `);
-
 await conn.query(` 
   CREATE TABLE IF NOT EXISTS inventory(
     inventoryId INT AUTO_INCREMENT PRIMARY KEY,
@@ -171,6 +158,33 @@ await conn.query(`
   `);
 
 
+
+// Creating `suppliers` Table inside Database
+await conn.query(`
+  CREATE TABLE IF NOT EXISTS suppliers (
+    supplierId INT AUTO_INCREMENT PRIMARY KEY,
+    supplierName VARCHAR(255),
+    businessName VARCHAR(255),
+    mobileNumber VARCHAR(10),
+    alternateMobileNumber VARCHAR(10),
+    email VARCHAR(255),
+    addressLine1 VARCHAR(255),
+    addressLine2 VARCHAR(255),
+    city VARCHAR(255),
+    state VARCHAR(255),
+    pinCode VARCHAR(6),
+    beneficiaryName VARCHAR(255),
+    accountNumber VARCHAR(255),
+    ifscCode VARCHAR(11),
+    virtualPaymentAddress VARCHAR(255),
+    remarks VARCHAR(255),
+    dateAdded TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    addedBy VARCHAR(255),
+    lastEditedDate TIMESTAMP,
+    lastEditedBy VARCHAR(255)
+  );
+  `);
+  
   await conn.query(`
     CREATE TABLE IF NOT EXISTS user_activity (
       productsAdded BOOLEAN NOT NULL DEFAULT false

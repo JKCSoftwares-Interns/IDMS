@@ -59,10 +59,10 @@ router.post("/add", async (req, res) => {
         await conn.query(
             `
     INSERT INTO vendors (
-        vendorId, vendorName, businessName, email, mobileNumber, alternateMobileNumber, addressLine1, addressLine2, landmark, city, district, state, pinCode, gstin, fssai, registrationNumber, aadharNumber, panNumber, otherDocuments, status, dateAdded, addedBy, lastEditedDate, lastEditedBy 
+         vendorName, businessName, email, mobileNumber, alternateMobileNumber, addressLine1, addressLine2, landmark, city, district, state, pinCode, gstin, fssai, registrationNumber, aadharNumber, panNumber, otherDocuments, status, dateAdded, addedBy, lastEditedDate, lastEditedBy 
         
     ) VALUES (
-        ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), ?, NULL, NULL
+         ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), ?, NULL, NULL
     );
     `,
             [

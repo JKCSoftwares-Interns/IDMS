@@ -14,7 +14,7 @@ const AddSupplier = () => {
                 className="w-3/4 grid place-items-center p-6 mb-5"
             >
                 <MuiFormAdd
-                    title={"transporsupplier"}
+                    title={"suppliers"}
                     categories={categories}
                     fields={fields}
                 />
@@ -24,28 +24,30 @@ const AddSupplier = () => {
     );
 };
 
-export default AddTransport;
+export default AddSupplier;
 
 
 /*-------------------------FIELDS-------------------*/
 
 const categories = [
     "Basic Info",
+    "Contact Info",
     "Address Details",
     "Payment Details",
+    "Status Info",
 ];
 
 const fields = [
     /* Basic Info */
+    // {
+    //     label: "Supplier ID",
+    //     name: "supplierid",
+    //     type: "text",
+    //     category: "Basic Info",
+    // },
     {
-        label: "Supplier ID",
-        name: "supplierid",
-        type: "text",
-        category: "Basic Info",
-    },
-    {
-        label: "Name",
-        name: "name",
+        label: "Supplier Name",
+        name: "supplierName",
         type: "text",
         category: "Basic Info",
     },
@@ -56,39 +58,37 @@ const fields = [
         category: "Basic Info",
     },
     {
-        label: "Mobile Number",
-        name: "mobilenumber",
-        type: "number",
-        category: "Basic Info",
-    },
-    {
-        label: "Alternate Mobile Number",
-        name: "alternatemobilenumber",
-        type: "number",
-        category: "Basic Info",
-    },
-    {
         label: "Email",
         name: "email",
         type: "email",
-        category: "Basic Info",
+        category: "Contact Info",
     },
+    {
+        label: "Mobile Number",
+        name: "mobileNumber",
+        type: "number",
+        category: "Contact Info",
+    },
+    {
+        label: "Alternate Mobile Number",
+        name: "alternateMobileNumber",
+        type: "number",
+        category: "Contact Info",
+    },
+
+
+
+
     /* Address Details */
     {
         label: "Address Line 1",
-        name: "addressline1",
+        name: "addressLine1",
         type: "text",
         category: "Address Details",
     },
     {
         label: "Address Line 2",
-        name: "addressline2",
-        type: "text",
-        category: "Address Details",
-    },
-    {
-        label: "Landmark",
-        name: "landmark",
+        name: "addressLine2",
         type: "text",
         category: "Address Details",
     },
@@ -99,59 +99,55 @@ const fields = [
         category: "Address Details",
     },
     {
-        label: "District",
-        name: "district",
-        type: "text",
-        category: "Address Details",
-    },
-    {
         label: "State",
         name: "state",
         type: "text",
         category: "Address Details",
     },
     {
-        label: "Pincode",
-        name: "pincode",
+        label: "PIN Code",
+        name: "pinCode",
         type: "number",
         category: "Address Details",
     },
-    {
-        label: "Branch Office",
-        name: "branchoffice",
-        type: "text",
-        category: "Address Details",
-    },
 
-    /* payment Details */
+
+
+    /* Legal Info */
     {
         label: "Beneficiary Name",
-        name: "beneficiaryname",
+        name: "beneficiaryName",
         type: "text",
         category: "Payment Details",
     },
+
     {
         label: "Account Number",
-        name: "accountnumber",
+        name: "accountNumber",
         type: "text",
         category: "Payment Details",
     },
+    
+    
     {
         label: "IFSC Code",
-        name: "ifsccode",
+        name: "ifscCode",
         type: "text",
         category: "Payment Details",
     },
+
     {
         label: "Virtual Payment Address",
-        name: "virtualpaymentaddress",
+        name: "virtualPaymentAddress",
         type: "text",
         category: "Payment Details",
     },
+
+    /* Status Info */
     {
         label: "Remarks",
         name: "remarks",
         type: "text",
-        category: "Payment Details",
+        category: "Status Info",
     },
 ];

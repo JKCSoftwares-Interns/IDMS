@@ -28,8 +28,7 @@ export default UpdateSupplier;
 const categories = [
     "Basic Info",
     "Contact Info",
-    "Address",
-    "Legal Info",
+    "Address Details",
     "Status Info",
 ];
 
@@ -42,9 +41,10 @@ const readOnlyFields = [
 ];
 
 const fields = [
+    /* Basic Info */
     {
-        label: "Name",
-        name: "name",
+        label: "Supplier Name",
+        name: "supplierName",
         type: "text",
         category: "Basic Info",
     },
@@ -57,7 +57,7 @@ const fields = [
     {
         label: "Email",
         name: "email",
-        type: "text",
+        type: "email",
         category: "Contact Info",
     },
     {
@@ -72,60 +72,67 @@ const fields = [
         type: "number",
         category: "Contact Info",
     },
+
+
+    /* Address Details */
     {
         label: "Address Line 1",
         name: "addressLine1",
         type: "text",
-        category: "Address",
+        category: "Address Details",
     },
     {
         label: "Address Line 2",
         name: "addressLine2",
         type: "text",
-        category: "Address",
+        category: "Address Details",
     },
     {
         label: "City",
         name: "city",
         type: "text",
-        category: "Address",
+        category: "Address Details",
     },
     {
         label: "State",
         name: "state",
         type: "text",
-        category: "Address",
+        category: "Address Details",
     },
     {
-        label: "Pin Code",
+        label: "PIN Code",
         name: "pinCode",
         type: "number",
-        category: "Address",
+        category: "Address Details",
     },
+
+    /* Legal Info */
     {
         label: "Beneficiary Name",
         name: "beneficiaryName",
         type: "text",
-        category: "Legal Info",
+        category: "Payment Details",
     },
     {
         label: "Account Number",
         name: "accountNumber",
-        type: "number",
-        category: "Legal Info",
+        type: "text",
+        category: "Payment Details",
     },
     {
         label: "IFSC Code",
         name: "ifscCode",
-        type: "number",
-        category: "Legal Info",
+        type: "text",
+        category: "Payment Details",
     },
     {
         label: "Virtual Payment Address",
         name: "virtualPaymentAddress",
         type: "text",
-        category: "Legal Info",
+        category: "Payment Details",
     },
+
+    /* Status Info */
     {
         label: "Remarks",
         name: "remarks",

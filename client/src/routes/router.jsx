@@ -38,6 +38,10 @@ import GoodsRemoval from "../pages/inventory/GoodsRemoval";
 import LocationShifting from "../pages/inventory/LocationShifting";
 
 
+// SUPPLIERS
+import SupplierList from "../pages/supplier/ViewSupplier";
+import AddSupplier from "../pages/supplier/AddSupplier";
+import UpdateSupplier from "../pages/supplier/UpdateSupplier";
 
 
 function Routing() {
@@ -80,8 +84,10 @@ function Routing() {
 				<Route path="/inventory/shift" element={<LocationShifting />} />
 
 
-				
-
+				{/* SUPPLIER */}
+				<Route path="/suppliers" element={<SupplierList />} />
+				<Route path="/suppliers/add" element={<AddSupplier />} />
+				<Route path="/suppliers/edit/:supplierId" element={<UpdateSupplier />} />
 			</Routes>
 		</AnimatePresence>
 	);
