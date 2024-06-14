@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import PageAnimate from "../../components/PageAnimate";
 import MuiInventoryAdd from "../../components/MuiInventoryAdd";
-import { getData } from "../../services/backendUtils";
+import { getData } from "../../data/advance";
 
 const AddInventory = () => {
 	const [supplier, setSupplier] = useState([]);

@@ -1,9 +1,9 @@
 import { FC, useEffect, useState } from "react";
-import { getAllData } from "../../../management";
 import TableGenerator from "../../components/TableGeneration";
 import { AddCircleRounded, SearchOff } from "@mui/icons-material";
 import { Button } from "@mui/material";
 import { NavLink } from "react-router-dom";
+import { getAllData } from "../../data/basic";
 
 /* Order to `labels` and `interface` should match. */
 

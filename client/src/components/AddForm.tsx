@@ -1,17 +1,14 @@
 import { FC } from "react";
 import InputBox from "./InputBox";
-import { addMoreShit } from "../../management";
+import { groupByCategory, Field } from "../utils/formHelper";
+import { addMoreShit } from "../data/basic";
 
-interface metadata {
-	label: string;
-	placeholder: string;
-	category: string;
-}
 
+/* goal: omit these `any` */
 interface AddFormProps {
 	formData: any;
 	setFormData: React.SetStateAction<any>;
-	metadata: metadata[];
+	metadata: Field<any>[];
 }
 
 const AddForm: FC<AddFormProps> = ({ formData, setFormData, metadata }) => {
@@ -51,13 +48,13 @@ const AddForm: FC<AddFormProps> = ({ formData, setFormData, metadata }) => {
 				>
 					<h2 className="font-semibold">{category}</h2>
 					{items.map((item: any, index: number) => {
-						console.log("items: ", items)
+						// console.log("index: ", index)
 						return (
 							<div key={index} className="">
 								<InputBox
 									label={item.label}
-									field={Object.keys(formData)[index]}
-									value={formData[index]}
+									field={item.name}
+									value={formData[item.name]}
 									placeholder={item.placeholder}
 									handleChange={handleChange}
 								/>
@@ -78,16 +75,3 @@ const AddForm: FC<AddFormProps> = ({ formData, setFormData, metadata }) => {
 };
 
 export default AddForm;
-
-// Helper function
-
-function groupByCategory(data: metadata[]) {
-	return data.reduce((acc: any, item: any) => {
-		const key = item.category;
-		if (!acc[key]) {
-			acc[key] = [];
-		}
-		acc[key].push(item);
-		return acc;
-	}, {});
-}

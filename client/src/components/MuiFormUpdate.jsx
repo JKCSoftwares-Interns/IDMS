@@ -1,4 +1,3 @@
-import {serverInstance} from "../services/backendUtils";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -6,6 +5,7 @@ import { Box, TextField } from "@mui/material";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import PageAnimate from "./PageAnimate";
+import serverInstance from "../data/init";
 
 const MuiFormUpdate = ({ title, id, categories, fields, readonly }) => {
 	const [data, setData] = useState([]);

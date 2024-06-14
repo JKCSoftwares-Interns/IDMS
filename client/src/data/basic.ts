@@ -1,4 +1,4 @@
-import { serverInstance } from "./src/services/backendUtils";
+import serverInstance from "./init";
 
 async function getAllData(path: string): Promise<any> {
 

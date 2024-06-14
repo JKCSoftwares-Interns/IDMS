@@ -1,6 +1,5 @@
 import Box from "@mui/material/Box";
 import Grid from '@mui/material/Grid';
-import {serverInstance} from "../services/backendUtils";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import { amber } from "@mui/material/colors";
@@ -19,6 +18,7 @@ import {
 } from "@mui/material";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import DeleteIcon from "@mui/icons-material/Delete";
+import serverInstance from "../data/init";
 
 export const MuiTable = ({ title, tableData, setTableData, tableFields }) => {
 

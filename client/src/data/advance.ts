@@ -1,15 +1,4 @@
-import axios from "axios";
-
-// import dotenv from 'dotenv';
-// dotenv.config();
-
-// console.log("Connecting to server at ", process.env.SERVER_URL)
-
-// hardcoding it for now; must come from `.env` file
-
-const serverInstance = axios.create({
-	baseURL: "http://localhost:8000",
-});
+import serverInstance from "./init";
 
 async function getData(path: string, field?: string): Promise<number | string[]> {
 	const response: any = await serverInstance.get(path);
@@ -48,4 +37,4 @@ async function reqData(path: string, field: string): Promise<string[]> {
 	}
 };
 
-export { serverInstance, getData, reqData };
+export { getData, reqData };

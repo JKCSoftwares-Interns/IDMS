@@ -1,6 +1,7 @@
 import { useState } from "react";
 import PageAnimate from "../../components/PageAnimate";
 import AddForm from "../../components/AddForm";
+import { Field, initializeFormData } from "../../utils/formHelper";
 
 /* Order to `data` and `interface` should match. */
 
@@ -23,56 +24,39 @@ interface Product {
 	packMRP: number;
 	loadPrice: number;
 	unloadingPrice: number;
-	[key: string]: React.ReactNode;
+	// [key: string | number ]: React.ReactNode;
 }
 
-const metadata = [
-	/* BASIC INFO */
-	{ label: "Product Name", placeholder: "The Product", category: "Basic Info" },
-	{ label: "Category", placeholder: "(e.g. Electronics, Groceries)", category: "Basic Info" },
-	{ label: "UPC", placeholder: "XXXXXXXXXXXXXX", category: "UPC & HSN" },
-	{ label: "HSN", placeholder: "XXXXXXX", category: "UPC & HSN" },
-	/* QUANTITY */
-	{ label: "Measuring Unit", placeholder: "m", category: "Quantity" },
-	{ label: "Pack Size", placeholder: "0", category: "Quantity" },
-	{ label: "No. of Units", placeholder: "0", category: "Quantity" },
-	/* Vendor Information */
-	{ label: "Marketer", placeholder: "...", category: "Vendor Information" },
-	{ label: "Supplier", placeholder: "...", category: "Vendor Information" },
-	{ label: "Manufacturer", placeholder: "...", category: "Vendor Information" },
-	/* Taxation */
-	{ label: "CGST", placeholder: "₹", category: "Taxation" },
-	{ label: "SGST", placeholder: "₹", category: "Taxation" },
-	{ label: "IGST", placeholder: "₹", category: "Taxation" },
-	{ label: "CESS", placeholder: "CESS", category: "Taxation" },
-	/* Pricing */
-	{ label: "Unit MRP", placeholder: "₹", category: "Pricing" },
-	{ label: "Pack MRP", placeholder: "₹", category: "Pricing" },
-	{ label: "Load Price", placeholder: "₹", category: "Pricing" },
-	{ label: "Unloading Price", placeholder: "₹", category: "Pricing" },
+const metadata: Field<Product>[] = [
+    /* BASIC INFO */
+    { name: "productName", type: "string", label: "Product Name", placeholder: "The Product", category: "Basic Info" },
+    { name: "category", type: "string", label: "Category", placeholder: "(e.g. Electronics, Groceries)", category: "Basic Info" },
+    { name: "upc", type: "string", label: "UPC", placeholder: "XXXXXXXXXXXXXX", category: "UPC & HSN" },
+    { name: "hsn", type: "string", label: "HSN", placeholder: "XXXXXXX", category: "UPC & HSN" },
+    /* QUANTITY */
+    { name: "measuringUnit", type: "number", label: "Measuring Unit", placeholder: "m", category: "Quantity" },
+    { name: "packSize", type: "number", label: "Pack Size", placeholder: "0", category: "Quantity" },
+    { name: "noOfUnits", type: "number", label: "No. of Units", placeholder: "0", category: "Quantity" },
+    /* Vendor Information */
+    { name: "marketer", type: "string", label: "Marketer", placeholder: "...", category: "Vendor Information" },
+    { name: "supplier", type: "string", label: "Supplier", placeholder: "...", category: "Vendor Information" },
+    { name: "manufacturer", type: "string", label: "Manufacturer", placeholder: "...", category: "Vendor Information" },
+    /* Taxation */
+    { name: "cgst", type: "number", label: "CGST", placeholder: "₹", category: "Taxation" },
+    { name: "sgst", type: "number", label: "SGST", placeholder: "₹", category: "Taxation" },
+    { name: "igst", type: "number", label: "IGST", placeholder: "₹", category: "Taxation" },
+    { name: "cess", type: "number", label: "CESS", placeholder: "CESS", category: "Taxation" },
+    /* Pricing */
+    { name: "unitMRP", type: "number", label: "Unit MRP", placeholder: "₹", category: "Pricing" },
+    { name: "packMRP", type: "number", label: "Pack MRP", placeholder: "₹", category: "Pricing" },
+    { name: "loadPrice", type: "number", label: "Load Price", placeholder: "₹", category: "Pricing" },
+    { name: "unloadingPrice", type: "number", label: "Unloading Price", placeholder: "₹", category: "Pricing" },
 ];
 
 const AddProducts = () => {
-	const [formData, setFormData] = useState<Product>({
-		productName: "",
-		category: "",
-		measuringUnit: "",
-		packSize: 0,
-		noOfUnits: 0,
-		unitMRP: 0,
-		packMRP: 0,
-		manufacturer: "",
-		marketer: "",
-		supplier: "",
-		upc: "",
-		hsn: "",
-		cgst: 0,
-		sgst: 0,
-		igst: 0,
-		cess: 0,
-		loadPrice: 0,
-		unloadingPrice: 0,
-	});
+	const [formData, setFormData] = useState<Product>(initializeFormData(metadata));
+
+	// console.log("formData: ", formData);
 
 	return (
 		<PageAnimate className={"w-full"}>

@@ -16,7 +16,7 @@ const InputBox: FC<InputBoxProps> = ({ label, field, value, placeholder, handleC
   else if (field === "password") type = "password";
   else if (field === "email") type = "email";
 
-  // console.log(field)
+  // console.log(value)
   // console.log(placeholder)
 
   return (

@@ -6,7 +6,7 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import CircularProgress from "@mui/material/CircularProgress";
 import { Container } from "@mui/material";
 
-import { getData } from "../../services/backendUtils";
+import { getData } from "../../data/advance";
 import { MuiTable } from "../../components/MuiTable";
 import PageAnimate from "../../components/PageAnimate";
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { getAllData } from "../../management";
 import InputBox from "../components/InputBox_exp";
+import { getAllData } from "../data/basic";
 
 interface MyData {
 	productName: string;

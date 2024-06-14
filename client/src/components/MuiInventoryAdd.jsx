@@ -1,10 +1,11 @@
 import { Button } from "@mui/material";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { useEffect, useState } from "react";
-import { serverInstance, reqData } from "../services/backendUtils";
 import MuiField from "./MuiField";
 import MuiAutocomplete from "./MuiAutocomplete";
 import AlertBox from "./AlertBar";
+import { reqData } from "../data/advance";
+import serverInstance from "../data/init";
 
 const MuiInventoryAdd = ({ title, fields = [], options = [] }) => {
 	// Categories

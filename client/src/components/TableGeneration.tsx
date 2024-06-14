@@ -17,9 +17,9 @@ import {
 } from "@mui/material";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { deleteThatShit } from "../../management";
 import PageAnimate from "./PageAnimate";
 import PromptButton from "./PromptButton";
+import { deleteThatShit } from "../data/basic";
 
 interface TableGeneratorProps {
 	title: string;

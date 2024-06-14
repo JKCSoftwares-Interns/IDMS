@@ -9,6 +9,10 @@ Currently, two official plugins are available:
 
 ## Architecture
 
+### Folder
+
+- `data/`: This is our DAL (Data Access Layer).
+
 ### Component
 
 #### Types

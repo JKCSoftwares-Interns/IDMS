@@ -1,10 +1,10 @@
-import { serverInstance } from "../services/backendUtils";
-import { Button } from "@mui/material";
+	import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Box, TextField } from "@mui/material";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
+import serverInstance from "../data/init";
 
 const MuiFormAdd = ({ title, categories, fields }) => {
 	const [open, setOpen] = useState(false);
