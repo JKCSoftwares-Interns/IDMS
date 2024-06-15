@@ -37,6 +37,8 @@ import UpdateOffer from "../pages/offers/UpdateOffer";
 // INVENTORY
 import InventoryList from "../pages/inventory/ViewInventory";
 import AddInventory from "../pages/inventory/AddInventory";
+import GoodsRemoval from "../pages/inventory/GoodsRemoval";
+import LocationShifting from "../pages/inventory/LocationShifting";
 
 const Routing = () => {
   const location = useLocation();
@@ -78,6 +80,8 @@ const Routing = () => {
         {/* INVENTORY */}
         <Route path="/inventory" element={<InventoryList />} />
         <Route path="/inventory/add" element={<AddInventory />} />
+        <Route path="/inventory/remove" element={<GoodsRemoval />} />
+        <Route path="/inventory/edit/:inventoryI" element={<LocationShifting />} />
       </Routes>
     </AnimatePresence>
   );
