@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { Button } from "@mui/material";
 
-const NavButton = ({ to, icon, label, color }) => {
+const NavButton = ({ to, icon, label, color, onClick }) => {
 	return (
 		<NavLink
 			className={({ isActive, isPending }) => {
@@ -20,6 +20,7 @@ const NavButton = ({ to, icon, label, color }) => {
 				variant="text"
 				color={color}
 				sx={{ textTransform: "none", fontSize: 16 }}
+				// onClick={onClick}
 			>
 				{label}
 			</Button>

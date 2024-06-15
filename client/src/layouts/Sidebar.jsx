@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import NavButton from "../components/NavButton";
 import Inventory2RoundedIcon from "@mui/icons-material/Inventory2Rounded";
@@ -7,11 +8,27 @@ import LocalShippingRoundedIcon from "@mui/icons-material/LocalShippingRounded";
 import LocalOfferRoundedIcon from "@mui/icons-material/LocalOfferRounded";
 import AssessmentRoundedIcon from "@mui/icons-material/AssessmentRounded";
 import StorefrontRoundedIcon from '@mui/icons-material/StorefrontRounded';
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import TaxiAlertIcon from '@mui/icons-material/TaxiAlert';
+import PaymentIcon from '@mui/icons-material/Payment';
+import LocalShippingIcon from '@mui/icons-material/LocalShipping';
+
 
 const Sidebar = () => {
     const BUTTON_COLOR = "primary";
+    const [anchorEl, setAnchorEl] = useState(false);
+
+    const handleClick = (event) => {
+        event.preventDefault();
+        
+        setAnchorEl(!anchorEl);
+        console.log(anchorEl);
+    };
+
+    
 
     const navButtons = [
+        
         {
             to: "/",
             icon: <SpaceDashboardRoundedIcon />,
@@ -47,6 +64,26 @@ const Sidebar = () => {
             icon: <AssessmentRoundedIcon />,
             label: "Reports",
         },
+        {
+            to: "/suppliers",
+            icon: <LocalShippingIcon />,
+            label: "Supplier",
+        },
+        {
+            to: "/user",
+            icon: <ManageAccountsIcon />,
+            label: "User",
+        },
+        {
+            to: "/taxation",
+            icon: <TaxiAlertIcon />,
+            label: "Taxation",
+        },
+        {
+            to: "/billing",
+            icon: <PaymentIcon />,
+            label: "Billing",
+        },
     ];
 
     return (
@@ -71,6 +108,7 @@ const Sidebar = () => {
                         icon={button.icon}
                         label={button.label}
                         color={BUTTON_COLOR}
+                        onClick={button.onClick}
                     />
                 ))}
             </div>
