@@ -1,4 +1,10 @@
-
+interface Field<T> {
+	name: keyof T;
+	type: string,
+	label: string;
+	placeholder: string;
+	category: string;
+}
 
 const initializeFormData = <T>(metadata: Field<T>[]): T => {
     const initialFormData: Partial<T> = {};

@@ -17,10 +17,10 @@ interface Product {
 	marketer: string;
 	supplier: string;
 	cgst: number;
-	sgst: number;
 	igst: number;
 	cess: number;
 	unitMRP: number;
+	sgst: number;
 	packMRP: number;
 	loadPrice: number;
 	unloadingPrice: number;
