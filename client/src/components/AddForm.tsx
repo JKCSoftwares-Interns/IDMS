@@ -9,9 +9,10 @@ interface AddFormProps {
 	formData: any;
 	setFormData: React.SetStateAction<any>;
 	metadata: Field<any>[];
+	title:string;
 }
 
-const AddForm: FC<AddFormProps> = ({ formData, setFormData, metadata }) => {
+const AddForm: FC<AddFormProps> = ({ title,formData, setFormData, metadata }) => {
 	const groupedData = groupByCategory(metadata);
 
 	function handleChange(type: string, target: string) {
@@ -31,7 +32,7 @@ const AddForm: FC<AddFormProps> = ({ formData, setFormData, metadata }) => {
 	const handleSubmit = (e: any) => {
 		e.preventDefault();
 		console.log("data:", formData);
-		addMoreShit("/products/add", formData);
+		addMoreShit(`/${title}/add`, formData);
 	};
 
 	return (

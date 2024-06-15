@@ -1,10 +1,11 @@
-/* May not work right now */
+/*------IMPORT----------*/
 
 import express from "express";
 import { PoolConnection } from "mariadb";
 
 import { pool } from "../config/db";
 
+/*------INTERFACE-------*/
 interface Vendor {
     vendorId: string;
     vendorName: string;
@@ -34,6 +35,11 @@ interface Vendor {
 
 const router = express.Router();
 
+/*----------LOGGING FUNCTION------------*/
+function greetStatus(route: string) {
+	console.log(`/vendors/${route} is running`);
+}
+
 router.get("/", async (_, res) => {
     greetStatus("show");
 
@@ -41,6 +47,7 @@ router.get("/", async (_, res) => {
     try {
         conn = await pool.getConnection();
         const data = await conn.query("SELECT * FROM vendors");
+        // console.log(typeof data);
         res.json(data);
     } catch (err) {
         console.log(err);
@@ -51,11 +58,14 @@ router.get("/", async (_, res) => {
 });
 
 router.post("/add", async (req, res) => {
-    console.log("/vendors/add is running");
+    greetStatus("add");
+
     let conn: PoolConnection | null = null;
     try {
         conn = await pool.getConnection();
-        const vendors: Vendor = parseData(req.body);
+        const vendors: Partial<Vendor> = req.body;
+        console.log("vendor be like:", vendors);
+
         await conn.query(
             `
     INSERT INTO vendors (
@@ -86,10 +96,7 @@ router.post("/add", async (req, res) => {
                 vendors.panNumber,
                 vendors.otherDocuments,
                 vendors.status,
-                vendors.dateAdded,
-                vendors.addedBy,
-                vendors.lastEditedDate,
-                vendors.lastEditedBy
+                "admin",//must be changed to include user from session data
             ]
         );
         res.status(200).send("Vendor added successfully");
@@ -107,9 +114,9 @@ router.get("/edit/:id", async (req, res) => {
 	try {
 	  conn = await pool.getConnection();
 	  const { id } = req.params;
-	  const rows = await conn.query("SELECT * FROM vendors WHERE vendorID = ?", [id]);
+	  const rows = await conn.query("SELECT * FROM vendors WHERE vendorId = ?", [id]);
 	  if (rows.length === 0) {
-		res.status(404).send("Product not found");
+		res.status(404).send("Vendor not found");
 	  } else {
 		res.json(rows[0]);
 	  }
@@ -122,11 +129,15 @@ router.get("/edit/:id", async (req, res) => {
 });
 
 router.post("/edit/:id", async (req, res) => {
-    console.log("/vendors/edit is running");
+    console.log("ID ==>", req.params.id);
+
+    greetStatus("edit");
+    
     let conn: PoolConnection | null = null;
     try {
         conn = await pool.getConnection();
-        const vendors: Vendor = parseData(req.body);
+        console.log("DATA RECEIVED:", req.body);
+        const vendors: Vendor = req.body;
         if (!vendors) {
             console.log("error 400");
             res.status(400).send("Invalid vendor data");
@@ -194,7 +205,8 @@ router.post("/edit/:id", async (req, res) => {
 });
 
 router.delete("/delete/:id", async (req, res) => {
-    console.log("/vendors/delete is running");
+    greetStatus("delete");
+
     let conn: PoolConnection | null = null;
     try {
         conn = await pool.getConnection();
@@ -221,43 +233,3 @@ router.delete("/delete/:id", async (req, res) => {
 
 
 export default router;
-
-/* ---------------Helper Functions--------------- */
-// Have to refactor the code from here onwards
-function greetStatus(route: string) {
-    console.log(`/vendors/${route} is running`);
-}
-
-function parseData(vendor: any) {
-    if (!vendor || typeof vendor !== "object") {
-        console.log(typeof vendor);
-        console.log(vendor);
-        return null;
-    }
-
-    /* have to reparse the json the fit the database schema; 
-  will think of another way of doing this later... */
-    const intfields = [
-        "mobileNumber",
-        "alternateMobileNumber",
-        "pinCode",
-        "gstin",
-        "fssai",
-        "registrationNumber",
-        "aadharNumber",
-        "panNumber",
-    ];
-    for (const field of intfields) {
-        if (typeof vendor[field] !== "string" || isNaN(Number(vendor[field]))) {
-            console.log(typeof vendor[field]);
-            console.log(vendor[field]);
-            console.log("setting default value for", field);
-            vendor[field] = 0;
-        } else {
-            vendor[field] = Number(vendor[field]);
-        }
-    }
-
-    console.log("CHECKING:", vendor);
-    return vendor;
-}
