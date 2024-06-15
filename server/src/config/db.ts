@@ -43,6 +43,12 @@ export async function initializeDB() {
 			"utf8"
 		);
 
+		const userSchema = await readFile(
+			path.join(__dirname, "..", "models", "userSchema.sql"),
+			"utf8"
+		);
+
+
 		await conn.query(productsSchema);
 
 		await conn.query(transportSchema);
@@ -52,6 +58,8 @@ export async function initializeDB() {
 		await conn.query(offersSchema);
 
 		await conn.query(inventorySchema);
+
+		await conn.query(userSchema);
 
 		console.log("Database initialized successfully.");
 	} catch (err) {

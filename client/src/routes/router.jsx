@@ -1,4 +1,4 @@
-5/* This file needs to be divided */
+/* This file needs to be divided */
 
 import { useLocation, Route, Routes } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
@@ -40,6 +40,15 @@ import AddInventory from "../pages/inventory/AddInventory";
 import GoodsRemoval from "../pages/inventory/GoodsRemoval";
 import LocationShifting from "../pages/inventory/LocationShifting";
 
+
+
+
+// USER
+import UserList from "../pages/user/ViewUser";
+import AddUser from "../pages/user/AddUser";
+import UpdateUser from "../pages/user/UpdateUser";
+
+
 const Routing = () => {
   const location = useLocation();
 
@@ -53,16 +62,19 @@ const Routing = () => {
         <Route path="/help" element={<Help />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/contact" element={<ContactUs />} />
+        
 
         {/* PRODUCTS */}
         <Route path="/products" element={<ProductList />} />
         <Route path="/products/add" element={<AddProducts />} />
         <Route path="/products/edit/:productId" element={<EditProducts />} />
+       
 
         {/* VENDORS */}
         <Route path="/vendors" element={<VendorList />} />
         <Route path="/vendors/add" element={<AddVendors />} />
         <Route path="/vendors/edit/:vendorId" element={<UpdateVendor />} />
+        
 
         {/* TRANSPORT */}
         <Route path="/transport" element={<TransportList />} />
@@ -71,6 +83,7 @@ const Routing = () => {
           path="/transport/edit/:transportId"
           element={<UpdateTransport />}
         />
+       
 
         {/* OFFERS */}
         <Route path="/offers" element={<Offers />} />
@@ -82,6 +95,16 @@ const Routing = () => {
         <Route path="/inventory/add" element={<AddInventory />} />
         <Route path="/inventory/remove" element={<GoodsRemoval />} />
         <Route path="/inventory/edit/:inventoryI" element={<LocationShifting />} />
+
+
+
+        {/* USER */}
+        <Route path="/user" element={<UserList />} />
+        <Route path="/user/add" element={<AddUser />} />
+        <Route path="/user/edit/:userId" element={<UpdateUser />} />
+
+
+
       </Routes>
     </AnimatePresence>
   );

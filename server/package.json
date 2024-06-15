@@ -4,7 +4,7 @@
   "main": "server.ts",
   "scripts": {
     "dev": "nodemon --exec 'bun server.ts'",
-    "fake": "nodemon --exec 'bun t_server.ts'",
+    "fake": "nodemon --exec  'npm t_server.ts'",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon --exec ts-node server.ts"
   },
