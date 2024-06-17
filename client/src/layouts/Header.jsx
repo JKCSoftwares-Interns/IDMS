@@ -84,7 +84,7 @@ const Header = () => {
 								color="info"
 							/>
 							<NavButton
-								to="/" // Change this to the logout route
+								to="/auth" // Change this to the logout route
 								icon={<LogoutRoundedIcon />}
 								label="Logout"
 								color="error"

@@ -37,6 +37,7 @@ import UpdateOffer from "../pages/offers/UpdateOffer";
 // INVENTORY
 import InventoryList from "../pages/inventory/ViewInventory";
 import AddInventory from "../pages/inventory/AddInventory";
+import AuthPage from "../pages/Auth";
 
 const Routing = () => {
   const location = useLocation();
@@ -44,8 +45,10 @@ const Routing = () => {
   return (
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
+        {/* BASIC */}
         <Route path="/" element={<Home />} />
         <Route path="/secret" element={<Experiment />} />
+        <Route path="/auth" element={<AuthPage />} />
 
         {/* SUPPORT */}
         <Route path="/help" element={<Help />} />

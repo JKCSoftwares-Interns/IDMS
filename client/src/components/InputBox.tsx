@@ -6,10 +6,12 @@ interface InputBoxProps {
   field: string;
   value: ReactNode;
   placeholder: string | undefined;
-  handleChange: (type: 'string' | 'number' | 'Date' | 'password' | 'email', field: string) => (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  handleChange: any
+  // handleChange: (type: 'string' | 'number' | 'Date' | 'password' | 'email', field: string) => (e: any) => void;
 }
 
 const InputBox: FC<InputBoxProps> = ({ label, field, value, placeholder, handleChange }) => {
+  /* `field` is basically the `name`. */
   let type = "text";
   if (typeof value === "number") type = "number";
   else if (field.includes("date")) type = "date";
