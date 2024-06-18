@@ -11,7 +11,7 @@ const UpdateUser = () => {
 	return (
 		<PageAnimate className={"w-full"}>
 			<MuiFormUpdate
-        title={"user"}
+        title={"users"}
         id={userId}
 				readonly={readOnlyFields}
 				fields={fields}

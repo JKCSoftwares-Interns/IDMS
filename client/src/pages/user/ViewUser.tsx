@@ -7,23 +7,15 @@ import { getAllData } from "../../data/basic";
 
 /* Order to `labels` and `interface` should match. */
 
-interface Supplier {
-	supplierId: string;
-	supplierName: string;
-	businessName: string;
-	mobileNumber: number;
-	alternateMobileNumber: number;
+interface User {
+	userId: string;
+	userName: string;
+	name: string;
+	mobile: number;
 	email: string;
-	addressLine1: string;
-	addressLine2: string;
-	city: string;
-	state: string;
-	pinCode: number;
-	beneficiaryName: string;
-	accountNumber: string;
-	ifscCode: string;
-	virtualPaymentAddress: string;
-	remarks: string;
+	role: string;
+	password: string;
+	status: string;
 	dateAdded: Date;
 	addedBy: string;
 	lastEditedDate: Date;
@@ -31,35 +23,27 @@ interface Supplier {
 }
 
 const labels = [
-	"Supplier ID",
-    "Supplier Name",
-    "Business Name",
-    "Mobile Number",
-    "Alternate Mobile Number",
+	"User ID",
+    "User Name",
+    "Name",
+    "Mobile",
     "Email",
-    "Address Line 1",
-    "Address Line 2",
-    "City",
-    "State",
-    "Pin Code",
-    "Beneficiary Name",
-    "Account Number",
-    "IFSC Code",
-    "Virtual Payment Address",
-    "Remarks",
+    "Role",
+    "Password",
+    "Status",
     "Date Added",
     "Added By",
     "Last Edited Date",
     "Last Edited By",
 ];
 
-const ViewSuppliers: FC = () => {
-	const [suppliers, setSupplier] = useState<Supplier[]>([]);
+const ViewUsers: FC = () => {
+	const [users, setUser] = useState<User[]>([]);
 
 	useEffect(() => {
 		const fetchData = async () => {
-			const response: Supplier[] = await getAllData("/suppliers");
-			setSupplier(response);
+			const response: User[] = await getAllData("/users");
+			setUser(response);
 			return response;
 		};
 
@@ -68,19 +52,19 @@ const ViewSuppliers: FC = () => {
 
 	return (
 		<>
-			{suppliers.length > 0 ? (
-				<TableGenerator title="suppliers" label={labels} data={suppliers} />
+			{users.length > 0 ? (
+				<TableGenerator title="users" label={labels} data={users} />
 			) : (
 				<div className="w-full grid place-items-center">
 					<div className="flex flex-col justify-center items-center gap-10">
 						<SearchOff sx={{ fontSize: 150 }} />
-						<h1 className="text-2xl">No suppliers found</h1>
-						<NavLink to={`/suppliers/add`}>
+						<h1 className="text-2xl">No users found</h1>
+						<NavLink to={`/users/add`}>
 						<div className="flex flex-col justify-center gap-3">
 						<Button size="large" variant="contained" color="success">
 							<AddCircleRounded />
 						</Button>
-						<p>Click to add Supplier</p>
+						<p>Click to add user</p>
 						</div>
 					</NavLink>
 					</div>
@@ -90,4 +74,4 @@ const ViewSuppliers: FC = () => {
 	);
 };
 
-export default ViewSuppliers;
+export default ViewUsers;
