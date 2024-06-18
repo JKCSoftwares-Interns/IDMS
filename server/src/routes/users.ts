@@ -14,7 +14,7 @@ interface User {
 	mobile: number;
 	email: string;
 	role: string;
-	password: password;
+	password: string;
 	status: string;
 	dateAdded: Date;
 	addedBy: string;
@@ -27,7 +27,7 @@ const router = express.Router();
 /*----------LOGGING FUNCTION------------*/
 
 function greetStatus(route: string) {
-	console.log(`/user/${route} is running`);
+	console.log(`/users/${route} is running`);
 }
 
 /*----------PATH FUNCTIONS------------*/
@@ -38,7 +38,7 @@ router.get("/", async (_, res) => {
 	let conn: PoolConnection | null = null;
 	try {
 		conn = await pool.getConnection();
-		const data = await conn.query("SELECT * FROM user");
+		const data = await conn.query("SELECT * FROM users");
 		// console.log(typeof data);
 		res.json(data);
 	} catch (err) {
@@ -55,25 +55,25 @@ router.post("/add", async (req, res) => {
 	let conn: PoolConnection | null = null;
 	try {
 		conn = await pool.getConnection();
-		const product: Partial<User> = req.body;
-		console.log("user be like:", user);
+		const users: Partial<User> = req.body;
+		console.log("users be like:", users);
 		await conn.query(
 			`
-    INSERT INTO user (
+    INSERT INTO users (
       userName,name, mobile, email, role, password, status, dateAdded, addedBy, 
       lastEditedDate, lastEditedBy
-    ) VALUES ( d
-      ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), ?, NULL, NULL
+    ) VALUES ( 
+      ?, ?, ?, ?, ?, ?, ?, NOW(), ?, NULL, NULL
     );
     `,
 			[
-				user.userName,
-				user.name,
-				user.mobile,
-			    user.email,
-				user.role,
-				user.password,
-				user.status,
+				users.userName,
+				users.name,
+				users.mobile,
+			    users.email,
+				users.role,
+				users.password,
+				users.status,
 				
 				"admin", //must be changed to include user from session data
 			]
@@ -92,7 +92,7 @@ router.get("/edit/:id", async (req, res) => {
 	try {
 	  conn = await pool.getConnection();
 	  const { id } = req.params;
-	  const rows = await conn.query("SELECT * FROM user WHERE userId = ?", [id]);
+	  const rows = await conn.query("SELECT * FROM users WHERE userId = ?", [id]);
 	  if (rows.length === 0) {
 		res.status(404).send("User not found");
 	  } else {
@@ -115,15 +115,15 @@ router.post("/edit/:id", async (req, res) => {
 	try {
 		conn = await pool.getConnection();
 		console.log("DATA RECEIVED:", req.body);
-		const user: User = req.body;
-		if (!user) {
+		const users: User = req.body;
+		if (!users) {
 			console.log("error 400");
 			res.status(400).send("Invalid user data");
 			return;
 		}
 		await conn.query(
 			`
-		UPDATE user SET
+		UPDATE users SET
 		userName = ?, 
         name = ?,
 	    mobile = ?,
@@ -136,14 +136,14 @@ router.post("/edit/:id", async (req, res) => {
 		WHERE userId = ?
 		`,
 			[
-				user.userName,
-				user.name,
-				user.mobile,
-			    user.email,
-				user.role,
-				user.password,
-				user.status,
-				user.lastEditedBy,
+				users.userName,
+				users.name,
+				users.mobile,
+			    users.email,
+				users.role,
+				users.password,
+				users.status,
+				users.lastEditedBy,
 				req.params.id,
 			]
 		);
@@ -169,7 +169,7 @@ router.delete("/delete/:id", async (req, res) => {
 		}
 		await conn.query(
 			`
-		DELETE FROM user
+		DELETE FROM users
 		WHERE userId = ?
 		`,
 			[id]
