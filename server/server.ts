@@ -8,8 +8,8 @@ import vendorsRoute from "./src/routes/vendors";
 import transportRoute from "./src/routes/transport";
 import offersRoute from "./src/routes/offers";
 import inventoryRoute from "./src/routes/inventory";
-import suppliersRoute from "./src/routes/supplier";
-import userRoute from "./src/routes/user";
+import suppliersRoute from "./src/routes/suppliers";
+import userRoute from "./src/routes/users";
 
 const PORT = 8000;
 
@@ -27,7 +27,8 @@ app.use('/transport', transportRoute);
 app.use('/offers', offersRoute);
 app.use('/inventory', inventoryRoute);
 app.use(`/suppliers`, suppliersRoute);
-app.use('/user', userRoute);
+app.use('/users', userRoute);
+
 
 
 
