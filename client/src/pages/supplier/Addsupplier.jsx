@@ -1,7 +1,7 @@
 import PageAnimate from "../../components/PageAnimate";
 import MuiFormAdd from "../../components/MuiFormAdd";
 
-const AddVendors = () => {
+const AddSupplier = () => {
 
     /* Fields Defined below */
 
@@ -14,7 +14,7 @@ const AddVendors = () => {
                 className="w-3/4 grid place-items-center p-6 mb-5"
             >
                 <MuiFormAdd
-                    title={"vendors"}
+                    title={"suppliers"}
                     categories={categories}
                     fields={fields}
                 />
@@ -24,22 +24,30 @@ const AddVendors = () => {
     );
 };
 
-export default AddVendors;
+export default AddSupplier;
 
 
-/*-------------------------FIELDS----------------*/
+/*-------------------------FIELDS-------------------*/
 
 const categories = [
     "Basic Info",
+    "Contact Info",
     "Address Details",
-    "Registration Details",
+    "Payment Details",
+    "Status Info",
 ];
 
 const fields = [
     /* Basic Info */
+    // {
+    //     label: "Supplier ID",
+    //     name: "supplierid",
+    //     type: "text",
+    //     category: "Basic Info",
+    // },
     {
-        label: "Vendor Name",
-        name: "vendorName",
+        label: "Supplier Name",
+        name: "supplierName",
         type: "text",
         category: "Basic Info",
     },
@@ -53,28 +61,23 @@ const fields = [
         label: "Email",
         name: "email",
         type: "email",
-        category: "Basic Info",
+        category: "Contact Info",
     },
     {
         label: "Mobile Number",
         name: "mobileNumber",
-        type: "tel",
-        maxLength: 10,
-        category: "Basic Info",
+        type: "number",
+        category: "Contact Info",
     },
     {
         label: "Alternate Mobile Number",
         name: "alternateMobileNumber",
-        type: "tel",
-        maxLength: 10,
-        category: "Basic Info",
+        type: "number",
+        category: "Contact Info",
     },
-    {
-      label: "Status",
-      name: "status",
-      type: "text",
-      category: "Basic Info",
-  },
+
+
+
 
     /* Address Details */
     {
@@ -90,20 +93,8 @@ const fields = [
         category: "Address Details",
     },
     {
-        label: "Landmark",
-        name: "landmark",
-        type: "text",
-        category: "Address Details",
-    },
-    {
         label: "City",
         name: "city",
-        type: "text",
-        category: "Address Details",
-    },
-    {
-        label: "District",
-        name: "district",
         type: "text",
         category: "Address Details",
     },
@@ -114,49 +105,49 @@ const fields = [
         category: "Address Details",
     },
     {
-        label: "Pin Code",
+        label: "PIN Code",
         name: "pinCode",
         type: "number",
-        maxLength: 6,
         category: "Address Details",
     },
 
-    /* Registration Details */
+
+
+    /* Legal Info */
     {
-        label: "GSTIN",
-        name: "gstin",
+        label: "Beneficiary Name",
+        name: "beneficiaryName",
         type: "text",
-        category: "Registration Details",
+        category: "Payment Details",
     },
+
     {
-        label: "FSSAI",
-        name: "fssai",
+        label: "Account Number",
+        name: "accountNumber",
         type: "text",
-        category: "Registration Details",
+        category: "Payment Details",
     },
+    
+    
     {
-        label: "Registration Number",
-        name: "registrationNumber",
+        label: "IFSC Code",
+        name: "ifscCode",
         type: "text",
-        category: "Registration Details",
+        category: "Payment Details",
     },
+
     {
-        label: "Aadhar Number",
-        name: "aadharNumber",
-        type: "number",
-        maxLength: 12,
-        category: "Registration Details",
-    },
-    {
-        label: "PAN Number",
-        name: "panNumber",
+        label: "Virtual Payment Address",
+        name: "virtualPaymentAddress",
         type: "text",
-        category: "Registration Details",
+        category: "Payment Details",
     },
+
+    /* Status Info */
     {
-        label: "Other Documents",
-        name: "otherDocuments",
+        label: "Remarks",
+        name: "remarks",
         type: "text",
-        category: "Registration Details",
+        category: "Status Info",
     },
 ];

@@ -37,6 +37,14 @@ import UpdateOffer from "../pages/offers/UpdateOffer";
 // INVENTORY
 import InventoryList from "../pages/inventory/ViewInventory";
 import AddInventory from "../pages/inventory/AddInventory";
+import GoodsRemoval from "../pages/inventory/GoodsRemoval";
+import LocationShifting from "../pages/inventory/LocationShifting";
+
+// USER
+import UserList from "../pages/user/ViewUser";
+import AddUser from "../pages/user/AddUser";
+import UpdateUser from "../pages/user/UpdateUser";
+
 import AuthPage from "../pages/Auth";
 
 const Routing = () => {
@@ -81,6 +89,16 @@ const Routing = () => {
         {/* INVENTORY */}
         <Route path="/inventory" element={<InventoryList />} />
         <Route path="/inventory/add" element={<AddInventory />} />
+        <Route path="/inventory/remove" element={<GoodsRemoval />} />
+        <Route
+          path="/inventory/edit/:inventoryI"
+          element={<LocationShifting />}
+        />
+
+        {/* USER */}
+        <Route path="/user" element={<UserList />} />
+        <Route path="/user/add" element={<AddUser />} />
+        <Route path="/user/edit/:userId" element={<UpdateUser />} />
       </Routes>
     </AnimatePresence>
   );

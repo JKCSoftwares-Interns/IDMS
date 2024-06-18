@@ -68,7 +68,7 @@ const MuiFormAdd = ({ title, categories, fields }) => {
 					severity="success"
 					sx={{ width: "100%" }}
 				>
-					Product added successfully!
+					{title} added successfully!
 				</Alert>
 			</Snackbar>
 
