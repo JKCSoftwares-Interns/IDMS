@@ -3,7 +3,7 @@
 import { useLocation, Route, Routes } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 
-// HOMR
+// HOME
 import Home from "../pages/Home";
 
 // EXPERIMENT
@@ -40,12 +40,21 @@ import AddInventory from "../pages/inventory/AddInventory";
 import GoodsRemoval from "../pages/inventory/GoodsRemoval";
 import LocationShifting from "../pages/inventory/LocationShifting";
 
+
+
+
 // USER
-import UserList from "../pages/user/ViewUser";
+import ViewUsers from "../pages/user/ViewUser";
 import AddUser from "../pages/user/AddUser";
 import UpdateUser from "../pages/user/UpdateUser";
 
-import AuthPage from "../pages/Auth";
+
+
+//SUPPLIERS
+import ViewSuppliers from "../pages/supplier/ViewSupplier";
+import AddSuppliers from "../pages/supplier/AddSupplier";
+import UpdateSupplier from "../pages/supplier/UpdateSupplier";
+
 
 const Routing = () => {
   const location = useLocation();
@@ -62,16 +71,19 @@ const Routing = () => {
         <Route path="/help" element={<Help />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/contact" element={<ContactUs />} />
+        
 
         {/* PRODUCTS */}
         <Route path="/products" element={<ProductList />} />
         <Route path="/products/add" element={<AddProducts />} />
         <Route path="/products/edit/:productId" element={<EditProducts />} />
+       
 
         {/* VENDORS */}
         <Route path="/vendors" element={<VendorList />} />
         <Route path="/vendors/add" element={<AddVendors />} />
         <Route path="/vendors/edit/:vendorId" element={<UpdateVendor />} />
+        
 
         {/* TRANSPORT */}
         <Route path="/transport" element={<TransportList />} />
@@ -80,6 +92,7 @@ const Routing = () => {
           path="/transport/edit/:transportId"
           element={<UpdateTransport />}
         />
+       
 
         {/* OFFERS */}
         <Route path="/offers" element={<Offers />} />
@@ -90,15 +103,24 @@ const Routing = () => {
         <Route path="/inventory" element={<InventoryList />} />
         <Route path="/inventory/add" element={<AddInventory />} />
         <Route path="/inventory/remove" element={<GoodsRemoval />} />
-        <Route
-          path="/inventory/edit/:inventoryI"
-          element={<LocationShifting />}
-        />
+        <Route path="/inventory/edit/:inventoryI" element={<LocationShifting />} />
+
+
 
         {/* USER */}
-        <Route path="/user" element={<UserList />} />
-        <Route path="/user/add" element={<AddUser />} />
-        <Route path="/user/edit/:userId" element={<UpdateUser />} />
+        <Route path="/users" element={<ViewUsers />} />
+        <Route path="/users/add" element={<AddUser />} />
+        <Route path="/users/edit/:userId" element={<UpdateUser />} />
+
+
+
+      {/* SUPPLIERS */}
+      <Route path="/suppliers" element={<ViewSuppliers />} />
+      <Route path="/suppliers/add" element={<AddSuppliers />} />
+      <Route path="/suppliers/edit/:supplierId" element={<UpdateSupplier />} />
+
+      {/* CUSTOMERS */}
+
       </Routes>
     </AnimatePresence>
   );

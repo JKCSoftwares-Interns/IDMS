@@ -110,6 +110,7 @@ const TableGenerator: FC<TableGeneratorProps> = ({ title, label, data }) => {
 
 										<Grid container spacing={2}>
 											<Grid item>
+												 
 												<NavLink to={`/${title}/edit/${row[keyid]}`}>
 													{/* Edit */}
 													<Button

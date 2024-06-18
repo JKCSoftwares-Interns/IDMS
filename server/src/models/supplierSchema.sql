@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS suppliers (
+    supplierId INT AUTO_INCREMENT PRIMARY KEY,
+    supplierName VARCHAR(255),
+    businessName VARCHAR(255),
+    mobileNumber VARCHAR(255),
+    alternateMobileNumber VARCHAR(255),
+    addressLine1 VARCHAR(255),
+    addressLine2 VARCHAR(255),
+    city VARCHAR(255),
+    state VARCHAR(255),
+    pinCode VARCHAR(255),
+    beneficiaryName VARCHAR(255),
+    accountNumber VARCHAR(255),
+    ifscCode VARCHAR(255),
+    virtualPaymentAddress VARCHAR(255),
+    remarks VARCHAR(255),
+    dateAdded TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    addedBy VARCHAR(255),
+    lastEditedDate TIMESTAMP,
+    lastEditedBy VARCHAR(255)
+  );

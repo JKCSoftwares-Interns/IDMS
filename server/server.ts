@@ -8,6 +8,8 @@ import vendorsRoute from "./src/routes/vendors";
 import transportRoute from "./src/routes/transport";
 import offersRoute from "./src/routes/offers";
 import inventoryRoute from "./src/routes/inventory";
+import suppliersRoute from "./src/routes/suppliers";
+import userRoute from "./src/routes/users";
 import suppliersRoute from "./src/routes/supplier";
 import userRoute from "./src/routes/user";
 
@@ -32,7 +34,6 @@ app.use('/user', userRoute);
 
 
 app.get("/", (_, res) => {
-	res.send("IDMS | JKCSoftware LLP running 🚀");
 });
 
 /* ----------------------------------------- */
