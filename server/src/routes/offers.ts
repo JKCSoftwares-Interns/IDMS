@@ -1,10 +1,11 @@
-/* May not work right now */
+/*------IMPORT----------*/
 
 import express from "express";
 import { PoolConnection } from "mariadb";
 
 import { pool } from "../config/db";
 
+/*------INTERFACE-------*/
 interface Offer {
     offerId: string;
     offerType: string;
@@ -27,6 +28,14 @@ interface Offer {
 
 const router = express.Router();
 
+/*----------LOGGING FUNCTION------------*/
+
+function greetStatus(route: string) {
+	console.log(`/offerss/${route} is running`);
+}
+
+/*----------PATH FUNCTIONS------------*/
+
 router.get("/", async (_, res) => {
 	greetStatus("show");
 
@@ -34,6 +43,7 @@ router.get("/", async (_, res) => {
 	try {
 		conn = await pool.getConnection();
 		const data = await conn.query("SELECT * FROM offers");
+		// console.log(typeof data);
 		res.json(data);
 	} catch (err) {
 		console.log(err);
@@ -49,10 +59,9 @@ router.post("/add", async (req, res) => {
     let conn: PoolConnection | null = null;
     try {
         conn = await pool.getConnection();
-        const offers: Offer = parseData(req.body);
-        console.log("DATA PARSED:", offers);
-        console.log("Concerned fields:", offers.offerType, offers.offerName)
-        await conn.query(
+        const offers: Partial<Offer> = req.body;
+		console.log("offers be like:", offers);
+		await conn.query(
             `
     INSERT INTO offers (
         offerType, offerName, startDate, endDate, offers, discountValue,
@@ -76,7 +85,7 @@ router.post("/add", async (req, res) => {
                 offers.offerApplicabilityFrequency,
                 offers.applicableTo,
                 offers.status,
-                offers.addedBy,
+                "admin", //must be changed to include user from session data
             ]
         );
         res.status(200).send("Offer added successfully");
@@ -88,16 +97,15 @@ router.post("/add", async (req, res) => {
     }
 });
 
-/*---------------EXP--------------------- */
 
 router.get("/edit/:id", async (req, res) => {
 	let conn: PoolConnection | null = null;
 	try {
 	  conn = await pool.getConnection();
 	  const { id } = req.params;
-	  const rows = await conn.query("SELECT * FROM offers WHERE offerID = ?", [id]);
+	  const rows = await conn.query("SELECT * FROM offers WHERE offerId = ?", [id]);
 	  if (rows.length === 0) {
-		res.status(404).send("Product not found");
+		res.status(404).send("Offer not found");
 	  } else {
 		res.json(rows[0]);
 	  }
@@ -118,7 +126,7 @@ router.post("/edit/:id", async (req, res) => {
 	try {
 		conn = await pool.getConnection();
 		console.log("DATA RECEIVED:", req.body);
-		const offers: Offer = parseData(req.body);
+		const offers: Offer = req.body;
 		if (!offers) {
 			console.log("error 400");
 			res.status(400).send("Invalid offer data");
@@ -197,48 +205,3 @@ router.delete("/delete/:id", async (req, res) => {
 });
 
 export default router;
-
-/* ---------------Helper Functions--------------- */
-
-function greetStatus(route: string) {
-	console.log(`/offers/${route} is running`);
-}
-
-function parseData(offer: any) {
-	if (!offer || typeof offer !== "object") {
-		console.log(typeof offer);
-		console.log(offer);
-		return null;
-	}
-
-	/* have to reparse the json the fit the database schema; 
-  will think of another way of doing this later... */
-	const intfields = [
-        "discountValue",
-        "discountPercentage",
-        "maximumDiscountValue",
-        "minimumPurchase",
-	];
-
-    const dateFields = ['startDate', 'endDate'];
-    for (const field of dateFields) {
-        if (!Date.parse(offer[field])) {
-            console.log(`Invalid date value for ${field}`);
-            offer[field] = null;
-        }
-    }
-
-	for (const field of intfields) {
-		if (typeof offer[field] !== "string" || isNaN(Number(offer[field]))) {
-			console.log(typeof offer[field]);
-			console.log(offer[field]);
-			console.log("setting default value for", field);
-			offer[field] = 0;
-		} else {
-			offer[field] = Number(offer[field]);
-		}
-	}
-
-	console.log("CHECKING:", offer);
-	return offer;
-}

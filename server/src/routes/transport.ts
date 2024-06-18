@@ -1,10 +1,11 @@
-/* May not work right now */
+/*------IMPORT----------*/
 
 import express from "express";
 import { PoolConnection } from "mariadb";
 
 import { pool } from "../config/db";
 
+/*------INTERFACE-------*/
 interface Transport {
 	tranportId: string;
 	transportName: string;
@@ -35,6 +36,14 @@ interface Transport {
 
 const router = express.Router();
 
+/*----------LOGGING FUNCTION------------*/
+
+function greetStatus(route: string) {
+	console.log(`/products/${route} is running`);
+}
+
+/*----------PATH FUNCTIONS------------*/
+
 router.get("/", async (_, res) => {
 	greetStatus("show");
 
@@ -42,6 +51,7 @@ router.get("/", async (_, res) => {
 	try {
 		conn = await pool.getConnection();
 		const data = await conn.query("SELECT * FROM transports");
+		// console.log(typeof data);
 		res.json(data);
 	} catch (err) {
 		console.log(err);
@@ -57,7 +67,7 @@ router.post("/add", async (req, res) => {
 	let conn: PoolConnection | null = null;
 	try {
 		conn = await pool.getConnection();
-		const transports: Transport = parseData(req.body);
+		const transports: Transport = req.body;
 		await conn.query(
 			`
     INSERT INTO transports (
@@ -87,7 +97,7 @@ router.post("/add", async (req, res) => {
 				transports.driverMobileNumber,
 				transports.driverAlternateNumber,
 				transports.status,
-				transports.addedBy,
+				"admin", //must be changed to include user from session data
 			]
 		);
 		res.status(200).send("Transport added successfully");
@@ -99,7 +109,6 @@ router.post("/add", async (req, res) => {
 	}
 });
 
-/*---------------EXP--------------------- */
 
 router.get("/edit/:id", async (req, res) => {
 
@@ -107,9 +116,9 @@ router.get("/edit/:id", async (req, res) => {
 	try {
 	  conn = await pool.getConnection();
 	  const { id } = req.params;
-	  const rows = await conn.query("SELECT * FROM transports WHERE transportId = ?", [id]); //change the tablename to transport or transportation
+	  const rows = await conn.query("SELECT * FROM transports WHERE transportId = ?", [id]); 
 	  if (rows.length === 0) {
-		res.status(404).send("Product not found");
+		res.status(404).send("Transport not found");
 	  } else {
 		res.json(rows[0]);
 	  }
@@ -130,7 +139,7 @@ router.post("/edit/:id", async (req, res) => {
 	try {
 		conn = await pool.getConnection();
 		console.log("DATA RECEIVED:", req.body);
-		const transports: Transport = parseData(req.body);
+		const transports: Transport = req.body;
 		if (!transports) {
 			console.log("error 400");
 			res.status(400).send("Invalid transport data");
@@ -225,45 +234,3 @@ router.delete("/delete/:id", async (req, res) => {
 });
 
 export default router;
-
-/* ---------------Helper Functions--------------- */
-
-function greetStatus(route: string) {
-	console.log(`/transport/${route} is running`);
-}
-
-function parseData(transport: any) {
-	if (!transport || typeof transport !== "object") {
-		console.log(typeof transport);
-		console.log(transport);
-		return null;
-	}
-
-	/* have to reparse the json the fit the database schema; 
-  will think of another way of doing this later... */
-	const intfields = [
-		"mobileNumber",
-		"alternateMobileNumber",
-		"pinCode",
-		"aadharNumber",
-		"panNumber",
-		"driverMobileNumber",
-		"driverAlternateNumber",
-	];
-	for (const field of intfields) {
-		if (
-			typeof transport[field] !== "string" ||
-			isNaN(Number(transport[field]))
-		) {
-			console.log(typeof transport[field]);
-			console.log(transport[field]);
-			console.log("setting default value for", field);
-			transport[field] = 0;
-		} else {
-			transport[field] = Number(transport[field]);
-		}
-	}
-
-	console.log("CHECKING:", transport);
-	return transport;
-}
