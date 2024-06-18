@@ -3,7 +3,7 @@
 import { useLocation, Route, Routes } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 
-// HOMR
+// HOME
 import Home from "../pages/Home";
 
 // EXPERIMENT
@@ -44,9 +44,16 @@ import LocationShifting from "../pages/inventory/LocationShifting";
 
 
 // USER
-import UserList from "../pages/user/ViewUser";
+import ViewUsers from "../pages/user/ViewUser";
 import AddUser from "../pages/user/AddUser";
 import UpdateUser from "../pages/user/UpdateUser";
+
+
+
+//SUPPLIERS
+import ViewSuppliers from "../pages/supplier/ViewSupplier";
+import AddSuppliers from "../pages/supplier/AddSupplier";
+import UpdateSupplier from "../pages/supplier/UpdateSupplier";
 
 
 const Routing = () => {
@@ -99,11 +106,18 @@ const Routing = () => {
 
 
         {/* USER */}
-        <Route path="/user" element={<UserList />} />
-        <Route path="/user/add" element={<AddUser />} />
-        <Route path="/user/edit/:userId" element={<UpdateUser />} />
+        <Route path="/users" element={<ViewUsers />} />
+        <Route path="/users/add" element={<AddUser />} />
+        <Route path="/users/edit/:userId" element={<UpdateUser />} />
 
 
+
+      {/* SUPPLIERS */}
+      <Route path="/suppliers" element={<ViewSuppliers />} />
+      <Route path="/suppliers/add" element={<AddSuppliers />} />
+      <Route path="/suppliers/edit/:supplierId" element={<UpdateSupplier />} />
+
+      {/* CUSTOMERS */}
 
       </Routes>
     </AnimatePresence>

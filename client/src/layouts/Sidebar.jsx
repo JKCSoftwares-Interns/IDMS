@@ -70,7 +70,7 @@ const Sidebar = () => {
             label: "Supplier",
         },
         {
-            to: "/user",
+            to: "/users",
             icon: <ManageAccountsIcon />,
             label: "User",
         },
