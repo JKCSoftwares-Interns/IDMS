@@ -76,7 +76,6 @@ router.post("/add", async (req, res) => {
     );
     `,
             [
-                vendors.vendorId,
                 vendors.vendorName,
                 vendors.businessName,
                 vendors.email,

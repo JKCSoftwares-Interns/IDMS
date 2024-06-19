@@ -5,56 +5,56 @@ import { Field, initializeFormData } from "../../utils/formHelper";
 
 /* Order to `data` and `interface` should match. */
 
-interface Product {
-	productName: string;
-	category: string;
-	upc: string
-	hsn: string;
-	measuringUnit: string;
-	packSize: number;
-	noOfUnits: number;
-	manufacturer: string;
-	marketer: string;
-	supplier: string;
-	cgst: number;
-	sgst: number;
-	igst: number;
-	cess: number;
-	unitMRP: number;
-	packMRP: number;
-	loadPrice: number;
-	unloadingPrice: number;
+interface Supplier {
+	supplierName: string;
+	businessName: string;
+	email: string;
+	mobileNumber: number;
+	alternateMobileNumber: number;
+	addressLine1: string;
+	addressLine2: string;
+	city: string;
+	state: string;
+	pinCode: number;
+	beneficiaryName: string;
+	accountNumber: string;
+	ifscCode: string;
+	virtualPaymentAddress: string;
+	remarks: string;
 	// [key: string | number ]: React.ReactNode;
 }
-
-const metadata: Field<Product>[] = [
+const metadata: Field<Supplier>[] = [
     /* BASIC INFO */
-    { name: "productName", type: "string", label: "Product Name", placeholder: "The Product", category: "Basic Info" },
-    { name: "category", type: "string", label: "Category", placeholder: "(e.g. Electronics, Groceries)", category: "Basic Info" },
-    { name: "upc", type: "string", label: "UPC", placeholder: "XXXXXXXXXXXXXX", category: "UPC & HSN" },
-    { name: "hsn", type: "string", label: "HSN", placeholder: "XXXXXXX", category: "UPC & HSN" },
-    /* QUANTITY */
-    { name: "measuringUnit", type: "number", label: "Measuring Unit", placeholder: "m", category: "Quantity" },
-    { name: "packSize", type: "number", label: "Pack Size", placeholder: "0", category: "Quantity" },
-    { name: "noOfUnits", type: "number", label: "No. of Units", placeholder: "0", category: "Quantity" },
-    /* Vendor Information */
-    { name: "marketer", type: "string", label: "Marketer", placeholder: "...", category: "Vendor Information" },
-    { name: "supplier", type: "string", label: "Supplier", placeholder: "...", category: "Vendor Information" },
-    { name: "manufacturer", type: "string", label: "Manufacturer", placeholder: "...", category: "Vendor Information" },
-    /* Taxation */
-    { name: "cgst", type: "number", label: "CGST", placeholder: "₹", category: "Taxation" },
-    { name: "sgst", type: "number", label: "SGST", placeholder: "₹", category: "Taxation" },
-    { name: "igst", type: "number", label: "IGST", placeholder: "₹", category: "Taxation" },
-    { name: "cess", type: "number", label: "CESS", placeholder: "CESS", category: "Taxation" },
-    /* Pricing */
-    { name: "unitMRP", type: "number", label: "Unit MRP", placeholder: "₹", category: "Pricing" },
-    { name: "packMRP", type: "number", label: "Pack MRP", placeholder: "₹", category: "Pricing" },
-    { name: "loadPrice", type: "number", label: "Load Price", placeholder: "₹", category: "Pricing" },
-    { name: "unloadingPrice", type: "number", label: "Unloading Price", placeholder: "₹", category: "Pricing" },
+	{ name: "supplierName", type: "string", label: "Supplier Name", placeholder: "The Supplier", category: "Basic Info" },
+	{ name: "businessName", type: "string", label: "Business Name", placeholder: "The Business", category: "Basic Info" },
+
+
+	// Contact Info
+	{ name: "email", type: "string", label: "Email", placeholder: "temp123@gmail.com", category: "Contact Info" },
+	{ name: "mobileNumber", type: "number", label: "Mobile Number", placeholder: "XXXXXXXXXX", category: "Contact Info" },
+	{ name: "alternateMobileNumber", type: "number", label: "Alternate Mobile Number", placeholder: "XXXXXXXXXX", category: "Contact Info" },
+
+
+
+	/* Address Details */
+	{ name: "addressLine1", type: "string", label: "Address Line 1", placeholder: "The Address", category: "Address Details" },
+	{ name: "addressLine2", type: "string", label: "Address Line 2", placeholder: "The Address", category: "Address Details" },
+	{ name: "city", type: "string", label: "City", placeholder: "The City", category: "Address Details" },
+	{ name: "state", type: "string", label: "State", placeholder: "The State", category: "Address Details" },
+	{ name: "pinCode", type: "number", label: "Pin Code", placeholder: "XXXXXX", category: "Address Details" },
+
+
+	/* Legal Info */
+	{ name: "beneficiaryName", type: "string", label: "Beneficiary Name", placeholder: "The Name", category: "Legal Info" },
+	{ name: "accountNumber", type: "string", label: "Account Number", placeholder: "XXXXXXXXXXXX", category: "Legal Info" },
+	{ name: "ifscCode", type: "string", label: "IFSC Code", placeholder: "XXXXXXXXXX", category: "Legal Info" },
+	{ name: "virtualPaymentAddress", type: "string", label: "Virtual Payment Address", placeholder: "XXXXXXXXXX", category: "Legal Info" },
+	/* Status Info */
+	{ name: "remarks", type: "string", label: "Remarks", placeholder: "Remarks", category: "Status Info" },
 ];
 
-const AddProducts = () => {
-	const [formData, setFormData] = useState<Product>(initializeFormData(metadata));
+const AddSuppliers = () => {
+	const [formData, setFormData] = useState<Supplier>(initializeFormData(metadata));
 
 	// console.log("formData: ", formData);
 
@@ -63,11 +63,11 @@ const AddProducts = () => {
 			<div className="w-full p-6 flex justify-center items-center gap-5">
 				<div className="bg-opacity-30 p-4 h-fit rounded-md items-center justify-center flex-col flex gap-5">
 					<h1 className="font-extrabold text-2xl border-b w-fit pb-2">
-						Add to Products List
+						Add to Suppliers List
 					</h1>
 
 					<AddForm
-						title="products"
+						title="suppliers"
 						formData={formData}
 						setFormData={setFormData}
 						metadata={metadata}
@@ -78,4 +78,4 @@ const AddProducts = () => {
 	);
 };
 
-export default AddProducts;
+export default AddSuppliers;

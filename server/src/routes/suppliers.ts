@@ -1,9 +1,11 @@
-/* May not work right now */
+/*------IMPORT----------*/
 
 import express from "express";
 import { PoolConnection } from "mariadb";
 
 import { pool } from "../config/db";
+
+/*------INTERFACE-------*/
 
 interface Supplier {
 	supplierId: string;
@@ -22,13 +24,21 @@ interface Supplier {
 	ifscCode: string;
 	virtualPaymentAddress: string;
 	remarks: string;
-	dateAdded: string;
+	dateAdded: Date;
 	addedBy: string;
-	lastEditedDate: string;
+	lastEditedDate: Date;
 	lastEditedBy: string;
 }
 
 const router = express.Router();
+
+/*----------LOGGING FUNCTION------------*/
+
+function greetStatus(route: string) {
+	console.log(`/products/${route} is running`);
+}
+
+/*----------PATH FUNCTIONS------------*/
 
 router.get("/", async (_, res) => {
 	greetStatus("show");
@@ -37,6 +47,7 @@ router.get("/", async (_, res) => {
 	try {
 		conn = await pool.getConnection();
 		const data = await conn.query("SELECT * FROM suppliers");
+		// console.log(typeof data);
 		res.json(data);
 	} catch (err) {
 		console.log(err);
@@ -46,21 +57,7 @@ router.get("/", async (_, res) => {
 	}
 });
 
-router.get("/count", async (_, res) => {
-	greetStatus("count");
-  
-	let conn: PoolConnection | null = null;
-	try {
-	  conn = await pool.getConnection();
-	  const data = await conn.query("SELECT COUNT(*) FROM suppliers");
-	  res.json(Number(data[0]['COUNT(*)']));
-	} catch (err) {
-	  console.log(err);
-	  res.sendStatus(500);
-	} finally {
-	  if (conn) conn.release();
-	}
-  });
+
 
 router.post("/add", async (req, res) => {
 	greetStatus("add");
@@ -68,7 +65,8 @@ router.post("/add", async (req, res) => {
 	let conn: PoolConnection | null = null;
 	try {
 		conn = await pool.getConnection();
-		const suppliers: Supplier = parseData(req.body);
+		const suppliers: Partial<Supplier> = req.body;
+		console.log("product be like:", suppliers);
 		await conn.query(
 			`
     INSERT INTO suppliers (
@@ -93,10 +91,7 @@ router.post("/add", async (req, res) => {
 				suppliers.ifscCode,
 				suppliers.virtualPaymentAddress,
 				suppliers.remarks,
-				suppliers.dateAdded,
-				suppliers.addedBy,
-				suppliers.lastEditedDate,
-				suppliers.lastEditedBy
+				"admin", //must be changed to include user from session data
 			]
 		);
 		res.status(200).send("Supplier added successfully");
@@ -136,7 +131,7 @@ router.post("/edit/:id", async (req, res) => {
 	try {
 		conn = await pool.getConnection();
 		console.log("DATA RECEIVED:", req.body);
-		const suppliers: Supplier = parseData(req.body);
+		const suppliers: Supplier = req.body;
 		if (!suppliers) {
 			console.log("error 400");
 			res.status(400).send("Invalid suppliers data");
@@ -222,37 +217,3 @@ router.delete("/delete/:id", async (req, res) => {
 
 export default router;
 
-/* ---------------Helper Functions--------------- */
-
-function greetStatus(route: string) {
-	console.log(`/suppliers/${route} is running`);
-}
-
-function parseData(supplier: any) {
-	if (!supplier || typeof supplier !== "object") {
-		console.log(typeof supplier);
-		console.log(supplier);
-		return null;
-	}
-
-	/* have to reparse the json the fit the database schema; 
-  will think of another way of doing this later... */
-	const intfields = [
-		"mobileNumber",
-		"alternateMobileNumber",
-		"pinCode",
-	];
-	for (const field of intfields) {
-		if (typeof supplier[field] !== "string" || isNaN(Number(supplier[field]))) {
-			console.log(typeof supplier[field]);
-			console.log(supplier[field]);
-			console.log("setting default value for", field);
-			supplier[field] = 0;
-		} else {
-			supplier[field] = Number(supplier[field]);
-		}
-	}
-
-	console.log("CHECKING:", supplier);
-	return supplier;
-}
