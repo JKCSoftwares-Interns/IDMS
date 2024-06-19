@@ -45,7 +45,7 @@ const LoginForm: FC<Props> = ({ toggle }) => {
     }
 
     return (
-        <form onSubmit={HandleLogin} className="p-4 flex flex-col justify-center items-center gap-5 border-2">
+        <form onSubmit={HandleLogin} className="p-4 flex flex-col justify-center items-center gap-8">
             <h1 className="text-3xl font-bold"> Login </h1>
 
             <InputBox label="Email" field="email" handleChange={handleChange} placeholder="example@xxx.com" value={formData.email} key={"email"} />
@@ -53,7 +53,7 @@ const LoginForm: FC<Props> = ({ toggle }) => {
 
             <input className="py-2 px-4 bg-blue-500 hover:bg-blue-700 transition rounded-xl text-slate-300 font-semibold" type="submit" />
 
-            <p> New here? <span onClick={() => toggle(true)} className="text-blue-500"> Register </span> </p>
+            <p> Create a new account? <span onClick={() => toggle(true)} className="text-blue-500"> Register here </span> </p>
       </form>
     )
 }

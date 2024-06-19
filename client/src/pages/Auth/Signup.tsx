@@ -1,5 +1,5 @@
 import React, {FC, useState} from "react";
-import InputBox from "../../components/InputBox_exp";
+import InputBox from "../../components/InputBox";
 
 interface Fields {
 	name: string,
@@ -20,7 +20,7 @@ const label = [
 ]
 
 const placeholder = [
-	"",
+	"First-name Last-name", // change this if you feels so
 	"example@address.com",
 	"xxxxxxxxx",
 	"Admin, default",
@@ -56,21 +56,22 @@ const SignupForm: FC<Props> = ({ toggle }) => {
 	}
 
 	return (
-		<form className="p-4 flex flex-col justify-center items-center gap-5 border-2">
+
+		/* Fix this layout someday */
+
+		<form className="p-4 flex flex-col items-center gap-8">
 			<h1 className="text-3xl font-bold"> Sign Up </h1>
 
 			{Object.entries(formData).map(([field, value], index) => (
 				<React.Fragment key={index}>
-					<label className="font-semibold" htmlFor={field}>
-						{label[index]}
-					</label>
 
 					<InputBox
-						index={index}
+						label={label[index]}
 						field={field}
-						value={value}
-						placeholder={placeholder}
 						handleChange={handleChange}
+						placeholder={placeholder[index]}
+						value={value}
+						key={index}
 					/>
 				</React.Fragment>
 			))}
@@ -82,10 +83,10 @@ const SignupForm: FC<Props> = ({ toggle }) => {
 
 			<p>
 				{" "}
-				Already have an account?{" "}
+				Already a member?{" "}
 				<span onClick={() => toggle(false)} className="text-blue-500">
 					{" "}
-					Continue with it{" "}
+					Back to login{" "}
 				</span>{" "}
 			</p>
 
