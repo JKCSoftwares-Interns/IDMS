@@ -1,17 +1,13 @@
 import express from "express";
 import cors from "cors";
 
-import { initializeDB } from "./src/config/db";
-
-import productsRoute from "./src/routes/products";
-import vendorsRoute from "./src/routes/vendors";
-import transportRoute from "./src/routes/transport";
-import offersRoute from "./src/routes/offers";
-import inventoryRoute from "./src/routes/inventory";
-import suppliersRoute from "./src/routes/suppliers";
-import userRoute from "./src/routes/users";
-import suppliersRoute from "./src/routes/supplier";
-import userRoute from "./src/routes/user";
+// import productsRoute from "./src/routes/products";
+// import vendorsRoute from "./src/routes/vendors";
+// import transportRoute from "./src/routes/transport";
+// import offersRoute from "./src/routes/offers";
+// import inventoryRoute from "./src/routes/inventory";
+// import suppliersRoute from "./src/routes/suppliers";
+// import userRoute from "./src/routes/users";
 
 const PORT = 8000;
 
@@ -22,18 +18,19 @@ app.use(cors({
 }));
 app.use(express.json());
 
-// For Products
-app.use('/products', productsRoute);
-app.use('/vendors', vendorsRoute);
-app.use('/transport', transportRoute);
-app.use('/offers', offersRoute);
-app.use('/inventory', inventoryRoute);
-app.use(`/suppliers`, suppliersRoute);
-app.use('/user', userRoute);
+
+// /*app.use('/products', productsRoute);
+// app.use('/vendors', vendorsRoute);
+// app.use('/transport', transportRoute);
+// app.use('/offers', offersRoute);
+// app.use('/inventory', inventoryRoute);
+// app.use(`/suppliers`, suppliersRoute);
+// app.use('/user', userRoute);*/
 
 
 
 app.get("/", (_, res) => {
+	res.send("hello world!");
 });
 
 /* ----------------------------------------- */
@@ -54,4 +51,4 @@ async function startServer() {
 
 /* ----------------------------------------- */
 
-startServer();
+await startServer();
