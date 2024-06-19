@@ -37,27 +37,25 @@ import UpdateOffer from "../pages/offers/UpdateOffer";
 // INVENTORY
 import InventoryList from "../pages/inventory/ViewInventory";
 import AddInventory from "../pages/inventory/AddInventory";
-<<<<<<< HEAD
 import GoodsRemoval from "../pages/inventory/GoodsRemoval";
 import LocationShifting from "../pages/inventory/LocationShifting";
-
-
-
 
 // USER
 import ViewUsers from "../pages/user/ViewUser";
 import AddUser from "../pages/user/AddUser";
 import UpdateUser from "../pages/user/UpdateUser";
 
-=======
+//Invoice
+import AddInovice from "../pages/invoice/AddInvoice";
 import AuthPage from "../pages/Auth";
->>>>>>> 7f04a195887547af89e06e2a7c3ee1648bd3b0a3
 
 
 //SUPPLIERS
 import ViewSuppliers from "../pages/supplier/ViewSupplier";
 import AddSuppliers from "../pages/supplier/AddSupplier";
 import UpdateSupplier from "../pages/supplier/UpdateSupplier";
+import ViewInvoice from "../pages/invoice/ViewInvoice";
+import AddInvoice from "../pages/invoice/AddInvoice";
 
 
 const Routing = () => {
@@ -116,7 +114,11 @@ const Routing = () => {
         <Route path="/users/add" element={<AddUser />} />
         <Route path="/users/edit/:userId" element={<UpdateUser />} />
 
-
+       
+        {/* invoice */}
+        <Route path="/invoice/add" element={<AddInovice/>} />
+        <Route path="/invoice" element={<ViewInvoice />} />
+        
 
       {/* SUPPLIERS */}
       <Route path="/suppliers" element={<ViewSuppliers />} />
