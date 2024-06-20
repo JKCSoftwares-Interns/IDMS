@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import { db, connector, validateDatabase } from "./src/database/db";
 
 // import productsRoute from "./src/routes/products";
 // import vendorsRoute from "./src/routes/vendors";
@@ -37,7 +38,7 @@ app.get("/", (_, res) => {
 
 async function startServer() {
 	try {
-		await initializeDB();
+		await validateDatabase();
 		app.listen(PORT, () => {
 			console.log(`Server is running at http://localhost:${PORT}`);
 		});

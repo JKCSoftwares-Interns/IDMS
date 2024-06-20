@@ -3,7 +3,6 @@
 
 import {
     mysqlTable,
-    serial,
     date,
     decimal,
     timestamp,
@@ -28,11 +27,14 @@ import {
 
     Run:
         `bun drizzle-kit generate`
+
+    TODO:
+        Try using `bigint` as datatype for reference `serial`.
 */
 
 
 export const user = mysqlTable('users', {
-    userId: serial('userId'),
+    userId: int('userId').primaryKey().autoincrement(),
     userName: varchar('userName', { length: 255 }),
     name: varchar('name', { length: 255 }),
     mobile: varchar('mobile', { length: 255 }),
@@ -47,7 +49,7 @@ export const user = mysqlTable('users', {
 });
 
 export const supplier = mysqlTable('suppliers', {
-    supplierId: serial('supplierId').primaryKey(),
+    supplierId: int('supplierId').primaryKey().autoincrement(),
     supplierName: varchar('supplierName', { length: 255 }),
     businessName: varchar('businessName', { length: 255 }),
     mobileNumber: varchar('mobileNumber', { length: 255 }),
@@ -69,7 +71,7 @@ export const supplier = mysqlTable('suppliers', {
 });
 
 export const product = mysqlTable('products', {
-    productId: serial('productId').primaryKey(),
+    productId: int('productId').primaryKey().autoincrement(),
     productName: varchar('productName', { length: 255 }),
     category: varchar('category', { length: 255 }),
     measuringUnit: varchar('measuringUnit', { length: 255 }),
@@ -79,7 +81,7 @@ export const product = mysqlTable('products', {
     packMRP: decimal('packMRP', { precision: 10, scale: 2 }),
     manufacturer: varchar('manufacturer', { length: 255 }),
     marketer: varchar('marketer', { length: 255 }),
-    supplierID: varchar('supplier', { length: 255 }).references(() => supplier.supplierId),
+    supplierID: int('supplier').references(() => supplier.supplierId),
     upc: varchar('upc', { length: 255 }),
     hsn: varchar('hsn', { length: 255 }),
     cgst: decimal('cgst', { precision: 10, scale: 2 }),
@@ -95,7 +97,7 @@ export const product = mysqlTable('products', {
 });
 
 export const offer = mysqlTable('offers', {
-    offerId: serial('offerId').primaryKey(),
+    offerId: int('offerId').primaryKey().autoincrement(),
     offerType: varchar('offerType', { length: 255 }),
     offerName: varchar('offerName', { length: 255 }),
     startDate: date('startDate'),
@@ -116,7 +118,7 @@ export const offer = mysqlTable('offers', {
 });
 
 export const vendor = mysqlTable('vendors', {
-    vendorId: serial('vendorId').primaryKey(),
+    vendorId: int('vendorId').primaryKey().autoincrement(),
     vendorName: varchar('vendorName', { length: 255 }),
     businessName: varchar('businessName', { length: 255 }),
     email: varchar('email', { length: 255 }),
@@ -143,7 +145,7 @@ export const vendor = mysqlTable('vendors', {
 });
 
 export const transport = mysqlTable('transports', {
-    transportId: serial('transportId').primaryKey(),
+    transportId: int('transportId').primaryKey().autoincrement(),
     transportName: varchar('transportName', { length: 255 }),
     businessName: varchar('businessName', { length: 255 }),
     vehicleName: varchar('vehicleName', { length: 255 }),
@@ -171,7 +173,7 @@ export const transport = mysqlTable('transports', {
 });
 
 export const inventory = mysqlTable('inventory', {
-    inventoryId: serial('inventoryId').primaryKey(),
+    inventoryId: int('inventoryId').primaryKey().autoincrement(),
     orderedDate: varchar('orderedDate', { length: 10 }),
     dateOfEntry: varchar('dateOfEntry', { length: 10 }),
     referenceNumber: varchar('referenceNumber', { length: 255 }),

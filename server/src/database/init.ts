@@ -1,46 +1,46 @@
-import mariadb from "mariadb";
-import {drizzle, MySql2Database} from "drizzle-orm/mysql2";
-import * as schema from './schema';
+/*--------IMPORTS---------*/
+
+import mysql from "mysql2/promise";
+import { migrateDatabase } from "./migrate";
+
+/*--------Checking .env ---------*/
 
 if (
-    !process.env.DB_HOST ||
-    !process.env.DB_PORT ||
-    !process.env.DB_NAME ||
-    !process.env.DB_USER ||
-    !process.env.DB_PASSWORD
+	!process.env.DB_HOST ||
+	!process.env.DB_PORT ||
+	!process.env.DB_NAME ||
+	!process.env.DB_USER ||
+	!process.env.DB_PASSWORD
 ) {
-    throw new Error("Missing database connection");
+	throw new Error("Missing database connection");
 }
 
-/*--------Setting Up DB---------*/
+/*--------Setting up DB---------*/
 
 const createDatabase = `CREATE DATABASE IF NOT EXISTS ${process.env.DB_NAME}`;
 
-const pool = mariadb.createPool({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    port: parseInt(process.env.DB_PORT),
-    connectionLimit: 5,
+const pool: mysql.Pool = mysql.createPool({
+	host: process.env.DB_HOST,
+	user: process.env.DB_USER,
+	password: process.env.DB_PASSWORD,
+	port: parseInt(process.env.DB_PORT),
+	connectionLimit: 5,
 });
+
+/*--------Initializing DB---------*/
 
 await (async () => {
-    try {
-        const conn = await pool.getConnection();
-        await conn.query(createDatabase);
-    } catch (err) {
-        console.error('Error creating database:', err);
-        process.exit(1);
-    }
+	let connection: mysql.PoolConnection | null = null;
+
+	// Creating database
+	try {
+		const conn = await pool.getConnection();
+		await conn.query(createDatabase);
+		await migrateDatabase();
+        pool.end();
+	} catch (err) {
+		console.error("Error creating database:", err);
+		process.exit(1);
+	}
+	
 })();
-
-/*---------------------------------*/
-
-console.log("[db] Database setup complete! Initializing database ...");
-
-export const connector = mariadb.createPool({
-    ...pool,
-    database: process.env.DB_NAME,
-});
-
-export const db: MySql2Database<typeof schema> = drizzle(pool, { schema, mode: 'default' });

@@ -24,13 +24,13 @@ docker pull mariadb
 #### Running the image
 
 ```
-docker run -p 3306:3306 -e MYSQL_ROOT_PASSWORD=test --name idms -d mariadb
+docker run -p 3306:3306 -e MYSQL_ROOT_PASSWORD=test --name idms -d mysql
 ```
 
 #### Opening `MariaDB`
 
 ```
-docker exec -it idms mariadb -u root -ptest
+docker exec -it idms mysql -u root -ptest
 ```
 
 > [!NOTE]
