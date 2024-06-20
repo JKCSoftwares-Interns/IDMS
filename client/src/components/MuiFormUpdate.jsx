@@ -12,8 +12,10 @@ const MuiFormUpdate = ({ title, id, categories, fields, readonly }) => {
 
 	useEffect(() => {
 		const fetchData = async () => {
+			const urlstring = `/${title}/edit/${id}`;
+			console.log(urlstring);
 			try {
-				const response = await serverInstance.get(`/${title}/edit/${id}`);
+				const response = await serverInstance.get(urlstring);
 				setData(response.data);
 			} catch (error) {
 				console.error(`Failed to fetch ${title}:`, error);

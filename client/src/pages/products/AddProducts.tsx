@@ -34,7 +34,7 @@ const metadata: Field<Product>[] = [
     { name: "upc", type: "string", label: "UPC", placeholder: "XXXXXXXXXXXXXX", category: "UPC & HSN" },
     { name: "hsn", type: "string", label: "HSN", placeholder: "XXXXXXX", category: "UPC & HSN" },
     /* QUANTITY */
-    { name: "measuringUnit", type: "number", label: "Measuring Unit", placeholder: "m", category: "Quantity" },
+    { name: "measuringUnit", type: "string", label: "Measuring Unit", placeholder: "m", category: "Quantity" },
     { name: "packSize", type: "number", label: "Pack Size", placeholder: "0", category: "Quantity" },
     { name: "noOfUnits", type: "number", label: "No. of Units", placeholder: "0", category: "Quantity" },
     /* Vendor Information */

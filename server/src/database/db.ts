@@ -14,7 +14,7 @@ if (
 
 /*---------------------------------*/
 
-console.log("[db] Initializing database ...");
+console.log("[db] Establishing connection ...");
 
 export const connector: mysql.Pool = mysql.createPool({
     host: process.env.DB_HOST,

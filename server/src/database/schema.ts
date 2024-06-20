@@ -9,10 +9,9 @@ import {
     int,
     varchar,
 } from 'drizzle-orm/mysql-core';
+import { InferInsertModel, InferSelectModel } from 'drizzle-orm';
 
-// import { InferInsertModel, InferSelectModel } from 'drizzle-orm';
-
-/*---------TABLES---------*/
+/*---------SCHEMA---------*/
 
 /*
     Order:
@@ -25,7 +24,7 @@ import {
         7. transport
         8. inventory
 
-    Run:
+    Generate:
         `bun drizzle-kit generate`
 
     TODO:
@@ -194,5 +193,25 @@ export const inventory = mysqlTable('inventory', {
     lastEditedBy: varchar('lastEditedBy', { length: 255 }),
 });
 
-// type User = InferSelectModel<typeof user>;
-// type NewUser = InferInsertModel<typeof user>;
+/*---------TYPES---------*/
+
+// Select
+
+export type User = InferSelectModel<typeof user>;
+export type Supplier = InferSelectModel<typeof supplier>;
+export type Product = InferSelectModel<typeof product>;
+export type Offer = InferSelectModel<typeof offer>;
+export type Vendor = InferSelectModel<typeof vendor>;
+export type Transport = InferSelectModel<typeof transport>;
+export type Inventory = InferSelectModel<typeof inventory>;
+
+
+// Insert
+
+export type NewUser = InferInsertModel<typeof user>;
+export type NewSupplier = InferInsertModel<typeof supplier>;
+export type NewProduct = InferInsertModel<typeof product>;
+export type NewOffer = InferInsertModel<typeof offer>;
+export type NewVendor = InferInsertModel<typeof vendor>;
+export type NewTransport = InferInsertModel<typeof transport>;
+export type NewInventory = InferInsertModel<typeof inventory>;
