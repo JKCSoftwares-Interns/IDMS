@@ -64,11 +64,10 @@ router.get("/edit/:id", async (req, res) => {
         throw new Error("Invalid ID format");
     }
 
-    console.info(`${id} accessed`);
+    // console.info(`${id} accessed`);
 
     try {
         const data = await db.select().from(product).where(eq(product.productId, id));
-        console.log(data);
         res.send(data);
     } catch (err) {
         console.error("ID not found: ", err);
@@ -84,9 +83,13 @@ router.post("/edit/:id", async (req, res) => {
 
     const id = parseInt(req.params.id, 10);
 
+    console.info("ID access:", id);
+
     if (isNaN(id)) {
         throw new Error("Invalid ID format");
     }
+
+    console.log("data:\n", data);
 
     try {
         await db.update(product).set({
@@ -94,8 +97,9 @@ router.post("/edit/:id", async (req, res) => {
             lastEditedBy: "admin", // needs to change
             lastEditedDate: sql`NOW()`,
         }).where(eq(product.productId, id));
-    } catch {
-		console.error("Error updating product");
+        res.status(200).send("Update successful");
+    } catch (e) {
+		console.error("Error updating product", e);
 		res.status(500).send("Error updating product");
 	}
 

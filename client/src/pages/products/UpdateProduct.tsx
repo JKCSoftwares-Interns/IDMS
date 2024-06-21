@@ -33,7 +33,7 @@ interface Product {
 const UpdateProduct = () => {
 	const { productId } = useParams();
 
-	const [data, setData] = useState([]);
+	const [data, setData] = useState({} as Product[]);
 
 	if (!productId) {
 		return <h1>Product ID not found</h1>;

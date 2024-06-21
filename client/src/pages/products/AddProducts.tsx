@@ -15,7 +15,7 @@ interface Product {
 	noOfUnits: number;
 	manufacturer: string;
 	marketer: string;
-	supplier: string;
+	supplierID: number;
 	cgst: number;
 	igst: number;
 	cess: number;
@@ -39,7 +39,7 @@ const metadata: Field<Product>[] = [
     { name: "noOfUnits", type: "number", label: "No. of Units", placeholder: "0", category: "Quantity" },
     /* Vendor Information */
     { name: "marketer", type: "string", label: "Marketer", placeholder: "...", category: "Vendor Information" },
-    { name: "supplier", type: "string", label: "Supplier", placeholder: "...", category: "Vendor Information" },
+    { name: "supplierID", type: "number", label: "Supplier ID", placeholder: "...", category: "Vendor Information" },
     { name: "manufacturer", type: "string", label: "Manufacturer", placeholder: "...", category: "Vendor Information" },
     /* Taxation */
     { name: "cgst", type: "number", label: "CGST", placeholder: "₹", category: "Taxation" },
@@ -55,8 +55,6 @@ const metadata: Field<Product>[] = [
 
 const AddProducts = () => {
 	const [formData, setFormData] = useState<Product>(initializeFormData(metadata));
-
-	// console.log("formData: ", formData);
 
 	return (
 		<PageAnimate className={"w-full"}>

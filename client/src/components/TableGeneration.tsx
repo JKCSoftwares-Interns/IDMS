@@ -73,7 +73,7 @@ const TableGenerator: FC<TableGeneratorProps> = ({ title, label, data, setData }
 					<Button onClick={ToggleColumn}><IndeterminateCheckBoxIcon /></Button>
 
 					<input
-						className="px-4 py-2 border max-w-max rounded-lg"
+						className="px-4 py-2 border max-w-max rounded-lg outline-none"
 						placeholder="Search Inventory..."
 						type="text"
 						value={searchTerm}
@@ -117,7 +117,6 @@ const TableGenerator: FC<TableGeneratorProps> = ({ title, label, data, setData }
 											) {
 												return (
 													<TableCell align="center" key={index}>
-														<h1>kasdhjakjhds</h1>
 														{new Date(value).toLocaleString()}
 													</TableCell>
 												);

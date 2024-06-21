@@ -18,8 +18,10 @@ const InputBox: FC<InputBoxProps> = ({ label, field, value, placeholder, handleC
   else if (field === "password") type = "password";
   else if (field === "email") type = "email";
 
-  // console.log(value)
+  // console.log(field, value, typeof value)
   // console.log(placeholder)
+
+
 
   return (
     <TextField
@@ -29,6 +31,8 @@ const InputBox: FC<InputBoxProps> = ({ label, field, value, placeholder, handleC
       placeholder={placeholder}
       name={field}
       type={type}
+      defaultValue={typeof value === 'string' || typeof value === 'number' ? value : undefined}
+      // value={value} // Add this line
       inputProps={{
         min: 0,
       }}

@@ -66,7 +66,7 @@ const AddForm: FC<AddFormProps> = ({
 					{Object.entries(groupedData).map(
 						([category, items]: [string, any]) => (
 							<div
-								className="flex flex-col h-fit items-center gap-3 border rounded-2xl p-6 backdrop-filter backdrop-blur-lg bg-white bg-opacity-90"
+								className="hover:shadow-xl transition flex flex-col w-fit h-fit items-center gap-4 border rounded-2xl p-8 backdrop-filter backdrop-blur-lg bg-white bg-opacity-90"
 								key={category}
 							>
 								<h2 className="font-semibold">{category}</h2>
@@ -91,7 +91,7 @@ const AddForm: FC<AddFormProps> = ({
 				<div className="flex justify-center">
 					<input
 						type="submit"
-						className="p-3 w-[10rem] hover:bg-rose-700 text-slate-100 transition border-none font-semibold rounded-lg bg-rose-500"
+						className="p-3 m-5 w-[10rem] cursor-pointer hover:bg-rose-700 text-slate-100 transition border-none font-semibold rounded-lg bg-rose-500"
 					/>
 				</div>
 			</form>
