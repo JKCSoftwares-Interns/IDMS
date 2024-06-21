@@ -1,9 +1,15 @@
-
-
 import { Alert, Snackbar } from "@mui/material";
+import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 
-const AlertBox = ({ message, navigateTo, active }) => {
+interface Props {
+	title: string;
+	message: string;
+	navigateTo: string;
+	active: boolean;
+}
+
+const AlertBox: FC<Props> = ({ title, message, navigateTo, active }) => {
 	const navigate = useNavigate();
 
 	return (

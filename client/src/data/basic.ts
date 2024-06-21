@@ -35,4 +35,28 @@ async function addMoreShit(path: string, data: object): Promise<void> {
 
 }
 
-export { getAllData, deleteThatShit, addMoreShit }
+async function updateThatShit(path: string, data: object): Promise<void> {
+	
+	try {
+		const response = await serverInstance.post(path, data);
+		console.log("Success:", response.data);
+	} catch (e) {
+		console.error(`Failed to update the data for ${path}:`, e)
+	}
+
+}
+
+async function fetchInfo(path: string): Promise<any> {
+
+	try {
+		const response = await serverInstance.get(path);
+		const result: object[] = response.data;
+		return result;
+	} catch (e) {
+		console.error(`Failed to fetch the data for ${path}:`, e)
+		return []
+	}
+
+}
+
+export { getAllData, deleteThatShit, addMoreShit, updateThatShit, fetchInfo}

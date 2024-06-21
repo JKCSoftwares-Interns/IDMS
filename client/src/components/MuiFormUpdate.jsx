@@ -8,6 +8,7 @@ import PageAnimate from "./PageAnimate";
 import serverInstance from "../data/init";
 
 const MuiFormUpdate = ({ title, id, categories, fields, readonly }) => {
+	
 	const [data, setData] = useState([]);
 
 	useEffect(() => {

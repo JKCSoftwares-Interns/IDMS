@@ -2,7 +2,7 @@ import { useState } from "react";
 import PageAnimate from "../../components/PageAnimate";
 import AddForm from "../../components/AddForm";
 import { Field, initializeFormData } from "../../utils/formHelper";
-
+	
 /* Order to `data` and `interface` should match. */
 
 interface Product {

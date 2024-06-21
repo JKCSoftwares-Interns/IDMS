@@ -1,25 +1,47 @@
-import {FC, useState} from "react";
+import { FC, useEffect, useState } from "react";
 import InputBox from "./InputBox";
 import { groupByCategory, Field } from "../utils/formHelper";
-import { addMoreShit } from "../data/basic";
+import { addMoreShit, fetchInfo } from "../data/basic";
 import AlertBox from "./AlertBar";
+import { TextField } from "@mui/material";
 
 /* goal: omit these `any` */
-interface AddFormProps {
-	formData: any;
-	setFormData: React.SetStateAction<any>;
-	metadata: Field<any>[];
+interface UpdateFormProps {
 	title: string;
+	id: string;
+	data: any;
+	metadata: Field<any>[];
+	setData: React.Dispatch<React.SetStateAction<never[]>>;
 }
 
-const AddForm: FC<AddFormProps> = ({
+const UpdateForm: FC<UpdateFormProps> = ({
 	title,
-	formData,
-	setFormData,
+	id,
+	data,
 	metadata,
+	setData,
 }) => {
 	// Alert Box
 	const [open, setOpen] = useState(false);
+
+	const [formData, setFormData] = useState(data);
+
+	useEffect(() => {
+		const fetchData = async () => {
+			const data = await fetchInfo(`/${title}/edit/${id}`);
+			setData(data);
+			setFormData(
+				metadata.reduce(
+					(obj, item) => ({
+						...obj,
+						[item.name]: data.find((d) => d.name === item.name)?.value || "",
+					}),
+					{}
+				)
+			);
+		};
+		fetchData();
+	}, [title, id, setData, metadata]);
 
 	const groupedData = groupByCategory(metadata);
 
@@ -55,25 +77,46 @@ const AddForm: FC<AddFormProps> = ({
 	return (
 		<>
 			<AlertBox
-                title={title}
-				message={`${title} Added Successfully`}
+				title={title}
+				message={`${title} Updated Successfully`}
 				navigateTo={title}
 				active={open}
 			/>
 
+			<form className="w-full flex gap-3">
+				{metadata
+					.filter((field) => field.readonly)
+					.map((field, index) => (
+						<>
+							<h1>{formData[field.name]}</h1>
+							<TextField
+								key={index}
+								name={field.name}
+								label=""
+								type={field.type}
+								value={data[field.name] || ""}
+								variant="standard"
+								inputProps={{ min: 0 }}
+								disabled
+							/>
+						</>
+					))}
+			</form>
+
 			<form onSubmit={handleSubmit} className="w-full flex flex-col gap-3">
 				<div className="grid grid-cols-3 grid-rows-2 gap-4">
-					{Object.entries(groupedData).map(
-						([category, items]: [string, any]) => (
+					{Object.entries(groupedData)
+						.filter(([_, items]) => !items.some((item: any) => item.readonly))
+						.map(([category, items]: [string, any]) => (
 							<div
 								className="flex flex-col h-fit items-center gap-3 border rounded-2xl p-6 backdrop-filter backdrop-blur-lg bg-white bg-opacity-90"
-								key={category}
+								key={category} // Assuming category is unique
 							>
 								<h2 className="font-semibold">{category}</h2>
-								{items.map((item: any, index: number) => {
-									// console.log("index: ", index)
+								{items.map((item: any) => {
 									return (
-										<div key={index} className="">
+										<div key={item.name} className="">
+											{" "}
 											<InputBox
 												label={item.label}
 												field={item.name}
@@ -85,8 +128,7 @@ const AddForm: FC<AddFormProps> = ({
 									);
 								})}
 							</div>
-						)
-					)}
+						))}
 				</div>
 				<div className="flex justify-center">
 					<input
@@ -99,4 +141,4 @@ const AddForm: FC<AddFormProps> = ({
 	);
 };
 
-export default AddForm;
+export default UpdateForm;

@@ -5,9 +5,14 @@ import {db} from '../database/db';
 import {NewProduct, Product, product} from "../database/schema";
 import {eq, sql} from "drizzle-orm";
 
-/*------INTERFACE-------*/
+/*------SETUP-------*/
 
 const router = express.Router();
+
+interface example {
+    user: string,
+    date: number | undefined,
+}
 
 /*----------LOGGING FUNCTION------------*/
 
@@ -44,7 +49,7 @@ router.post("/add", async (req, res) => {
         })
         res.status(200).send("Product added successfully");
     } catch (err) {
-        console.log("couldn't add: ", err);
+        console.error("couldn't add: ", err);
         res.status(500).send("Error adding product");
     }
 });
@@ -63,6 +68,7 @@ router.get("/edit/:id", async (req, res) => {
 
     try {
         const data = await db.select().from(product).where(eq(product.productId, id));
+        console.log(data);
         res.send(data);
     } catch (err) {
         console.error("ID not found: ", err);
@@ -94,5 +100,23 @@ router.post("/edit/:id", async (req, res) => {
 	}
 
 });
+
+router.delete("/delete/:id", async (req, res) => {
+
+    const id = parseInt(req.params.id, 10);
+
+    if (isNaN(id)) {
+        throw new Error("Invalid ID format");
+    }
+
+    try {
+        await db.delete(product).where(eq(product.productId, id));
+        res.status(200).send("Product deleted successfully");
+    } catch (err) {
+        console.error("Error deleting product:", err);
+        res.status(500).send("Error deleting product");
+    }
+
+})
 
 export default router;
