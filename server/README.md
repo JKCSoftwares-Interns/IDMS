@@ -11,26 +11,26 @@ There are actually 2 versions of backend:
 
 ## DATABASE
 
-We're using `mariadb`. You may either locally install it or use `docker` for that.
+We're using `MySQL`. You may either locally install it or use `docker` for that.
 
 ### Docker way
 
 #### Installing image
 
 ```
-docker pull mariadb
+docker pull MySQL
 ```
 
 #### Running the image
 
 ```
-docker run -p 3306:3306 -e MYSQL_ROOT_PASSWORD=test --name idms -d mariadb
+docker run -p 3306:3306 -e MYSQL_ROOT_PASSWORD=test --name idms -d mysql
 ```
 
-#### Opening `MariaDB`
+#### Opening `MySQL`
 
 ```
-docker exec -it idms mariadb -u root -ptest
+docker exec -it idms mysql -u root -ptest
 ```
 
 > [!NOTE]
@@ -38,6 +38,6 @@ docker exec -it idms mariadb -u root -ptest
 
 --- 
 
-### Local instance of `MariaDB`
+### Local instance of `MySQL`
 
 (...)

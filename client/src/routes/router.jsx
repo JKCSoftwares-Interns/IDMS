@@ -3,8 +3,9 @@
 import { useLocation, Route, Routes } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 
-// HOME
+// BASIC
 import Home from "../pages/Home";
+import AuthPage from "../pages/Auth/Auth";
 
 // EXPERIMENT
 import Experiment from "../pages/secret/experiment";
@@ -73,19 +74,16 @@ const Routing = () => {
         <Route path="/help" element={<Help />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/contact" element={<ContactUs />} />
-        
 
         {/* PRODUCTS */}
         <Route path="/products" element={<ProductList />} />
         <Route path="/products/add" element={<AddProducts />} />
         <Route path="/products/edit/:productId" element={<EditProducts />} />
-       
 
         {/* VENDORS */}
         <Route path="/vendors" element={<VendorList />} />
         <Route path="/vendors/add" element={<AddVendors />} />
         <Route path="/vendors/edit/:vendorId" element={<UpdateVendor />} />
-        
 
         {/* TRANSPORT */}
         <Route path="/transport" element={<TransportList />} />
@@ -94,7 +92,6 @@ const Routing = () => {
           path="/transport/edit/:transportId"
           element={<UpdateTransport />}
         />
-       
 
         {/* OFFERS */}
         <Route path="/offers" element={<Offers />} />
@@ -105,9 +102,10 @@ const Routing = () => {
         <Route path="/inventory" element={<InventoryList />} />
         <Route path="/inventory/add" element={<AddInventory />} />
         <Route path="/inventory/remove" element={<GoodsRemoval />} />
-        <Route path="/inventory/edit/:inventoryI" element={<LocationShifting />} />
-
-
+        <Route
+          path="/inventory/edit/:inventoryI"
+          element={<LocationShifting />}
+        />
 
         {/* USER */}
         <Route path="/users" element={<ViewUsers />} />
@@ -125,8 +123,7 @@ const Routing = () => {
       <Route path="/suppliers/add" element={<AddSuppliers />} />
       <Route path="/suppliers/edit/:supplierId" element={<UpdateSupplier />} />
 
-      {/* CUSTOMERS */}
-
+        {/* CUSTOMERS */}
       </Routes>
     </AnimatePresence>
   );
