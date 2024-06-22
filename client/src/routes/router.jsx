@@ -48,13 +48,13 @@ import UpdateUser from "../pages/user/UpdateUser";
 
 //Invoice
 import AddInovice from "../pages/invoice/AddInvoice";
+import ViewInvoice from "../pages/invoice/ViewInvoice";
+import UpdateInvoice from "../pages/invoice/UpdateInvoice";
 
 //SUPPLIERS
 import ViewSuppliers from "../pages/supplier/ViewSupplier";
 import AddSuppliers from "../pages/supplier/AddSupplier";
 import UpdateSupplier from "../pages/supplier/UpdateSupplier";
-import ViewInvoice from "../pages/invoice/ViewInvoice";
-import AddInvoice from "../pages/invoice/AddInvoice";
 
 const Routing = () => {
   const location = useLocation();
@@ -112,6 +112,7 @@ const Routing = () => {
         {/* invoice */}
         <Route path="/invoice/add" element={<AddInovice />} />
         <Route path="/invoice" element={<ViewInvoice />} />
+        <Route path="/invoice/edit/:invoiceId" element={<UpdateInvoice />} />
 
         {/* SUPPLIERS */}
         <Route path="/suppliers" element={<ViewSuppliers />} />

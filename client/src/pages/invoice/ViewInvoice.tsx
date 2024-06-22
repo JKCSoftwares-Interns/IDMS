@@ -54,7 +54,7 @@ const ViewInvoice: FC = () => {
 	return (
 		<>
 			{invoice.length > 0 ? (
-				<TableGenerator title="invoice" label={labels} data={invoice} />
+				<TableGenerator title="invoice" label={labels} data={invoice} setData={setInvoice} />
 			) : (
 				<div className="w-full grid place-items-center">
 					<div className="flex flex-col justify-center items-center gap-10">
