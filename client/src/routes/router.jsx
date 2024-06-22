@@ -48,8 +48,6 @@ import UpdateUser from "../pages/user/UpdateUser";
 
 //Invoice
 import AddInovice from "../pages/invoice/AddInvoice";
-import AuthPage from "../pages/Auth";
-
 
 //SUPPLIERS
 import ViewSuppliers from "../pages/supplier/ViewSupplier";
@@ -57,7 +55,6 @@ import AddSuppliers from "../pages/supplier/AddSupplier";
 import UpdateSupplier from "../pages/supplier/UpdateSupplier";
 import ViewInvoice from "../pages/invoice/ViewInvoice";
 import AddInvoice from "../pages/invoice/AddInvoice";
-
 
 const Routing = () => {
   const location = useLocation();
@@ -112,16 +109,17 @@ const Routing = () => {
         <Route path="/users/add" element={<AddUser />} />
         <Route path="/users/edit/:userId" element={<UpdateUser />} />
 
-       
         {/* invoice */}
-        <Route path="/invoice/add" element={<AddInovice/>} />
+        <Route path="/invoice/add" element={<AddInovice />} />
         <Route path="/invoice" element={<ViewInvoice />} />
-        
 
-      {/* SUPPLIERS */}
-      <Route path="/suppliers" element={<ViewSuppliers />} />
-      <Route path="/suppliers/add" element={<AddSuppliers />} />
-      <Route path="/suppliers/edit/:supplierId" element={<UpdateSupplier />} />
+        {/* SUPPLIERS */}
+        <Route path="/suppliers" element={<ViewSuppliers />} />
+        <Route path="/suppliers/add" element={<AddSuppliers />} />
+        <Route
+          path="/suppliers/edit/:supplierId"
+          element={<UpdateSupplier />}
+        />
 
         {/* CUSTOMERS */}
       </Routes>
