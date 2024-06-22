@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS offers (
+    offerId INT AUTO_INCREMENT PRIMARY KEY,
+    offerType VARCHAR(255),
+    offerName VARCHAR(255),
+    startDate DATE,
+    endDate DATE,
+    products VARCHAR(255),
+    offers VARCHAR(255),
+    discountValue DECIMAL(10,2),
+    discountPercentage DECIMAL(10,2),
+    maximumDiscountValue DECIMAL(10,2),
+    minimumPurchase DECIMAL(10,2),
+    offerApplicabilityFrequency VARCHAR(255),
+    applicableTo VARCHAR(255),
+    status VARCHAR(255),
+    dateAdded TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    addedBy VARCHAR(255),
+    lastEditedDate TIMESTAMP,
+    lastEditedBy VARCHAR(255)
+  );
