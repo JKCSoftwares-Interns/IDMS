@@ -7,9 +7,6 @@ import { AnimatePresence } from "framer-motion";
 import Home from "../pages/Home";
 import AuthPage from "../pages/Auth/Auth";
 
-// EXPERIMENT
-import Experiment from "../pages/secret/experiment";
-
 // SUPPORT
 import Help from "../pages/support/Help";
 import Settings from "../pages/support/Settings";
@@ -64,7 +61,6 @@ const Routing = () => {
       <Routes location={location} key={location.pathname}>
         {/* BASIC */}
         <Route path="/" element={<Home />} />
-        <Route path="/secret" element={<Experiment />} />
         <Route path="/auth" element={<AuthPage />} />
 
         {/* SUPPORT */}
