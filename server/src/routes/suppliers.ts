@@ -1,41 +1,23 @@
 /*------IMPORT----------*/
 
 import express from "express";
-import { PoolConnection } from "mariadb";
+import {db} from '../database/db';
+import {NewSupplier, supplier} from "../database/schema";
+import {eq, sql} from "drizzle-orm";
 
-import { pool } from "../config/db";
-
-/*------INTERFACE-------*/
-
-interface Supplier {
-	supplierId: string;
-	supplierName: string;
-	businessName: string;
-	mobileNumber: number;
-	alternateMobileNumber: number;
-	email: string;
-	addressLine1: string;
-	addressLine2: string;
-	city: string;
-	state: string;
-	pinCode: number;
-	beneficiaryName: string;
-	accountNumber: string;
-	ifscCode: string;
-	virtualPaymentAddress: string;
-	remarks: string;
-	dateAdded: Date;
-	addedBy: string;
-	lastEditedDate: Date;
-	lastEditedBy: string;
-}
+/*------SETUP-------*/
 
 const router = express.Router();
+
+interface example {
+	user: string,
+	date: number | undefined,
+}
 
 /*----------LOGGING FUNCTION------------*/
 
 function greetStatus(route: string) {
-	console.log(`/products/${route} is running`);
+	console.log(`/suppliers/${route} is running`);
 }
 
 /*----------PATH FUNCTIONS------------*/
@@ -43,177 +25,104 @@ function greetStatus(route: string) {
 router.get("/", async (_, res) => {
 	greetStatus("show");
 
-	let conn: PoolConnection | null = null;
 	try {
-		conn = await pool.getConnection();
-		const data = await conn.query("SELECT * FROM suppliers");
-		// console.log(typeof data);
+		const data = await db.select().from(supplier);
 		res.json(data);
 	} catch (err) {
 		console.log(err);
 		res.status(500).send(err);
-	} finally {
-		if (conn) conn.release();
 	}
+
 });
-
-
 
 router.post("/add", async (req, res) => {
 	greetStatus("add");
 
-	let conn: PoolConnection | null = null;
+	const data: NewSupplier = req.body;
+
+	console.log("data:\n", data);
+
 	try {
-		conn = await pool.getConnection();
-		const suppliers: Partial<Supplier> = req.body;
-		console.log("product be like:", suppliers);
-		await conn.query(
-			`
-    INSERT INTO suppliers (
-	 supplierName, businessName, mobileNumber, alternateMobileNumber, email, addressLine1, addressLine2, city, state, pinCode, beneficiaryName, accountNumber, ifscCode, virtualPaymentAddress, remarks, dateAdded, addedBy, lastEditedDate, lastEditedBy
-    ) VALUES (
-      ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), ?, NULL, NULL
-    );
-    `,
-			[
-				suppliers.supplierName,
-				suppliers.businessName,
-				suppliers.mobileNumber,
-				suppliers.alternateMobileNumber,
-				suppliers.email,
-				suppliers.addressLine1,
-				suppliers.addressLine2,
-				suppliers.city,
-				suppliers.state,
-				suppliers.pinCode,
-				suppliers.beneficiaryName,
-				suppliers.accountNumber,
-				suppliers.ifscCode,
-				suppliers.virtualPaymentAddress,
-				suppliers.remarks,
-				"admin", //must be changed to include user from session data
-			]
-		);
-		res.status(200).send("Supplier added successfully");
+		await db.insert(supplier).values({
+			...data,
+			addedBy: "admin", // will be changed later
+			lastEditedDate: null,
+			lastEditedBy: null
+		})
+		res.status(200).send("supplier added successfully");
 	} catch (err) {
-		console.log("couldn't add: ", err);
-		res.status(500).send("Error adding Supplier");
-	} finally {
-		if (conn) conn.release();
+		console.error("couldn't add: ", err);
+		res.status(500).send("Error adding supplier");
 	}
 });
 
 router.get("/edit/:id", async (req, res) => {
-	let conn: PoolConnection | null = null;
-	try {
-	  conn = await pool.getConnection();
-	  const { id } = req.params;
-	  const rows = await conn.query("SELECT * FROM suppliers WHERE supplierId = ?", [id]);
-	  if (rows.length === 0) {
-		res.status(404).send("Supplier not found");
-	  } else {
-		res.json(rows[0]);
-	  }
-	} catch (err) {
-	  console.log(err);
-	  res.status(500).send(err);
-	} finally {
-	  if (conn) conn.release();
+
+	greetStatus("update");
+
+	const id = parseInt(req.params.id, 10);
+
+	if (isNaN(id)) {
+		throw new Error("Invalid ID format");
 	}
-  });
+
+	// console.info(`${id} accessed`);
+
+	try {
+		const data = await db.select().from(supplier).where(eq(supplier.supplierId, id));
+		res.send(data);
+	} catch (err) {
+		console.error("ID not found: ", err);
+		res.status(404).send("Not Found");
+	}
+
+});
+
 
 router.post("/edit/:id", async (req, res) => {
-	console.log("ID ==>", req.params.id);
 
-	greetStatus("edit");
+	const data: NewSupplier = req.body;
 
-	let conn: PoolConnection | null = null;
-	try {
-		conn = await pool.getConnection();
-		console.log("DATA RECEIVED:", req.body);
-		const suppliers: Supplier = req.body;
-		if (!suppliers) {
-			console.log("error 400");
-			res.status(400).send("Invalid suppliers data");
-			return;
-		}
-		await conn.query(
-			`
-		UPDATE suppliers SET
-		supplierName = ?,
-		businessName = ?,
-		mobileNumber = ?,
-		alternateMobileNumber = ?,
-		email = ?,
-		addressLine1 = ?,
-		addressLine2 = ?,
-		city = ?,
-		state = ?,
-		pinCode = ?,
-		beneficiaryName = ?,
-		accountNumber = ?,
-		ifscCode = ?,
-		virtualPaymentAddress = ?,
-		remarks = ?,
-		lastEditedDate = NOW(),
-		lastEditedBy = ?
-		WHERE supplierId = ?
-		`,
-			[
-				suppliers.supplierName,
-				suppliers.businessName,
-				suppliers.mobileNumber,
-				suppliers.alternateMobileNumber,
-				suppliers.email,
-				suppliers.addressLine1,
-				suppliers.addressLine2,
-				suppliers.city,
-				suppliers.state,
-				suppliers.pinCode,
-				suppliers.beneficiaryName,
-				suppliers.accountNumber,
-				suppliers.ifscCode,
-				suppliers.virtualPaymentAddress,
-				suppliers.remarks,
-				suppliers.lastEditedBy,
-				req.params.id,
-			]
-		);
-		res.status(200).send("Supplier updated successfully");
-	} catch (err) {
-		console.log("couldn't update: ", err);
-		res.status(500).send("Error updating supplier");
-	} finally {
-		if (conn) conn.release();
+	const id = parseInt(req.params.id, 10);
+
+	console.info("ID access:", id);
+
+	if (isNaN(id)) {
+		throw new Error("Invalid ID format");
 	}
+
+	console.log("data:\n", data);
+
+	try {
+		await db.update(supplier).set({
+			...data,
+			lastEditedBy: "admin", // needs to change
+			lastEditedDate: sql`NOW()`,
+		}).where(eq(supplier.supplierId, id));
+		res.status(200).send("Update successful");
+	} catch (e) {
+		console.error("Error updating supplier", e);
+		res.status(500).send("Error updating supplier");
+	}
+
 });
 
 router.delete("/delete/:id", async (req, res) => {
-	greetStatus("delete");
 
-	let conn: PoolConnection | null = null;
-	try {
-		conn = await pool.getConnection();
-		const id = req.params.id;
-		if (!id) {
-			res.status(400).send("No id provided");
-			return;
-		}
-		await conn.query(
-			`
-		DELETE FROM suppliers
-		WHERE supplierId = ?
-		`,
-			[id]
-		);
-		res.status(200).send("Supplier deleted successfully");
-	} catch (err) {
-		console.log("couldn't delete: ", err);
-		res.status(500).send("Error deleting Supplier");
-	} finally {
-		if (conn) conn.release();
+	const id = parseInt(req.params.id, 10);
+
+	if (isNaN(id)) {
+		throw new Error("Invalid ID format");
 	}
-});
+
+	try {
+		await db.delete(supplier).where(eq(supplier.supplierId, id));
+		res.status(200).send("supplier deleted successfully");
+	} catch (err) {
+		console.error("Error deleting supplier:", err);
+		res.status(500).send("Error deleting supplier");
+	}
+
+})
 
 export default router;
-

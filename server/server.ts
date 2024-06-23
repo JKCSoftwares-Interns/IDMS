@@ -1,13 +1,12 @@
 import express from "express";
 import cors from "cors";
-
-import { initializeDB } from "./src/config/db";
+import { validateDatabase } from "./src/database/db";
 
 import productsRoute from "./src/routes/products";
 import vendorsRoute from "./src/routes/vendors";
 import transportRoute from "./src/routes/transport";
 import offersRoute from "./src/routes/offers";
-import inventoryRoute from "./src/routes/inventory";
+// import inventoryRoute from "./src/routes/inventory";
 import suppliersRoute from "./src/routes/suppliers";
 import userRoute from "./src/routes/users";
 
@@ -20,29 +19,28 @@ app.use(cors({
 }));
 app.use(express.json());
 
-// For Products
+
 app.use('/products', productsRoute);
 app.use('/vendors', vendorsRoute);
 app.use('/transport', transportRoute);
 app.use('/offers', offersRoute);
-app.use('/inventory', inventoryRoute);
+// app.use('/inventory', inventoryRoute);
 app.use(`/suppliers`, suppliersRoute);
-app.use('/users', userRoute);
-
+// app.use('/user', userRoute);
 
 
 
 app.get("/", (_, res) => {
-	res.send("IDMS | JKCSoftware LLP running 🚀");
+	res.send("hello world!");
 });
 
 /* ----------------------------------------- */
 
 async function startServer() {
 	try {
-		await initializeDB();
+		await validateDatabase();
 		app.listen(PORT, () => {
-			console.log(`Server is running at http://localhost:${PORT}`);
+			console.info(`Server is running at http://localhost:${PORT}`);
 		});
 	} catch (err) {
 		console.error(
@@ -54,4 +52,4 @@ async function startServer() {
 
 /* ----------------------------------------- */
 
-startServer();
+await startServer();

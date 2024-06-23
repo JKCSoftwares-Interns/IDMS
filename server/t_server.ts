@@ -4,6 +4,8 @@ import cors from "cors";
 const data: Data = require("./src/test/fake_data/products_data.json");
 const transport_data: Data = require("./src/test/fake_data/transport_data.json");
 const vendors_data: Data = require("./src/test/fake_data/vendors_data.json");
+const offer_data: Data = require("./src/test/fake_data/offers_data.json");
+const supplier_data: Data = require("./src/test/fake_data/suppliers_data.json");
 
 const PORT = 8000;
 
@@ -53,6 +55,18 @@ app.get("/transport", async (_, res) => {
 
 app.get("/vendors", async (_, res) => {
 	res.json(vendors_data);
+});
+
+/* ---------------offers--------------- */
+
+app.get("/offers", async (_, res) => {
+	res.json(offer_data);
+});
+
+/* ---------------suppliers--------------- */
+
+app.get("/suppliers", async (_, res) => {
+	res.json(supplier_data);
 });
 
 /* ---------------Helper Functions--------------- */

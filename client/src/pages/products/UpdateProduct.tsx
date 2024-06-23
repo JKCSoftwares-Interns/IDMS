@@ -1,21 +1,52 @@
 import PageAnimate from "../../components/PageAnimate";
-import MuiFormUpdate from "../../components/MuiFormUpdate";
 import { useParams } from "react-router-dom";
+import UpdateForm from "../../components/UpdateForm";
+import { FieldUpdater } from "../../utils/formHelper";
+import { useState } from "react";
+
+interface Product {
+	productId: string;
+	productName: string;
+	category: string;
+	measuringUnit: string;
+	packSize: number;
+	noOfUnits: number;
+	unitMRP: number;
+	packMRP: number;
+	manufacturer: string;
+	marketer: string;
+	supplier: string;
+	upc: string;
+	hsn: string;
+	cgst: number;
+	sgst: number;
+	igst: number;
+	cess: number;
+	loadPrice: number;
+	unloadingPrice: number;
+	dateAdded: Date;
+	addedBy: string;
+	lastEditedDate: Date;
+	lastEditedBy: string;
+}
 
 const UpdateProduct = () => {
-	
-  /* Fields are defined below */
+	const { productId } = useParams();
 
-  const { productId } = useParams();
+	const [data, setData] = useState({} as Product[]);
+
+	if (!productId) {
+		return <h1>Product ID not found</h1>;
+	}
 
 	return (
 		<PageAnimate className={"w-full"}>
-			<MuiFormUpdate
-        title={"products"}
-        id={productId}
-				readonly={readOnlyFields}
-				fields={fields}
-				categories={categories}
+			<UpdateForm
+				title={"products"}
+				id={productId}
+				data={data}
+				metadata={metadata}
+				setData={setData}
 			/>
 		</PageAnimate>
 	);
@@ -23,120 +54,197 @@ const UpdateProduct = () => {
 
 export default UpdateProduct;
 
-/*---------Fields-----------------*/
+/*-------metadata-------*/
 
-const categories = [
-		"Basic Info",
-		"UPC & HSN",
-		"Pricing & Quantity",
-		"Taxation Relation",
-	];
-
-const readOnlyFields = [
-	{ label: "Product ID", name: "productId", type: "text" },
-	{ label: "Date Added", name: "dateAdded", type: "date" },
-	{ label: "Added By", name: "addedBy", type: "text" },
-	{ label: "Last Edited Date", name: "lastEditedDate", type: "date" },
-	{ label: "Last Edited By", name: "lastEditedBy", type: "text" },
-];
-
-const fields = [
+const metadata: FieldUpdater<Product>[] = [
+	/* BASIC INFO */
 	{
-		label: "Product Name",
+		name: "productId",
+		type: "string",
+		label: "Product ID",
+		placeholder: "ID",
+		category: "Basic Info",
+		readonly: true,
+	},
+	{
 		name: "productName",
-		type: "text",
+		type: "string",
+		label: "Product Name",
+		placeholder: "The Product",
 		category: "Basic Info",
+		readonly: false,
 	},
 	{
-		label: "Category",
 		name: "category",
-		type: "text",
+		type: "string",
+		label: "Category",
+		placeholder: "(e.g. Electronics, Groceries)",
 		category: "Basic Info",
+		readonly: false,
 	},
 	{
-		label: "Marketer",
-		name: "marketer",
-		type: "text",
-		category: "Basic Info",
+		name: "upc",
+		type: "string",
+		label: "UPC",
+		placeholder: "XXXXXXXXXXXXXX",
+		category: "UPC & HSN",
+		readonly: false,
 	},
 	{
-		label: "Supplier",
-		name: "supplier",
-		type: "text",
-		category: "Basic Info",
+		name: "hsn",
+		type: "string",
+		label: "HSN",
+		placeholder: "XXXXXXX",
+		category: "UPC & HSN",
+		readonly: false,
 	},
+	/* QUANTITY */
 	{
-		label: "Manufacturer",
-		name: "manufacturer",
-		type: "text",
-		category: "Basic Info",
-	},
-	{ label: "UPC", name: "upc", type: "text", category: "UPC & HSN" },
-	{ label: "HSN", name: "hsn", type: "text", category: "UPC & HSN" },
-	{
-		label: "Measuring Unit",
 		name: "measuringUnit",
-		type: "text",
-		category: "Pricing & Quantity",
+		type: "string",
+		label: "Measuring Unit",
+		placeholder: "m",
+		category: "Quantity",
+		readonly: false,
 	},
 	{
-		label: "Pack Size",
 		name: "packSize",
 		type: "number",
-		category: "Pricing & Quantity",
+		label: "Pack Size",
+		placeholder: "0",
+		category: "Quantity",
+		readonly: false,
 	},
 	{
-		label: "No. of Units",
 		name: "noOfUnits",
 		type: "number",
-		category: "Pricing & Quantity",
+		label: "No. of Units",
+		placeholder: "0",
+		category: "Quantity",
+		readonly: false,
+	},
+	/* Vendor Information */
+	{
+		name: "marketer",
+		type: "string",
+		label: "Marketer",
+		placeholder: "...",
+		category: "Vendor Information",
+		readonly: false,
 	},
 	{
-		label: "Unit MRP",
-		name: "unitMRP",
-		type: "number",
-		category: "Pricing & Quantity",
+		name: "supplier",
+		type: "string",
+		label: "Supplier",
+		placeholder: "...",
+		category: "Vendor Information",
+		readonly: false,
 	},
 	{
-		label: "Pack MRP",
-		name: "packMRP",
-		type: "number",
-		category: "Pricing & Quantity",
+		name: "manufacturer",
+		type: "string",
+		label: "Manufacturer",
+		placeholder: "...",
+		category: "Vendor Information",
+		readonly: false,
 	},
+	/* Taxation */
 	{
-		label: "Load Price",
-		name: "loadPrice",
-		type: "number",
-		category: "Pricing & Quantity",
-	},
-	{
-		label: "Unloading Price",
-		name: "unloadingPrice",
-		type: "number",
-		category: "Pricing & Quantity",
-	},
-	{
-		label: "CGST",
 		name: "cgst",
 		type: "number",
-		category: "Taxation Relation",
+		label: "CGST",
+		placeholder: "₹",
+		category: "Taxation",
+		readonly: false,
 	},
 	{
-		label: "SGST",
 		name: "sgst",
 		type: "number",
-		category: "Taxation Relation",
+		label: "SGST",
+		placeholder: "₹",
+		category: "Taxation",
+		readonly: false,
 	},
 	{
-		label: "IGST",
 		name: "igst",
 		type: "number",
-		category: "Taxation Relation",
+		label: "IGST",
+		placeholder: "₹",
+		category: "Taxation",
+		readonly: false,
 	},
 	{
-		label: "CESS",
 		name: "cess",
 		type: "number",
-		category: "Taxation Relation",
+		label: "CESS",
+		placeholder: "CESS",
+		category: "Taxation",
+		readonly: false,
+	},
+	/* Pricing */
+	{
+		name: "unitMRP",
+		type: "number",
+		label: "Unit MRP",
+		placeholder: "₹",
+		category: "Pricing",
+		readonly: false,
+	},
+	{
+		name: "packMRP",
+		type: "number",
+		label: "Pack MRP",
+		placeholder: "₹",
+		category: "Pricing",
+		readonly: false,
+	},
+	{
+		name: "loadPrice",
+		type: "number",
+		label: "Load Price",
+		placeholder: "₹",
+		category: "Pricing",
+		readonly: false,
+	},
+	{
+		name: "unloadingPrice",
+		type: "number",
+		label: "Unloading Price",
+		placeholder: "₹",
+		category: "Pricing",
+		readonly: false,
+	},
+	/* Additional Fields */
+	{
+		name: "dateAdded",
+		type: "date",
+		label: "Date Added",
+		placeholder: "Date",
+		category: "Additional Info",
+		readonly: true,
+	},
+	{
+		name: "addedBy",
+		type: "string",
+		label: "Added By",
+		placeholder: "Name",
+		category: "Additional Info",
+		readonly: true,
+	},
+	{
+		name: "lastEditedDate",
+		type: "date",
+		label: "Last Edited Date",
+		placeholder: "Date",
+		category: "Additional Info",
+		readonly: true,
+	},
+	{
+		name: "lastEditedBy",
+		type: "string",
+		label: "Last Edited By",
+		placeholder: "Name",
+		category: "Additional Info",
+		readonly: true,
 	},
 ];

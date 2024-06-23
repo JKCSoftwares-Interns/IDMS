@@ -69,7 +69,7 @@ const ViewSuppliers: FC = () => {
 	return (
 		<>
 			{suppliers.length > 0 ? (
-				<TableGenerator title="suppliers" label={labels} data={suppliers} />
+				<TableGenerator title="suppliers" label={labels} data={suppliers} setData={setSupplier} />
 			) : (
 				<div className="w-full grid place-items-center">
 					<div className="flex flex-col justify-center items-center gap-10">
