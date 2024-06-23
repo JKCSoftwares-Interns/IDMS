@@ -14,14 +14,16 @@ const InputBox: FC<InputBoxProps> = ({ label, field, value, placeholder, handleC
   /* `field` is basically the `name`. */
   let type = "text";
   if (typeof value === "number") type = "number";
-  else if (field.includes("date")) type = "date";
+  else if (field.toLowerCase().includes("date")) {
+    type = "date"
+    placeholder = "YYYY-MM-DD"
+    value = new Date(value).toISOString().slice(0, 10);
+  }
   else if (field === "password") type = "password";
   else if (field === "email") type = "email";
 
   // console.log(field, value, typeof value)
   // console.log(placeholder)
-
-
 
   return (
     <TextField
@@ -31,10 +33,12 @@ const InputBox: FC<InputBoxProps> = ({ label, field, value, placeholder, handleC
       placeholder={placeholder}
       name={field}
       type={type}
-      defaultValue={typeof value === 'string' || typeof value === 'number' ? value : undefined}
-      // value={value} // Add this line
+      defaultValue={typeof value === 'string' || typeof value === 'number' || type === "date" ? value : undefined}
       inputProps={{
         min: 0,
+      }}
+      InputLabelProps={{
+        shrink: true
       }}
       onChange={(e) => {
         if (type === "text")

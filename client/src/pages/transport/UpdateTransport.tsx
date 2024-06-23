@@ -1,175 +1,273 @@
-import { useParams } from "react-router-dom";
 import PageAnimate from "../../components/PageAnimate";
-import MuiFormUpdate from "../../components/MuiFormUpdate";
+import { useParams } from "react-router-dom";
+import UpdateForm from "../../components/UpdateForm";
+import { FieldUpdater } from "../../utils/formHelper";
+import { useState } from "react";
 
-// Define the parameter types for useParams
-type Params = {
-  transportId: string;
-};
+interface Transport {
+	transportId: string;
+	transportName: string;
+	businessName: string;
+	vehicleName: string;
+	email: string;
+	mobileNumber: number;
+	alternateMobileNumber: number;
+	addressLine1: string;
+	addressLine2: string;
+	landmark: string;
+	city: string;
+	district: string;
+	state: string;
+	pinCode: number;
+	branchOffice: string;
+	aadharNumber: number;
+	panNumber: number;
+	driverName: string;
+	driverMobileNumber: number;
+	driverAlternateNumber: number;
+	status: string;
+	dateAdded: string;
+	addedBy: string;
+	lastEditedDate: string;
+	lastEditedBy: string;
+}
 
 const UpdateTransport: React.FC = () => {
-  // Use type inference for useParams
-  const { transportId } = useParams<Params>();
+  const { transportId } = useParams();
 
-  return (
-    <PageAnimate className={"w-full"}>
-      <MuiFormUpdate
-        title={"transport"}
-        id={transportId}
-        readonly={readOnlyFields}
-        fields={fields}
-        categories={categories}
-      />
-    </PageAnimate>
-  );
+	const [data, setData] = useState({} as Transport[]);
+
+	if (!transportId) {
+		return <h1>Product ID not found</h1>;
+	}
+
+	return (
+		<PageAnimate className={"w-full"}>
+			<UpdateForm
+				title={"transport"}
+				id={transportId}
+				data={data}
+				metadata={metadata}
+				setData={setData}
+			/>
+		</PageAnimate>
+	);
 };
 
 export default UpdateTransport;
 
-// Define types for fields and categories
-type Field = {
-  label: string;
-  name: string;
-  type: "text" | "number" | "date"; // Specify the possible types for the field
-  category?: string; // Make category optional as it's not present in readOnlyFields
-};
+const metadata: FieldUpdater<Transport>[] = [
+  /* Basic Info */
+  {
+      name: "transportId",
+      type: "string",
+      label: "Transport ID",
+      placeholder: "Transport ID",
+      category: "Basic Info",
+      readonly: true,
+  },
+  {
+      name: "transportName",
+      type: "string",
+      label: "Transport Name",
+      placeholder: "Transport Name",
+      category: "Basic Info",
+      readonly: false,
+  },
+  {
+      name: "businessName",
+      type: "string",
+      label: "Business Name",
+      placeholder: "Business Name",
+      category: "Basic Info",
+      readonly: false,
+  },
+  {
+      name: "vehicleName",
+      type: "string",
+      label: "Vehicle Name",
+      placeholder: "Vehicle Name",
+      category: "Basic Info",
+      readonly: false,
+  },
 
-const categories: string[] = [
-  "Basic Info",
-  "Contact Info",
-  "Address",
-  "Legal Info",
-  "Driver Info",
-  "Status Info",
-];
+  /* Contact Info */
+  {
+      name: "email",
+      type: "string",
+      label: "Email",
+      placeholder: "Email",
+      category: "Contact Info",
+      readonly: false,
+  },
+  {
+      name: "mobileNumber",
+      type: "number",
+      label: "Mobile Number",
+      placeholder: "Mobile Number",
+      category: "Contact Info",
+      readonly: false,
+  },
+  {
+      name: "alternateMobileNumber",
+      type: "number",
+      label: "Alternate Mobile Number",
+      placeholder: "Alternate Mobile Number",
+      category: "Contact Info",
+      readonly: false,
+  },
 
-const readOnlyFields: Field[] = [
-  { label: "Transport ID", name: "transportId", type: "text" },
-  { label: "Date Added", name: "dateAdded", type: "date" },
-  { label: "Added By", name: "addedBy", type: "text" },
-  { label: "Last Edited Date", name: "lastEditedDate", type: "date" },
-  { label: "Last Edited By", name: "lastEditedBy", type: "text" },
-];
+  /* Address */
+  {
+      name: "addressLine1",
+      type: "string",
+      label: "Address Line 1",
+      placeholder: "Address Line 1",
+      category: "Address",
+      readonly: false,
+  },
+  {
+      name: "addressLine2",
+      type: "string",
+      label: "Address Line 2",
+      placeholder: "Address Line 2",
+      category: "Address",
+      readonly: false,
+  },
+  {
+      name: "landmark",
+      type: "string",
+      label: "Landmark",
+      placeholder: "Landmark",
+      category: "Address",
+      readonly: false,
+  },
+  {
+      name: "city",
+      type: "string",
+      label: "City",
+      placeholder: "City",
+      category: "Address",
+      readonly: false,
+  },
+  {
+      name: "district",
+      type: "string",
+      label: "District",
+      placeholder: "District",
+      category: "Address",
+      readonly: false,
+  },
+  {
+      name: "state",
+      type: "string",
+      label: "State",
+      placeholder: "State",
+      category: "Address",
+      readonly: false,
+  },
+  {
+      name: "pinCode",
+      type: "number",
+      label: "Pin Code",
+      placeholder: "Pin Code",
+      category: "Address",
+      readonly: false,
+  },
+  {
+      name: "branchOffice",
+      type: "string",
+      label: "Branch Office",
+      placeholder: "Branch Office",
+      category: "Address",
+      readonly: false,
+  },
 
-const fields: Field[] = [
+  /* Legal Info */
   {
-    label: "Transport Name",
-    name: "transportName",
-    type: "text",
-    category: "Basic Info",
+      name: "aadharNumber",
+      type: "number",
+      label: "Aadhar Number",
+      placeholder: "Aadhar Number",
+      category: "Legal Info",
+      readonly: false,
   },
   {
-    label: "Business Name",
-    name: "businessName",
-    type: "text",
-    category: "Basic Info",
+      name: "panNumber",
+      type: "number",
+      label: "PAN Number",
+      placeholder: "PAN Number",
+      category: "Legal Info",
+      readonly: false,
+  },
+
+  /* Driver Info */
+  {
+      name: "driverName",
+      type: "string",
+      label: "Driver Name",
+      placeholder: "Driver Name",
+      category: "Driver Info",
+      readonly: false,
   },
   {
-    label: "Vehicle Name",
-    name: "vehicleName",
-    type: "text",
-    category: "Basic Info",
+      name: "driverMobileNumber",
+      type: "number",
+      label: "Driver Mobile Number",
+      placeholder: "Driver Mobile Number",
+      category: "Driver Info",
+      readonly: false,
   },
   {
-    label: "Email",
-    name: "email",
-    type: "text",
-    category: "Contact Info",
+      name: "driverAlternateNumber",
+      type: "number",
+      label: "Driver Alternate Number",
+      placeholder: "Driver Alternate Number",
+      category: "Driver Info",
+      readonly: false,
+  },
+
+  /* Status Info */
+  {
+      name: "status",
+      type: "string",
+      label: "Status",
+      placeholder: "Status",
+      category: "Status Info",
+      readonly: false,
+  },
+
+  /* Additional Info */
+  {
+      name: "dateAdded",
+      type: "date",
+      label: "Date Added",
+      placeholder: "Date",
+      category: "Additional Info",
+      readonly: true,
   },
   {
-    label: "Mobile Number",
-    name: "mobileNumber",
-    type: "number",
-    category: "Contact Info",
+      name: "addedBy",
+      type: "string",
+      label: "Added By",
+      placeholder: "Name",
+      category: "Additional Info",
+      readonly: true,
   },
   {
-    label: "Alternate Mobile Number",
-    name: "alternateMobileNumber",
-    type: "number",
-    category: "Contact Info",
+      name: "lastEditedDate",
+      type: "date",
+      label: "Last Edited Date",
+      placeholder: "Date",
+      category: "Additional Info",
+      readonly: true,
   },
   {
-    label: "Address Line 1",
-    name: "addressLine1",
-    type: "text",
-    category: "Address",
-  },
-  {
-    label: "Address Line 2",
-    name: "addressLine2",
-    type: "text",
-    category: "Address",
-  },
-  {
-    label: "Landmark",
-    name: "landmark",
-    type: "text",
-    category: "Address",
-  },
-  {
-    label: "City",
-    name: "city",
-    type: "text",
-    category: "Address",
-  },
-  {
-    label: "District",
-    name: "district",
-    type: "text",
-    category: "Address",
-  },
-  {
-    label: "State",
-    name: "state",
-    type: "text",
-    category: "Address",
-  },
-  {
-    label: "Pin Code",
-    name: "pinCode",
-    type: "number",
-    category: "Address",
-  },
-  {
-    label: "Branch Office",
-    name: "branchOffice",
-    type: "text",
-    category: "Address",
-  },
-  {
-    label: "Aadhar Number",
-    name: "aadharNumber",
-    type: "number",
-    category: "Legal Info",
-  },
-  {
-    label: "PAN Number",
-    name: "panNumber",
-    type: "number",
-    category: "Legal Info",
-  },
-  {
-    label: "Driver Name",
-    name: "driverName",
-    type: "text",
-    category: "Driver Info",
-  },
-  {
-    label: "Driver Mobile Number",
-    name: "driverMobileNumber",
-    type: "number",
-    category: "Driver Info",
-  },
-  {
-    label: "Driver Alternate Number",
-    name: "driverAlternateNumber",
-    type: "number",
-    category: "Driver Info",
-  },
-  {
-    label: "Status",
-    name: "status",
-    type: "text",
-    category: "Status Info",
+      name: "lastEditedBy",
+      type: "string",
+      label: "Last Edited By",
+      placeholder: "Name",
+      category: "Additional Info",
+      readonly: true,
   },
 ];

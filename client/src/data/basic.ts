@@ -13,35 +13,41 @@ async function getAllData(path: string): Promise<any> {
 
 }
 
-async function deleteThatShit(path: string): Promise<void> {
+async function deleteThatShit(path: string): Promise<number> {
 
 	try {
 		const response = await serverInstance.delete(path);
 		console.log("Success:", response.data);
+		return response.status;
 	} catch (e) {
 		console.error(`Failed to delete the data for ${path}:`, e)
+		return 500;
 	}
 
 }
 
-async function addMoreShit(path: string, data: object): Promise<void> {
+async function addMoreShit(path: string, data: object): Promise<number> {
 
 	try {
 		const response = await serverInstance.post(path, data);
 		console.log("Success:", response.data);
+		return response.status;
 	} catch (e) {
 		console.error(`Failed to add the data for ${path}:`, e)
+		return 500;
 	}
 
 }
 
-async function updateThatShit(path: string, data: object): Promise<void> {
+async function updateThatShit(path: string, data: object): Promise<number> {
 	
 	try {
 		const response = await serverInstance.post(path, data);
 		console.log("Success:", response.data);
+		return response.status;
 	} catch (e) {
 		console.error(`Failed to update the data for ${path}:`, e)
+		return 500;
 	}
 
 }

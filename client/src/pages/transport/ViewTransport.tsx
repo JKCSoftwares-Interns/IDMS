@@ -8,7 +8,7 @@ import { getAllData } from "../../data/basic";
 /* Order to `labels` and `interface` should match. */
 
 interface Transport {
-	tranportId: string;
+	transportId: string;
 	transportName: string;
 	businessName: string;
 	vehicleName: string;
@@ -79,7 +79,7 @@ const ViewTransports: FC = () => {
 	return (
 		<>
 			{transports.length > 0 ? (
-				<TableGenerator title="transport" label={labels} data={transports} />
+				<TableGenerator title="transport" label={labels} data={transports} setData={setTransport} />
 			) : (
 				<div className="w-full grid place-items-center">
 					<div className="flex flex-col justify-center items-center gap-10">

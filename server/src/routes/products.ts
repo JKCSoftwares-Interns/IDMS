@@ -2,17 +2,12 @@
 
 import express from "express";
 import {db} from '../database/db';
-import {NewProduct, Product, product} from "../database/schema";
+import {NewProduct, product} from "../database/schema";
 import {eq, sql} from "drizzle-orm";
 
 /*------SETUP-------*/
 
 const router = express.Router();
-
-interface example {
-    user: string,
-    date: number | undefined,
-}
 
 /*----------LOGGING FUNCTION------------*/
 
@@ -39,6 +34,8 @@ router.post("/add", async (req, res) => {
     greetStatus("add");
 
     const data: NewProduct = req.body;
+
+    console.log("data:\n", data);
 
     try {
         await db.insert(product).values({

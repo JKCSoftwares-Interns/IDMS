@@ -113,7 +113,7 @@ const TableGenerator: FC<TableGeneratorProps> = ({ title, label, data, setData }
 													</TableCell>
 												);
 											} else if (
-												value instanceof Date
+												value instanceof Date || value.toString().includes("T")
 											) {
 												return (
 													<TableCell align="center" key={index}>

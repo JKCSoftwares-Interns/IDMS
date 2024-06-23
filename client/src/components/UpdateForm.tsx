@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from "react";
 import InputBox from "./InputBox";
 import { groupByCategory, Field } from "../utils/formHelper";
-import { addMoreShit, fetchInfo, updateThatShit } from "../data/basic";
+import { fetchInfo, updateThatShit } from "../data/basic";
 import AlertBox from "./AlertBar";
 import ReadonlyInput from "./ReadonlyInput";
 import { CircularProgress } from "@mui/material";
@@ -45,7 +45,14 @@ const UpdateForm: FC<UpdateFormProps> = ({
 		) {
 			if (type === "number") {
 				setFormData({ ...formData, [target]: Number(e.target.value) });
-			} else if (type === "string") {
+			} else if (
+				type === "string" ||
+				type === "email" ||
+				type === "password" ||
+				type === "date"
+			) {
+				setFormData({ ...formData, [target]: e.target.value });
+			} else if (type === "Date") {
 				setFormData({ ...formData, [target]: e.target.value });
 			} else {
 				console.error("Invalid type encountered: " + type + " for " + target);
@@ -62,11 +69,13 @@ const UpdateForm: FC<UpdateFormProps> = ({
 		delete dataToSend.addedBy;
 		console.log("sending", dataToSend);
 		updateThatShit(`/${title}/edit/${id}`, dataToSend)
-			.then(() => {
-				setOpen(true);
-				setTimeout(() => {
-					setOpen(false);
-				}, 3000);
+			.then((res) => {
+				if (res === 200) {
+					setOpen(true);
+					setTimeout(() => {
+						setOpen(false);
+					}, 3000);
+				}
 			})
 			.catch((error) => {
 				console.error("An error occurred:", error);
@@ -95,9 +104,10 @@ const UpdateForm: FC<UpdateFormProps> = ({
 						.map((field, index) => {
 							const value = data[field.name];
 							return (
-								<div 
-								className="shadow-sm flex flex-col w-fit h-fit items-center gap-4 border rounded-2xl p-4 backdrop-filter backdrop-blur-lg bg-white bg-opacity-90"
-								key={index}>
+								<div
+									className="shadow-sm flex flex-col w-fit h-fit items-center gap-4 border rounded-2xl p-4 backdrop-filter backdrop-blur-lg bg-white bg-opacity-90"
+									key={index}
+								>
 									<ReadonlyInput
 										field={field.name}
 										label={field.label}
@@ -113,8 +123,9 @@ const UpdateForm: FC<UpdateFormProps> = ({
 				</form>
 
 				<form onSubmit={handleSubmit} className="w-full flex flex-col gap-3">
-					<div className="grid grid-cols-3 grid-rows-2 place-items-center">
+					<div className="grid grid-cols-3 items-start justify-items-center mt-3">
 						{Object.entries(groupedData)
+							.sort((a, b) => a[1].length - b[1].length) // Sort based on the length of each category's items array
 							.filter(([category, items]: [string, any]) =>
 								items.some((item: any) => !item.readonly)
 							)

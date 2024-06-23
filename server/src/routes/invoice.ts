@@ -2,17 +2,22 @@
 
 import express from "express";
 import {db} from '../database/db';
-import {NewTransport, transport} from "../database/schema";
+import {NewProduct, Product, product} from "../database/schema";
 import {eq, sql} from "drizzle-orm";
 
 /*------SETUP-------*/
 
 const router = express.Router();
 
+interface example {
+    user: string,
+    date: number | undefined,
+}
+
 /*----------LOGGING FUNCTION------------*/
 
 function greetStatus(route: string) {
-    console.log(`/transports/${route} is running`);
+    console.log(`/products/${route} is running`);
 }
 
 /*----------PATH FUNCTIONS------------*/
@@ -21,7 +26,7 @@ router.get("/", async (_, res) => {
     greetStatus("show");
 
     try {
-        const data = await db.select().from(transport);
+        const data = await db.select().from(product);
         res.json(data);
     } catch (err) {
         console.log(err);
@@ -33,21 +38,19 @@ router.get("/", async (_, res) => {
 router.post("/add", async (req, res) => {
     greetStatus("add");
 
-    const data: NewTransport = req.body;
-
-    console.log("data:\n", data);
+    const data: NewProduct = req.body;
 
     try {
-        await db.insert(transport).values({
+        await db.insert(product).values({
             ...data,
             addedBy: "admin", // will be changed later
             lastEditedDate: null,
             lastEditedBy: null
         })
-        res.status(200).send("transport added successfully");
+        res.status(200).send("Product added successfully");
     } catch (err) {
         console.error("couldn't add: ", err);
-        res.status(500).send("Error adding transport");
+        res.status(500).send("Error adding product");
     }
 });
 
@@ -64,7 +67,7 @@ router.get("/edit/:id", async (req, res) => {
     // console.info(`${id} accessed`);
 
     try {
-        const data = await db.select().from(transport).where(eq(transport.transportId, id));
+        const data = await db.select().from(product).where(eq(product.productId, id));
         res.send(data);
     } catch (err) {
         console.error("ID not found: ", err);
@@ -76,7 +79,7 @@ router.get("/edit/:id", async (req, res) => {
 
 router.post("/edit/:id", async (req, res) => {
 
-    const data: NewTransport = req.body;
+    const data: NewProduct = req.body;
 
     const id = parseInt(req.params.id, 10);
 
@@ -89,15 +92,15 @@ router.post("/edit/:id", async (req, res) => {
     console.log("data:\n", data);
 
     try {
-        await db.update(transport).set({
+        await db.update(product).set({
             ...data,
             lastEditedBy: "admin", // needs to change
             lastEditedDate: sql`NOW()`,
-        }).where(eq(transport.transportId, id));
+        }).where(eq(product.productId, id));
         res.status(200).send("Update successful");
     } catch (e) {
-		console.error("Error updating transport", e);
-		res.status(500).send("Error updating transport");
+		console.error("Error updating product", e);
+		res.status(500).send("Error updating product");
 	}
 
 });
@@ -111,11 +114,11 @@ router.delete("/delete/:id", async (req, res) => {
     }
 
     try {
-        await db.delete(transport).where(eq(transport.transportId, id));
-        res.status(200).send("transport deleted successfully");
+        await db.delete(product).where(eq(product.productId, id));
+        res.status(200).send("Product deleted successfully");
     } catch (err) {
-        console.error("Error deleting transport:", err);
-        res.status(500).send("Error deleting transport");
+        console.error("Error deleting product:", err);
+        res.status(500).send("Error deleting product");
     }
 
 })

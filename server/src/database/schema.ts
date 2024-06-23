@@ -7,6 +7,7 @@ import {
     decimal,
     timestamp,
     int,
+    boolean,
     varchar,
 } from 'drizzle-orm/mysql-core';
 import { InferInsertModel, InferSelectModel } from 'drizzle-orm';
@@ -53,6 +54,7 @@ export const supplier = mysqlTable('suppliers', {
     businessName: varchar('businessName', { length: 255 }),
     mobileNumber: varchar('mobileNumber', { length: 255 }),
     alternateMobileNumber: varchar('alternateMobileNumber', { length: 255 }),
+    email: varchar('email', { length: 255 }),
     addressLine1: varchar('addressLine1', { length: 255 }),
     addressLine2: varchar('addressLine2', { length: 255 }),
     city: varchar('city', { length: 255 }),
@@ -80,7 +82,7 @@ export const product = mysqlTable('products', {
     packMRP: decimal('packMRP', { precision: 10, scale: 2 }),
     manufacturer: varchar('manufacturer', { length: 255 }),
     marketer: varchar('marketer', { length: 255 }),
-    supplierID: int('supplier').references(() => supplier.supplierId),
+    supplierID: int('supplierID').references(() => supplier.supplierId),
     upc: varchar('upc', { length: 255 }),
     hsn: varchar('hsn', { length: 255 }),
     cgst: decimal('cgst', { precision: 10, scale: 2 }),
@@ -189,6 +191,21 @@ export const inventory = mysqlTable('inventory', {
     additionalNote: varchar('additionalNote', { length: 255 }),
     dateAdded: timestamp('dateAdded').notNull().defaultNow(),
     addedBy: varchar('addedBy', { length: 255 }),
+    lastEditedDate: timestamp('lastEditedDate'),
+    lastEditedBy: varchar('lastEditedBy', { length: 255 }),
+});
+
+export const invoice = mysqlTable('invoice', {
+    invoiceId: int('invoiceId').primaryKey().autoincrement(),
+    orderId: int('orderId'),
+    supplierId: int('supplierId'),
+    payment: decimal('payment', { precision: 10, scale: 2 }),
+    quantityId: int('quantityId'),
+    returnStatus: boolean('returnStatus'),
+    returnsReason: varchar('returnsReason', { length: 255 }),
+    createdBy: varchar('createdBy', { length: 255 }),
+    approvedBy: varchar('approvedBy', { length: 255 }),
+    remarks: varchar('remarks', { length: 255 }),
     lastEditedDate: timestamp('lastEditedDate'),
     lastEditedBy: varchar('lastEditedBy', { length: 255 }),
 });

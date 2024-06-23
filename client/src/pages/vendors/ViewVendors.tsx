@@ -77,7 +77,7 @@ const ViewVendors: FC = () => {
 	return (
 		<>
 			{vendors.length > 0 ? (
-				<TableGenerator title="vendors" label={labels} data={vendors} />
+				<TableGenerator title="vendors" label={labels} data={vendors} setData={setVendors} />
 			) : (
 				<div className="w-full grid place-items-center">
 					<div className="flex flex-col justify-center items-center gap-10">

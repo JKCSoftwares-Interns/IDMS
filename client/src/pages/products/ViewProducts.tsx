@@ -17,7 +17,7 @@ interface Product {
 	packMRP: number;
 	manufacturer: string;
 	marketer: string;
-	supplier: string;
+	supplierID: number;
 	upc: string;
 	hsn: string;
 	cgst: number;
@@ -43,7 +43,7 @@ const labels = [
 	"Pack MRP",
 	"Manufacturer",
 	"Marketer",
-	"Supplier",
+	"SupplierID",
 	"UPC",
 	"HSN",
 	"CGST",

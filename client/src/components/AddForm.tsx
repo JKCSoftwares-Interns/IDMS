@@ -1,4 +1,4 @@
-import {FC, useState} from "react";
+import { FC, useState } from "react";
 import InputBox from "./InputBox";
 import { groupByCategory, Field } from "../utils/formHelper";
 import { addMoreShit } from "../data/basic";
@@ -29,7 +29,7 @@ const AddForm: FC<AddFormProps> = ({
 		) {
 			if (type === "number") {
 				setFormData({ ...formData, [target]: Number(e.target.value) });
-			} else if (type === "string") {
+			} else if (type === "string" || type === "email" || type === "password" || type === "Date" || type === "date") {
 				setFormData({ ...formData, [target]: e.target.value });
 			} else {
 				console.error("Invalid type encountered: " + type + " for " + target);
@@ -41,11 +41,13 @@ const AddForm: FC<AddFormProps> = ({
 		e.preventDefault();
 		console.log("data:", formData);
 		addMoreShit(`/${title}/add`, formData)
-			.then(() => {
-				setOpen(true);
-				setTimeout(() => {
-					setOpen(false);
-				}, 3000);
+			.then((res) => {
+				if (res === 200) {
+					setOpen(true);
+					setTimeout(() => {
+						setOpen(false);
+					}, 3000);
+				}
 			})
 			.catch((error) => {
 				console.error("An error occurred:", error);
@@ -55,14 +57,14 @@ const AddForm: FC<AddFormProps> = ({
 	return (
 		<>
 			<AlertBox
-                title={title}
+				title={title}
 				message={`${title} Added Successfully`}
 				navigateTo={title}
 				active={open}
 			/>
 
 			<form onSubmit={handleSubmit} className="w-full flex flex-col gap-3">
-				<div className="grid grid-cols-3 grid-rows-2 gap-4">
+				<div className="grid grid-cols-3 h-fit grid-row-2 gap-8">
 					{Object.entries(groupedData).map(
 						([category, items]: [string, any]) => (
 							<div
