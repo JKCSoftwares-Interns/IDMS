@@ -33,7 +33,7 @@ const InputBox: FC<InputBoxProps> = ({ label, field, value, placeholder, handleC
       placeholder={placeholder}
       name={field}
       type={type}
-      defaultValue={typeof value === 'string' || typeof value === 'number' || type === "date" ? value : undefined}
+      defaultValue={typeof value === 'string' || typeof value === 'number' || type === "date" ? value : value}
       inputProps={{
         min: 0,
       }}

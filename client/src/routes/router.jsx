@@ -33,15 +33,15 @@ import AddOffer from "../pages/offers/AddOffer";
 import UpdateOffer from "../pages/offers/UpdateOffer";
 
 // INVENTORY
-import InventoryList from "../pages/inventory/ViewInventory";
-import AddInventory from "../pages/inventory/AddInventory";
-import GoodsRemoval from "../pages/inventory/GoodsRemoval";
-import LocationShifting from "../pages/inventory/LocationShifting";
+// import InventoryList from "../pages/inventory/ViewInventory";
+// import AddInventory from "../pages/inventory/AddInventory";
+// import GoodsRemoval from "../pages/inventory/GoodsRemoval";
+// import LocationShifting from "../pages/inventory/LocationShifting";
 
 // USER
 import ViewUsers from "../pages/user/ViewUser";
 import AddUser from "../pages/user/AddUser";
-import UpdateUser from "../pages/user/UpdateUser";
+// import UpdateUser from "../pages/user/UpdateUser";
 
 //Invoice
 import AddInovice from "../pages/invoice/AddInvoice";
@@ -92,18 +92,18 @@ const Routing = () => {
         <Route path="/offers/edit/:offerId" element={<UpdateOffer />} />
 
         {/* INVENTORY */}
-        <Route path="/inventory" element={<InventoryList />} />
+        {/* <Route path="/inventory" element={<InventoryList />} />
         <Route path="/inventory/add" element={<AddInventory />} />
-        <Route path="/inventory/remove" element={<GoodsRemoval />} />
-        <Route
+        <Route path="/inventory/remove" element={<GoodsRemoval />} /> */}
+        {/* <Route
           path="/inventory/edit/:inventoryI"
           element={<LocationShifting />}
-        />
+        /> */}
 
         {/* USER */}
         <Route path="/users" element={<ViewUsers />} />
         <Route path="/users/add" element={<AddUser />} />
-        <Route path="/users/edit/:userId" element={<UpdateUser />} />
+        {/* <Route path="/users/edit/:userId" element={<UpdateUser />} /> */}
 
         {/* invoice */}
         <Route path="/invoice/add" element={<AddInovice />} />
